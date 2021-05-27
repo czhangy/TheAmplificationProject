@@ -24,12 +24,17 @@ const routes = [
   {
     path: "/browse",
     name: "Browse",
-    component: () => import("@/views/Events.vue"),
+    component: () => import("@/views/Browse.vue"),
   },
   {
     path: "/submit",
     name: "Submit",
-    component: () => import("@/views/Events.vue"),
+    component: () => import("@/views/Submit.vue"),
+  },
+  {
+    path: "/support",
+    name: "Support",
+    component: () => import("@/views/Support.vue"),
   },
 ];
 

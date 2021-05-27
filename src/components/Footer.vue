@@ -11,9 +11,18 @@
       Powered by Omeka | Site Hosted by Reclaim Hosting | 2019 - 2021
     </div>
     <div class="footer-socials">
-      <i class="fa fa-twitter" aria-hidden="true"></i>
-      <i class="fa fa-envelope-o" aria-hidden="true"></i>
-      <i class="fab fa-facebook-f"></i>
+      <a
+        class="fa fa-twitter"
+        href="https://twitter.com/AmplifiProject"
+        target="_blank"
+        aria-hidden="true"
+      ></a>
+      <a class="fa fa-envelope-o" aria-hidden="true"></a>
+      <a
+        href="https://www.facebook.com/TheAmplificationProject/"
+        target="_blank"
+        class="fa fa-facebook-f"
+      ></a>
     </div>
   </div>
 </template>
@@ -58,29 +67,11 @@ export default {
 
   .footer-socials {
     // Icon centering
-      text-align: center;
-      // Icon sizing
-      font-size: 1.25rem;
+    text-align: center;
+    // Icon sizing
+    font-size: 1.25rem;
 
-    .fa-twitter {
-      // Icon centering
-      line-height: 2.5rem;
-      // Icon sizing
-      height: 2.5rem;
-      width: 2.5rem;
-      // Outline
-      color: transparent;
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: $accent-teal;
-      // Border
-      border: 1px solid $accent-teal;
-      border-radius: 100%;
-      // Clickable
-      cursor: pointer;
-      // Spacing
-      margin: 0 1rem;
-    }
-    .fa-envelope-o {
+    .fa {
       // Icon centering
       line-height: 2.5rem;
       // Icon sizing
@@ -95,24 +86,53 @@ export default {
       // Border
       border: 1px solid $accent-teal;
       border-radius: 100%;
+      // Remove effects of anchor
+      text-decoration: none;
     }
+
+    .fa-twitter {
+      // Outline
+      color: $accent-light-grey;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: $accent-teal;
+    }
+
     .fa-facebook-f {
       // Icon centering
       line-height: 2.25rem;
-      // Icon sizing
-      height: 2.5rem;
-      width: 2.5rem;
       // Outline
-      color: transparent;
+      color: $accent-light-grey;
       -webkit-text-stroke-width: 1px;
       -webkit-text-stroke-color: $accent-teal;
-      // Border
-      border: 1px solid $accent-teal;
-      border-radius: 100%;
-      // Clickable
-      cursor: pointer;
-      // Spacing
-      margin: 0 1rem;
+    }
+  }
+}
+
+// Media queries
+// Sticky hover
+@media (hover: hover) {
+  .footer {
+    .footer-socials {
+      .fa {
+        &:hover {
+          background: $accent-teal;
+        }
+      }
+      .fa-twitter {
+        &:hover {
+          -webkit-text-stroke-width: 0;
+        }
+      }
+      .fa-envelope-o {
+        &:hover {
+          color: $accent-light-grey;
+        }
+      }
+      .fa-facebook-f {
+        &:hover {
+          -webkit-text-stroke-width: 0;
+        }
+      }
     }
   }
 }

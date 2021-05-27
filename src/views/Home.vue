@@ -34,23 +34,51 @@
             founding.
           </p>
           <img
-            src="@/assets/img/test2.png
-          "
+            src="@/assets/img/test2.png"
             alt="Image of Kathy Carbone"
             class="home-featured-left-img"
           />
         </div>
-        <div class="home-featured-mid-top"></div>
-        <div class="home-featured-mid-bottom"></div>
-        <div class="home-featured-right"></div>
+        <div class="home-featured-mid-top">
+          <HoverPanel
+            header="Endless Sorrow"
+            subheader="David Greenfield (USA), 1981"
+          />
+        </div>
+        <div class="home-featured-mid-bottom-left">
+          <HoverPanel
+            header="I Will Bury My Love Around You 2"
+            subheader="Thamur Mejri (Tunisia), 2018"
+          />
+        </div>
+        <div class="home-featured-mid-bottom-right">
+          <HoverPanel
+            header="Refuge 5"
+            subheader="Basel Uraiqat (Jordan), 2018"
+          />
+        </div>
+        <div class="home-featured-right">
+          <div class="home-featured-right-caption">
+            <p class="home-featured-right-subheader">
+              March 1, 2021-March 31, 2021
+            </p>
+            <h6 class="home-featured-right-header">
+              ARTIST IN RESIDENCE: QAIS AL-SINDY
+            </h6>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import HoverPanel from "@/components/HoverPanel";
 export default {
   name: "Home",
+  components: {
+    HoverPanel,
+  },
 };
 </script>
 
@@ -69,7 +97,7 @@ export default {
     background-repeat: none;
     background-size: cover;
     // Sizing
-    width: 100%;
+    width: calc(min(100%, 1400px));
     height: 30rem;
     // Positioning
     position: relative;
@@ -113,7 +141,7 @@ export default {
     font-family: $alt-font;
     font-size: $caption-font-size;
     // Sizing
-    width: 95%;
+    width: calc(min(100%, 1400px));
     // Spacing
     margin-bottom: 2.5rem;
   }
@@ -136,22 +164,22 @@ export default {
     .home-featured-content {
       // Grid for layout
       display: grid;
-      grid-gap: 2rem;
-      grid-template-columns: 23% auto auto 23%;
-      grid-template-rows: auto auto auto auto;
+      grid-gap: 1rem;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
       // Sizing
-      width: 100%;
+      width: calc(min(100%, 1400px));
       height: 40rem;
       // Spacing
       padding: 1rem;
       margin-bottom: 2rem;
-
+      
       .home-featured-left {
         // Background
         background: white;
         // Grid positioning
         grid-row-start: 1;
-        grid-row-end: 5;
+        grid-row-end: 3;
         grid-column-start: 1;
         grid-column-end: 2;
         // Border
@@ -195,34 +223,84 @@ export default {
         }
 
         .home-featured-left-img {
-          margin-top: 5rem;
+          margin-top: 3rem;
         }
       }
 
       .home-featured-mid-top {
-        background: green;
         // Grid positioning
         grid-row-start: 1;
-        grid-row-end: 3;
+        grid-row-end: 2;
         grid-column-start: 2;
         grid-column-end: 4;
+        // Image
+        background-image: url("../assets/img/test3.png");
+        background-repeat: none;
+        background-size: cover;
       }
 
-      .home-featured-mid-bottom {
-        background: purple;
+      .home-featured-mid-bottom-left {
         // Grid positioning
-        grid-row-start: 3;
-        grid-row-end: 5;
+        grid-row-start: 2;
+        grid-row-end: 3;
         grid-column-start: 2;
+        grid-column-end: 3;
+        // Image
+        background-image: url("../assets/img/test4.png");
+        background-repeat: none;
+        background-size: cover;
+      }
+
+      .home-featured-mid-bottom-right {
+        // Grid positioning
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 3;
         grid-column-end: 4;
+        // Image
+        background-image: url("../assets/img/test5.png");
+        background-repeat: none;
+        background-size: cover;
       }
 
       .home-featured-right {
-        background: yellow;
         // Grid positioning
         grid-column-start: 4;
         grid-row-start: 1;
-        grid-row-end: 5;
+        grid-row-end: 3;
+        // Image
+        background-image: url("../assets/img/test6.png");
+        background-size: cover;
+        background-repeat: none;
+        // Positioning for children
+        position: relative;
+
+        .home-featured-right-caption {
+          // Position in container
+          position: absolute;
+          bottom: 0;
+          // Overlay effect
+          background: rgba(0, 0, 0, 0.6);
+          // Spacing
+          padding: 2rem 1rem;
+          // Sizing
+          width: 100%;
+          // Typography
+          color: white;
+
+          .home-featured-right-header {
+            // Typography
+            text-transform: uppercase;
+            font-size: $subheader-font-size;
+            letter-spacing: 1px;
+          }
+
+          .home-featured-right-subheader {
+            // Typography
+            font-family: $alt-font;
+            font-size: $caption-font-size;
+          }
+        }
       }
     }
   }
