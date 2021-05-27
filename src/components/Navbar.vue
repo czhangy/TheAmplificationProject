@@ -112,14 +112,12 @@ export default {
     }
 
     .navbar-hamburger {
-      // Sizing
-      height: 1.5rem;
       // Flexbox for layout
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       // Spacing
-      margin: 1rem;
+      margin: 0 1rem;
       // Clickable
       cursor: pointer;
 
@@ -131,6 +129,8 @@ export default {
         width: 1.875rem;
         // Bar styling
         border-radius: 1px;
+        // Create hamburger icon
+        margin: 0.2rem 0;
       }
     }
   }
