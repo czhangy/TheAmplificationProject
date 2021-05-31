@@ -4,11 +4,14 @@
       <div class="footer-links">
         <router-link to="/about" class="footer-link"> About </router-link>
         |
-        <router-link to="/" class="footer-link">
+        <router-link to="/termsandconditions" class="footer-link">
           Terms and Conditions
         </router-link>
       </div>
-      Powered by Omeka | Site Hosted by Reclaim Hosting | 2019 - 2021
+      Powered by <a href="https://omeka.org/" target="_blank">Omeka</a> | Site
+      Hosted by
+      <a href="https://reclaimhosting.com/" target="_blank">Reclaim Hosting</a>
+      | 2019 - 2021
     </div>
     <div class="footer-socials">
       <a
@@ -22,6 +25,11 @@
         href="https://www.facebook.com/TheAmplificationProject/"
         target="_blank"
         class="fa fa-facebook-f"
+      ></a>
+      <a
+        href="https://www.instagram.com/theamplificationproject/"
+        target="_blank"
+        class="fa fa-instagram"
       ></a>
     </div>
   </div>
@@ -60,8 +68,15 @@ export default {
       .footer-link {
         // Remove effects of router link
         text-decoration: none;
-        color: $font-color;
+        color: $accent-teal;
       }
+    }
+
+    a {
+      // Remove effects of anchor tag
+      text-decoration: none;
+      // Color styling
+      color: $accent-teal;
     }
   }
 
@@ -89,22 +104,6 @@ export default {
       // Remove effects of anchor
       text-decoration: none;
     }
-
-    .fa-twitter {
-      // Outline
-      color: $accent-light-grey;
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: $accent-teal;
-    }
-
-    .fa-facebook-f {
-      // Icon centering
-      line-height: 2.25rem;
-      // Outline
-      color: $accent-light-grey;
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: $accent-teal;
-    }
   }
 }
 
@@ -116,21 +115,7 @@ export default {
       .fa {
         &:hover {
           background: $accent-teal;
-        }
-      }
-      .fa-twitter {
-        &:hover {
-          -webkit-text-stroke-width: 0;
-        }
-      }
-      .fa-envelope-o {
-        &:hover {
           color: $accent-light-grey;
-        }
-      }
-      .fa-facebook-f {
-        &:hover {
-          -webkit-text-stroke-width: 0;
         }
       }
     }

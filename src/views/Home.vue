@@ -11,14 +11,18 @@
       </div>
     </div>
     <p class="home-description">
-      The Amplification Project is a community-led participatory public digital
-      archive for artists and activists to document, preserve, and share art and
-      activism inspired, influenced, or affected by experiences of conflict and
-      displacement.
+      The Amplification Project is a public, participatory community-led digital
+      archive of art and activism inspired, influenced, or affected by forced
+      displacement. The Amplification Project offers a platform for artists,
+      activists, and other cultural producers to document, preserve, and share
+      work that narrates or contemplates lived or observed experiences of
+      displacement and refugeehood.
       <br />
       <br />
-      Together, let's create a more diverse and inclusive story of border
-      crossing, refuge, and belonging.
+      <b
+        >Together let's create a more diverse and inclusive story of crossing
+        borders, refuge, and belonging.</b
+      >
     </p>
     <div class="home-featured">
       <h3 class="home-featured-header">featured</h3>

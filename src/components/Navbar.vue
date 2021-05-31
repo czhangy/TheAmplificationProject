@@ -222,7 +222,7 @@ export default {
       .nav-menu-link {
         // Typography
         font-size: $subheader-font-size;
-        padding: 3rem;
+        padding: 2rem;
         // Remove effects of router link
         color: $font-color;
         text-decoration: none;

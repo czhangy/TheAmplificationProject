@@ -36,6 +36,11 @@ const routes = [
     name: "Support",
     component: () => import("@/views/Support.vue"),
   },
+  {
+    path: "/termsandconditions",
+    name: "Terms and Conditions",
+    component: () => import("@/views/TermsAndConditions.vue"),
+  },
 ];
 
 const router = createRouter({
