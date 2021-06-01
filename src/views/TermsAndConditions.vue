@@ -168,7 +168,7 @@ export default {
   background: $bg-color;
   width: 100%;
   // Spacing
-  padding: 0 15rem;
+  padding: 0 clamp(3rem, -1.800rem + 19.200vw, 15rem);
 
   .terms-and-conditions-header {
     // Sizing
@@ -177,7 +177,8 @@ export default {
     text-align: center;
     font-size: $header-font-size;
     // Spacing
-    margin: 2rem;
+    margin-top: $title-margin;
+    margin-bottom: 2rem;
   }
 
   .terms-and-conditions-subheader {

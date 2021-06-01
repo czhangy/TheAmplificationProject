@@ -227,6 +227,7 @@ export default {
         }
 
         .home-featured-left-img {
+          // Spacing
           margin-top: 3rem;
         }
       }

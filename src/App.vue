@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap");
 #app {
   font-family: Inter, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -29,8 +29,6 @@ export default {
   height: 100vh;
   width: 100vw;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 
 * {
@@ -38,5 +36,11 @@ export default {
   padding: 0;
   box-sizing: border-box;
   outline: none;
+}
+
+html {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 </style>
