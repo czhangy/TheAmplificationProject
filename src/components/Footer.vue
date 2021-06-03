@@ -45,11 +45,10 @@ export default {
 .footer {
   // Sizing
   width: 100%;
-  height: 8rem;
   // Bar styling
   background: $accent-light-grey;
   // Spacing
-  padding: 0 3rem;
+  padding: 3rem;
   // Flexbox for layout
   display: flex;
   justify-content: space-between;
@@ -118,6 +117,20 @@ export default {
           color: $accent-light-grey;
         }
       }
+    }
+  }
+}
+
+// Mobile layout
+@media screen and (max-width: 900px) {
+  .footer {
+    flex-direction: column;
+    height: auto;
+    padding: 3rem 1rem;
+
+    .footer-text {
+      text-align: center;
+      margin-bottom: 1rem;
     }
   }
 }
