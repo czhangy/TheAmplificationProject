@@ -22,9 +22,9 @@ const routes = [
     component: () => import("@/views/Events.vue"),
   },
   {
-    path: "/browse",
-    name: "Browse",
-    component: () => import("@/views/Browse.vue"),
+    path: "/explore",
+    name: "Explore",
+    component: () => import("@/views/Explore.vue"),
   },
   {
     path: "/submit",
@@ -47,9 +47,9 @@ const routes = [
     component: () => import("@/views/Login.vue"),
   },
   {
-    path: "/register",
-    name: "Register",
-    component: () => import("@/views/Register.vue"),
+    path: "/signup",
+    name: "Sign Up",
+    component: () => import("@/views/SignUp.vue"),
   },
 ];
 

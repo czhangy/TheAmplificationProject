@@ -6,11 +6,11 @@
         <div v-if="windowWidth < 900">
           <router-link to="/login" class="menu-auth"> login </router-link>
           |
-          <router-link to="/register" class="menu-auth"> register </router-link>
+          <router-link to="/signup" class="menu-auth"> sign up </router-link>
         </div>
       </div>
       <span class="menu-separator"></span>
-      <router-link to="/about" class="menu-link"> About Us </router-link>
+      <router-link to="/about" class="menu-link"> About </router-link>
       <span class="menu-separator"></span>
       <router-link to="/news" class="menu-link"> News </router-link>
       <span class="menu-separator"></span>
@@ -20,8 +20,8 @@
         Submit to the Archive
       </router-link>
       <span class="menu-separator"></span>
-      <router-link to="/browse" class="menu-link">
-        Browse the Archive
+      <router-link to="/explore" class="menu-link">
+        Explore the Archive
       </router-link>
       <span class="menu-separator"></span>
       <router-link to="/support" class="menu-link"> Support Us </router-link>

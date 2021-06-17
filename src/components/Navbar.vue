@@ -21,7 +21,7 @@
       <div v-if="windowWidth > 900">
         <router-link to="/login" class="navbar-auth"> login </router-link>
         |
-        <router-link to="/register" class="navbar-auth"> register </router-link>
+        <router-link to="/signup" class="navbar-auth"> sign up </router-link>
       </div>
       <div class="navbar-hamburger" @click="openNavMenu">
         <span v-for="i in 3" :key="i" />

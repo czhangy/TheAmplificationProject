@@ -1,15 +1,15 @@
 <template>
-  <div class="browse">Browse the Archive</div>
+  <div class="explore">Explore the Archive</div>
 </template>
 
 <script>
 export default {
-  name: "Browse",
+  name: "Explore",
 };
 </script>
 
 <style scoped lang="scss">
-.browse {
+.explore {
   color: white;
   background: black;
   height: 100vh;

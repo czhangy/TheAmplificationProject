@@ -2,28 +2,14 @@
   <div class="home">
     <div class="home-carousel">
       <div class="home-archive-buttons">
-        <router-link to="/browse" class="home-archive-button">
-          Browse the Archive
+        <router-link to="/explore" class="home-archive-button">
+          Explore the Archive
         </router-link>
         <router-link to="/submit" class="home-archive-button">
-          Submit to the archive
+          Submit to the Archive
         </router-link>
       </div>
     </div>
-    <p class="home-description">
-      The Amplification Project is a public, participatory community-led digital
-      archive of art and activism inspired, influenced, or affected by forced
-      displacement. The Amplification Project offers a platform for artists,
-      activists, and other cultural producers to document, preserve, and share
-      work that narrates or contemplates lived or observed experiences of
-      displacement and refugeehood.
-      <br />
-      <br />
-      <b
-        >Together let's create a more diverse and inclusive story of crossing
-        borders, refuge, and belonging.</b
-      >
-    </p>
     <div class="home-featured">
       <h3 class="home-featured-header">featured</h3>
       <div class="home-featured-content">
@@ -140,16 +126,6 @@ export default {
     }
   }
 
-  .home-description {
-    // Typography
-    font-family: $alt-font;
-    font-size: $caption-font-size;
-    // Sizing
-    width: calc(min(100%, 1400px));
-    // Spacing
-    margin-bottom: 2.5rem;
-  }
-
   .home-featured {
     // Sizing
     width: 100%;
@@ -158,6 +134,8 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    // Spacing
+    margin-top: 4rem;
 
     .home-featured-header {
       // Typography

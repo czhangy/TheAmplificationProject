@@ -1,15 +1,15 @@
 <template>
-  <div class="register">Register</div>
+  <div class="signup">Sign Up</div>
 </template>
 
 <script>
 export default {
-  name: "Register",
+  name: "SignUp",
 };
 </script>
 
 <style scoped lang="scss">
-.register {
+.signup {
   color: white;
   background: black;
   height: 100vh;
