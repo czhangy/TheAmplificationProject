@@ -75,7 +75,95 @@
           For more information, contact us: theamplificationproject@gmail.com
         </p>
       </div>
-      <div class="about-content-team" v-else></div>
+      <div class="about-content-team" v-else>
+        <h4 class="about-content-subheader">collective advisory group</h4>
+        <div class="about-content-team-panel">
+          <img src="@/assets/img/test-grey.jpg" alt="Image Here" />
+          <div>
+            <h5>elizabeth shoshany anderson</h5>
+            <h6>Founding Member</h6>
+            <p>
+              Assistant Curator at the Madison Museum of Contemporary Art, and
+              the Lead Curator of Arts + Literature Laboratory, a
+              community-driven contemporary non-profit arts organization. She
+              also works to organize exhibitions for the Bubbler program through
+              the City of Madison Public Library. Before joining MMoCA, Shoshany
+              Anderson was Curator of Exhibitions and Collections at the Miller
+              Art Museum in Sturgeon Bay, Wisconsin. Shoshany Anderson was
+              previously based in London, where she held a Curatorial Internship
+              at the Tate Modern. Additionally, she has served as a juror and
+              guest curator on numerous panels and programs. Shoshany Anderson
+              received her MA in Curating the Art Museum from the Courtauld
+              Institute of Art in London, and a BA in Art History and Jewish
+              Studies from the University of Wisconsin-Madison.
+            </p>
+          </div>
+        </div>
+        <div class="about-content-team-panel">
+          <img src="@/assets/img/test-grey.jpg" alt="Image Here" />
+          <div>
+            <h5>kathy carbone</h5>
+            <h6>Project Director, Archivist, Founding Member</h6>
+            <p>
+              Postdoctoral Scholar and Lecturer in the Department of Information
+              Studies at the University of California, Los Angeles (UCLA).
+              Before joining UCLA, she was the Institute Archivist and
+              Performing Arts Librarian for over a decade at the California
+              Institute of the Arts (CalArts) and a modern dancer and
+              choreographer for more than 20 years. Carbone holds a Ph.D. in
+              Information Studies from UCLA, an MLIS from Kent State University,
+              and an MA in Dance and Music, and a BFA in Dance from Ohio
+              University. Carbone’s interests broadly focus on intersections
+              between archives, contemporary art, and activism, with particular
+              emphasis on documenting and preserving art practice driven by
+              human rights and social justice agendas and using archives as
+              strategies and tools for expressive resistance and community
+              building.
+            </p>
+          </div>
+        </div>
+        <div class="about-content-team-panel">
+          <img src="@/assets/img/test-grey.jpg" alt="Image Here" />
+          <div>
+            <h5>vukašin nedeljković</h5>
+            <h6>Founding Member</h6>
+            <p>
+              Vukašin holds a Masters in Visual Arts Practice at Dunlaoghaire
+              Institute of Arts, Design and Technology. He has exhibited both
+              nationally and internationally. His recent contributions include
+              Reiterating Asylum Archive: Documenting Direct Provision in
+              Ireland, (2018) and Asylum Archive: An Archive of Asylum and
+              Direct Provision in Ireland, (2016-2017). He was awarded an Arts
+              and Activism bursary from Arts Council in 2018/2019 and has
+              recently published the monograph, Asylum Archive. He is currently
+              writing a book with Dr. Ronit Lentin on Direct Provision,
+              entitled, Disavowing Asylum: Documenting Ireland’s Asylum
+              Industrial Complex. Vukašin Nedeljković initiated the
+              multidisciplinary project Asylum Archive.
+            </p>
+          </div>
+        </div>
+        <div class="about-content-team-footer">
+          <div class="about-content-team-card">
+            <img src="@/assets/img/test-grey.jpg" alt="Image Here" />
+            <h5>Pinar Öğrenci</h5>
+            <h6>Founding Member</h6>
+            <p>Artist and writer (Istanbul and Berlin).</p>
+          </div>
+          <div class="about-content-team-card">
+            <img src="@/assets/img/test-grey.jpg" alt="Image Here" />
+            <h5>Habibah (Biba) Sheikh</h5>
+            <h6>Founding Member</h6>
+            <p>Theater artist, curator, and activist (Detroit).</p>
+          </div>
+          <div class="about-content-team-card">
+            <img src="@/assets/img/test-grey.jpg" alt="Image Here" />
+            <h5>Nick Schwieterman</h5>
+            <h6>Founding Member</h6>
+            <p>PhD student in information studies (Los Angeles).</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -165,7 +253,7 @@ export default {
       // Spacing
       margin: 0 2.5rem;
       // Transition
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
   }
 
@@ -209,6 +297,108 @@ export default {
 
       span {
         font-weight: $bold;
+      }
+    }
+
+    .about-content-team {
+      // Typography
+      font-family: $alt-font;
+      // Flexbox for alignment
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .about-content-team-panel {
+        // Flexbox for layout
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // Spacing
+        margin-bottom: 2rem;
+        // Typography
+        line-height: 1.6;
+      }
+
+      .about-content-team-footer {
+        // Flexbox for layout
+        display: flex;
+        justify-content: center;
+        // Spacing
+        margin: 2rem 0;
+
+        .about-content-team-card {
+          // Typography
+          text-align: center;
+          // Flexbox for alignment
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          // Spacing
+          margin: 0 1rem;
+
+          img {
+            // Resize
+            width: 40%;
+            // Remove margin
+            margin-right: 0;
+            // Spacing
+            margin-bottom: 1rem;
+          }
+        }
+      }
+
+      img {
+        // Shape to circle
+        border-radius: 50%;
+        // Sizing
+        width: 15%;
+        height: auto;
+        // Teal border
+        border: 3px solid $accent-teal;
+        // Spacing
+        margin-right: 4rem;
+      }
+
+      h5 {
+        // Typography
+        font-family: $main-font;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+      }
+
+      h6 {
+        // Typography
+        color: $font-color;
+        font-style: italic;
+        font-size: $caption-font-size;
+        font-weight: $normal;
+      }
+    }
+  }
+}
+
+// Media queries
+// Mobile layout
+@media screen and (max-width: $mobile) {
+  .about {
+    .about-content {
+      .about-content-team {
+        .about-content-team-footer {
+          // Change from row display to column
+          flex-direction: column;
+          // Remove excess spacing
+          margin-bottom: 0;
+
+          .about-content-team-card {
+            // Spacing
+            margin-bottom: 2rem;
+            img {
+              // Resize
+              width: 60%;
+            }
+          }
+        }
       }
     }
   }
