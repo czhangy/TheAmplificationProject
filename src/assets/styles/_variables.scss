@@ -1,7 +1,7 @@
 $navbar-height: 10rem;
 // Fonts
-$header-font-size: 2.5rem;
-$subheader-font-size: 1.5rem;
+$header-font-size: calc(clamp(1.5rem, 1.380rem + 1.280vw, 2.5rem));
+$subheader-font-size: calc(clamp(1rem, 0.800rem + 0.800vw, 1.5rem));
 $body-font-size: 0.9rem;
 $caption-font-size: 0.9rem;
 $button-font-size: 0.9rem;
@@ -23,6 +23,6 @@ $navbar-content: 99;
 $menu-content: 999;
 $modal-content: 999;
 // Misc
-$box-shadow: #404040;
+$box-shadow: lighten(#404040, 25);
 $title-margin: 5rem;
 $mobile: 900px
