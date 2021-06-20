@@ -12,14 +12,14 @@
         </p>
       </div>
       <img
-        src="@/assets/img/about1.png"
+        src="@/assets/img/About/about1.png"
         alt="A New Generation of Forced Migration"
         v-if="windowWidth > 900"
       />
     </div>
     <div class="about-container">
       <img
-        src="@/assets/img/about2.png"
+        src="@/assets/img/About/about2.png"
         alt="REPLACE ME"
         v-if="windowWidth > 900"
       />
@@ -99,7 +99,7 @@
         </p>
       </div>
       <img
-        src="@/assets/img/about3.png"
+        src="@/assets/img/About/about3.png"
         alt="REPLACE ME"
         v-if="windowWidth > 900"
       />
