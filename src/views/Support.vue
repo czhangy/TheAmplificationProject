@@ -30,7 +30,7 @@
     </div>
     <div class="support-content">
       <div class="support-form">
-        <div class="support-form-online" v-if="!altPage">
+        <div class="online-form" v-if="!altPage">
           <p>
             <span>Make a Donation:</span>
             <br />
@@ -38,9 +38,50 @@
             Would you like to make a monthly or a one-time donation?
             <span class="asterisk">*</span>
           </p>
-          <div class="dono-freq-buttons">
-            <button>Monthly</button>
-            <button>One-Time</button>
+          <div class="dono-buttons">
+            <button class="freq-buttons dono-button" @click="handleButton(0)">
+              Monthly
+            </button>
+            <button class="freq-buttons dono-button" @click="handleButton(1)">
+              One-Time
+            </button>
+          </div>
+          <p>
+            Choose an amount:
+            <span class="asterisk">*</span>
+          </p>
+          <div class="dono-buttons">
+            <button class="dono-button" @click="handleButton(2)">$5</button>
+            <button class="dono-button" @click="handleButton(3)">$10</button>
+            <button class="dono-button" @click="handleButton(4)">$25</button>
+            <button class="dono-button" @click="handleButton(5)">$100</button>
+            <button class="dono-button" @click="handleButton(6)">Custom</button>
+          </div>
+          <p><span>Please tell us about yourself:</span></p>
+          <div class="personal-info">
+            <div class="personal-info-field">
+              <div class="personal-info-label">
+                <p>First Name: <span class="asterisk">*</span></p>
+              </div>
+              <input v-model="res.firstName" />
+            </div>
+            <div class="personal-info-field">
+              <div class="personal-info-label">
+                <p>Last Name: <span class="asterisk">*</span></p>
+              </div>
+              <input v-model="res.lastName" />
+            </div>
+            <div class="personal-info-field">
+              <div class="personal-info-label">
+                <p>Email: <span class="asterisk">*</span></p>
+              </div>
+              <input v-model="res.email" />
+            </div>
+          </div>
+          <div class="button-container">
+            <button class="continue-button" @click="handleContinue">
+              Continue
+            </button>
           </div>
         </div>
         <div v-else>
@@ -75,6 +116,13 @@ export default {
   data() {
     return {
       altPage: false,
+      res: {
+        donoFreq: null,
+        donoAmnt: null,
+        firstName: null,
+        lastName: null,
+        email: null,
+      },
     };
   },
   methods: {
@@ -93,6 +141,32 @@ export default {
         "none";
       document.getElementById("donate-check-button").style.borderBottom =
         "5px solid white";
+    },
+    openCustomAmountModal: function () {
+      alert("This feature is being implemented still");
+    },
+    handleButton(i) {
+      let arr = document.getElementsByClassName("dono-button");
+      if (i < 2) {
+        for (let j = 0; j < 2; j++) {
+          arr[j].style.background = i === j ? "#298A7E" : "none";
+          arr[j].style.color = i === j ? "white" : "black";
+          arr[j].style.border = i === j ? "none" : "1px solid black";
+        }
+        // FIX ME
+        this.res.donoFreq = true;
+      } else {
+        for (let j = 2; j < 7; j++) {
+          arr[j].style.background = i === j ? "#298A7E" : "none";
+          arr[j].style.color = i === j ? "white" : "black";
+          arr[j].style.border = i === j ? "none" : "1px solid black";
+        }
+        // FIX ME
+        this.res.donoAmnt = true;
+      }
+    },
+    handleContinue() {
+      console.log(this.res);
     },
   },
 };
@@ -183,7 +257,23 @@ export default {
       color: darken(red, 10);
     }
 
-    .dono-freq-buttons {
+    button {
+      // Typography
+      font-family: $alt-font;
+      font-size: 1.2rem;
+      // Button sizing
+      width: 17.5%;
+      padding: 1rem 0;
+      // Clickable
+      cursor: pointer;
+      // Remove default button styling
+      background: transparent;
+      // Shape button
+      border-radius: 10px;
+      border: 1px solid black;
+    }
+
+    .dono-buttons {
       // Flexbox for layout
       display: flex;
       justify-content: space-between;
@@ -191,12 +281,62 @@ export default {
       margin-top: 1rem;
       margin-bottom: 3rem;
 
-      button {
-        // Typography
-        font-family: $alt-font;
-        font-size: 1.2rem;
-        // Button sizing
-        padding: 0.5rem 8rem;
+      .freq-buttons {
+        // Sizing
+        width: 45%;
+      }
+    }
+
+    .personal-info {
+      // Flexbox for layout
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      // Spacing
+      margin-top: 1rem;
+
+      .personal-info-field {
+        // Sizing
+        width: max(300px, 45%);
+        margin-bottom: 2rem;
+
+        .personal-info-label {
+          // Flexbox for layout
+          display: flex;
+        }
+
+        input {
+          // Typography
+          font-family: $alt-font;
+          font-size: 1.2rem;
+          // Spacing
+          margin-top: 0.5rem;
+          padding: 0.5rem;
+          // Border styling
+          border: none;
+          border-bottom: 1px solid grey;
+          // Sizing
+          width: 100%;
+
+          &:focus {
+            // Highlight bar
+            border-bottom: 2px solid $accent-teal;
+          }
+        }
+      }
+    }
+    .button-container {
+      // Flexbox for alignment
+      display: flex;
+      justify-content: center;
+
+      .continue-button {
+        // Button styling
+        background: $accent-teal;
+        color: white;
+        border: none;
+        // Sizing
+        width: 200px;
       }
     }
   }
@@ -205,15 +345,11 @@ export default {
 // Media queries
 // Sticky hover
 @media (hover: hover) {
-  .support-banner {
-    .support-nav {
-      button {
-        // Set animation
-        transition: transform 0.2s ease;
-        &:hover {
-          transform: scale(1.05);
-        }
-      }
+  button {
+    // Set animation
+    transition: transform 0.2s ease;
+    &:hover {
+      transform: scale(1.05);
     }
   }
 }

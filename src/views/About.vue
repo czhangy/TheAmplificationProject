@@ -104,6 +104,72 @@
         v-if="windowWidth > 900"
       />
     </div>
+    <div class="about-gap">
+      <span />
+    </div>
+    <div class="about-banner">
+      <h2>Meet the Collective Advisory Group</h2>
+      <h5>The Exiled-1, by Qais Al-Sindy (USA, 2015)</h5>
+    </div>
+    <div class="about-headshots">
+      <div class="about-headshot-card">
+        <img src="@/assets/img/About/about5.png" alt="Kathy Carbone" />
+        <p>
+          <span>Kathy Carbone</span>
+          <br />
+          <br />
+          Project Director, Archivist, Founding Member
+        </p>
+      </div>
+      <div class="about-headshot-card">
+        <img
+          src="@/assets/img/About/about6.png"
+          alt="Elizabeth Shoshany Anderson"
+        />
+        <p>
+          <span>Elizabeth Shoshany Anderson</span>
+          <br />
+          <br />
+          Founding Member
+        </p>
+      </div>
+      <div class="about-headshot-card">
+        <img src="@/assets/img/About/about7.png" alt="Vukašin Nedeljković" />
+        <p>
+          <span>Vukašin Nedeljković</span>
+          <br />
+          <br />
+          Founding Member
+        </p>
+      </div>
+      <div class="about-headshot-card">
+        <img src="@/assets/img/About/about8.png" alt="Pinar Öğrenci" />
+        <p>
+          <span>Pinar Öğrenci</span>
+          <br />
+          <br />
+          Founding Member
+        </p>
+      </div>
+      <div class="about-headshot-card">
+        <img src="@/assets/img/About/about9.png" alt="Habibah (Biba) Sheikh" />
+        <p>
+          <span>Habibah (Biba) Sheikh </span>
+          <br />
+          <br />
+          Project Director, Archivist, Founding Member
+        </p>
+      </div>
+      <div class="about-headshot-card">
+        <img src="@/assets/img/About/about10.png" alt="Nick Schwieterman" />
+        <p>
+          <span>Nick Schwieterman </span>
+          <br />
+          <br />
+          PhD student in information studies
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -160,7 +226,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       // Spacing
-      padding: 0 calc(clamp(2rem, -12.400rem + 25.600vw, 5rem));
+      padding: 0 calc(clamp(2rem, -12.4rem + 25.6vw, 5rem));
 
       .about-text-emph {
         color: $accent-teal;
@@ -190,7 +256,7 @@ export default {
       h1,
       h3 {
         // Typography
-        font-size: calc(clamp(1.5rem, -0.300rem + 3.200vw, 2.5rem));
+        font-size: calc(clamp(1.5rem, -0.3rem + 3.2vw, 2.5rem));
         color: $accent-teal;
         // Spacing
         margin-bottom: 3rem;
@@ -198,14 +264,14 @@ export default {
 
       h2 {
         // Typography
-        font-size: calc(clamp(2rem, 1.400rem + 2.400vw, 3.5rem));
+        font-size: calc(clamp(2rem, 1.4rem + 2.4vw, 3.5rem));
         margin-bottom: 3rem;
       }
 
       p {
         // Typography
         font-family: $alt-font;
-        font-size: calc(clamp(1rem, 0.100rem + 1.600vw, 1.2rem));
+        font-size: calc(clamp(1rem, 0.1rem + 1.6vw, 1.2rem));
         // Spacing
         line-height: 1.8;
       }
@@ -220,13 +286,102 @@ export default {
         margin-top: 1.5rem;
         // Typography
         font-family: $alt-font;
-        font-size: calc(clamp(1rem, 0.100rem + 1.600vw, 1.2rem));
+        font-size: calc(clamp(1rem, 0.1rem + 1.6vw, 1.2rem));
 
         li {
           // Spacing
-          margin-bottom: calc(clamp(1rem, -0.800rem + 3.200vw, 2rem));
+          margin-bottom: calc(clamp(1rem, -0.8rem + 3.2vw, 2rem));
           line-height: 1.6;
         }
+      }
+    }
+  }
+
+  .about-gap {
+    // Spacing
+    padding: calc(clamp(3rem, 1.000rem + 8.000vw, 8rem)) 0;
+    // Flexbox for alignment
+    display: flex;
+    justify-content: center;
+
+    span {
+      // Color the separator
+      background: grey;
+      // Sizing
+      height: 1px;
+      width: 20vw;
+    }
+  }
+
+  .about-banner {
+    // Background
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../assets/img/About/about4.png");
+    background-size: cover;
+    // Flexbox for alignment
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    // Positioning for children
+    position: relative;
+    // Spacing
+    padding: 8rem calc(clamp(0.5rem, -0.100rem + 2.400vw, 2rem));
+    // Centering
+      text-align: center;
+
+    h2 {
+      // Typography
+      font-size: calc(clamp(2rem, 1.200rem + 3.200vw, 4rem));
+      color: white;
+    }
+
+    h5 {
+      // Positioning
+      position: absolute;
+      bottom: 0;
+      // Spacing
+      margin-bottom: 1rem;
+      // Typography
+      font-family: $alt-font;
+      font-weight: $normal;
+      color: white;
+      font-size: calc(clamp(0.8rem, 0.420rem + 1.520vw, 1.75rem));
+    }
+  }
+  .about-headshots {
+    // Flexbox for layout
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    // Spacing
+    margin-top: 4rem;
+    padding: 0 1rem;
+
+    .about-headshot-card {
+      // Flexbox for reasons
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      // Sizing
+      width: 550px;
+      // Spacing
+      margin-bottom: 4rem;
+
+      span {
+        // Typography
+        font-size: calc(clamp(1.5rem, 1.300rem + 0.800vw, 2rem));
+        font-family: $main-font;
+      }
+
+      p {
+        // Centering
+        text-align: center;
+        // Spacing
+        margin-top: 1rem;
+        // Typography
+        font-size: calc(clamp(1rem, 0.800rem + 0.800vw, 1.5rem));
+        font-family: $alt-font;
+        font-weight: $normal;
       }
     }
   }
