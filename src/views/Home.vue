@@ -14,19 +14,9 @@
       <h3 class="home-featured-header">featured</h3>
       <div class="home-featured-content">
         <div class="home-featured-left">
-          <h4 class="home-featured-left-header">march 2</h4>
-          <h5 class="home-featured-left-subheader">
-            an interview with
-            <br />kathy carbone
-          </h5>
-          <p class="home-featured-left-content">
-            Hear from co-founder Dr. Kathy Carbone about the archive and its
-            founding.
-          </p>
-          <img
-            src="@/assets/img/test2.png"
-            alt="Image of Kathy Carbone"
-            class="home-featured-left-img"
+          <HoverPanel
+            header="Endless Sorrow"
+            subheader="David Greenfield (USA), 1981"
           />
         </div>
         <div class="home-featured-mid-top">
@@ -76,14 +66,14 @@ export default {
 .home {
   // Sizing
   width: 100%;
-  padding: 0 8rem;
+  padding: 0 calc(clamp(2rem, -0.4rem + 9.6vw, 8rem));
   // Flexbox for alignment
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .home-carousel {
-    background-image: url("../assets/img/test1.png");
+    background-image: url("../assets/img/Home/home1.png");
     background-repeat: none;
     background-size: cover;
     // Sizing
@@ -97,13 +87,12 @@ export default {
     .home-archive-buttons {
       // Sizing
       width: 100%;
-      height: 10rem;
       // Positioning for overlay
       position: absolute;
       bottom: 0;
       // Flexbox for layout
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-end;
       align-items: center;
 
       .home-archive-button {
@@ -116,12 +105,15 @@ export default {
         // Typography
         font-family: $alt-font;
         font-weight: $bold;
+        font-size: calc(clamp(0.8rem, 0.640rem + 0.640vw, 1.2rem));
         color: white;
         text-align: center;
         // Remove effects of router link
         text-decoration: none;
         // Smooth hover animation
         transition: all 0.2s ease;
+        // Spacing
+        margin: 1rem 0.5rem;
       }
     }
   }
@@ -155,10 +147,8 @@ export default {
       // Spacing
       padding: 1rem;
       margin-bottom: 2rem;
-      
+
       .home-featured-left {
-        // Background
-        background: white;
         // Grid positioning
         grid-row-start: 1;
         grid-row-end: 3;
@@ -166,48 +156,8 @@ export default {
         grid-column-end: 2;
         // Border
         border: 1px solid $accent-grey;
-        // Flexbox for layout
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .home-featured-left-header {
-          // Container color
-          background: $accent-teal;
-          // Typography
-          text-align: center;
-          font-size: $subheader-font-size;
-          color: white;
-          text-transform: uppercase;
-          // Container sizing
-          padding: 2rem 0;
-          width: 100%;
-        }
-
-        .home-featured-left-subheader {
-          // Typography
-          text-align: center;
-          font-size: $subheader-font-size;
-          text-transform: uppercase;
-          // Spacing
-          margin-top: 1rem;
-          margin-bottom: 2rem;
-          width: 100%;
-        }
-
-        .home-featured-left-content {
-          // Typography
-          font-family: $alt-font;
-          font-size: $caption-font-size;
-          text-align: center;
-          // Spacing
-          margin: 0 3rem;
-        }
-
-        .home-featured-left-img {
-          // Spacing
-          margin-top: 3rem;
-        }
+        // Image
+        background-image: url("../assets/img/Home/home6.png");
       }
 
       .home-featured-mid-top {
@@ -217,7 +167,7 @@ export default {
         grid-column-start: 2;
         grid-column-end: 4;
         // Image
-        background-image: url("../assets/img/test3.png");
+        background-image: url("../assets/img/Home/home3.png");
         background-repeat: none;
         background-size: cover;
       }
@@ -229,7 +179,7 @@ export default {
         grid-column-start: 2;
         grid-column-end: 3;
         // Image
-        background-image: url("../assets/img/test4.png");
+        background-image: url("../assets/img/Home/home4.png");
         background-repeat: none;
         background-size: cover;
       }
@@ -241,7 +191,7 @@ export default {
         grid-column-start: 3;
         grid-column-end: 4;
         // Image
-        background-image: url("../assets/img/test5.png");
+        background-image: url("../assets/img/Home/home5.png");
         background-repeat: none;
         background-size: cover;
       }
@@ -252,7 +202,7 @@ export default {
         grid-row-start: 1;
         grid-row-end: 3;
         // Image
-        background-image: url("../assets/img/test6.png");
+        background-image: url("../assets/img/Home/home6.png");
         background-size: cover;
         background-repeat: none;
         // Positioning for children
@@ -301,6 +251,38 @@ export default {
             opacity: 1;
             transform: scale(1.05);
           }
+        }
+      }
+    }
+  }
+}
+
+// Mobile layout
+@media screen and (max-width: 900px) {
+  .home {
+    .home-featured {
+      .home-featured-content {
+        display: flex;
+        justify-content: center;
+
+        .home-featured-left {
+          display: none;
+        }
+
+        .home-featured-mid-top {
+          display: none;
+        }
+
+        .home-featured-mid-bottom-left {
+          display: none;
+        }
+
+        .home-featured-mid-bottom-right {
+          display: none;
+        }
+
+        .home-featured-right {
+          width: 100%;
         }
       }
     }
