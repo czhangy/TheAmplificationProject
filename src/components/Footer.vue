@@ -50,8 +50,12 @@ export default {
   methods: {
     handleSubscribe: function () {
       alert(
-        "The handleSubscribe() function in Footer.vue must still be implemented"
+        `The handleSubscribe() function in News.vue must still be implemented, but here's the data stored in the component for testing:\n
+        name = "${this.name}"
+        email = "${this.email}"`
       );
+      this.name = "";
+      this.email = "";
     },
   },
   data() {
@@ -108,7 +112,7 @@ export default {
     line-height: 2;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 
     .mailing-list-fields {
       // Flexbox for layout

@@ -139,8 +139,8 @@ export default {
       // Grid for layout
       display: grid;
       grid-gap: 1rem;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       // Sizing
       width: calc(min(100%, 1400px));
       height: 40rem;
