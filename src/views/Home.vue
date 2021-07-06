@@ -1,6 +1,16 @@
 <template>
   <div class="home">
     <div class="home-carousel">
+      <div class="home-carousel-slides">
+        <img src="@/assets/img/Home/home1.png" />
+        <img src="@/assets/img/Home/home7.png" />
+      </div>
+      <div class="home-carousel-nav" :style="{ left: '0' }">
+        <i class="fas fa-chevron-left" @click="handleIndex(-1)"></i>
+      </div>
+      <div class="home-carousel-nav" :style="{ right: '0' }">
+        <i class="fas fa-chevron-right" @click="handleIndex(1)"></i>
+      </div>
       <div class="home-archive-buttons">
         <router-link to="/explore" class="home-archive-button">
           Explore the Archive
@@ -59,36 +69,100 @@ export default {
   components: {
     HoverPanel,
   },
+  data() {
+    return {
+      index: 0,
+    };
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleSlides);
+  },
+  methods: {
+    handleIndex(inc) {
+      // Edge cases
+      if (inc != 1 && inc != -1)
+        console.log("changeSlides() in Home.vue is being used incorrectly");
+      // Left bound
+      else if (inc == -1 && !this.index) return;
+      else if (inc == 1 && this.index == 1) return;
+      this.index += inc;
+      this.handleSlides();
+    },
+    handleSlides() {
+      document.getElementsByClassName(
+        "home-carousel-slides"
+      )[0].style.marginLeft = -this.index * 0.8 * window.innerWidth + "px";
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .home {
-  // Sizing
-  width: 100%;
-  padding: 0 calc(clamp(2rem, -0.4rem + 9.6vw, 8rem));
   // Flexbox for alignment
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .home-carousel {
-    background-image: url("../assets/img/Home/home1.png");
-    background-repeat: none;
-    background-size: cover;
     // Sizing
-    width: calc(min(100%, 1400px));
+    width: 80%;
     height: 30rem;
-    // Positioning
+    // Positioning for nav buttons
     position: relative;
     // Spacing
-    margin: 1rem 0;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    // Hide excess slides
+    overflow-x: hidden;
+
+    .home-carousel-slides {
+      // Sizing
+      width: 100%;
+      height: 100%;
+      // Flexbox for layout
+      display: flex;
+      // Transition slides
+      transition: margin-left 0.5s ease;
+
+      img {
+        // Preserve aspect ratio
+        object-fit: cover;
+        // Force cover
+        min-width: 100%;
+      }
+    }
+
+    .home-carousel-nav {
+      // Positioning for overlay
+      position: absolute;
+      top: 0;
+      // Sizing
+      height: 100%;
+      // Style background
+      background: black;
+      opacity: 0.5;
+      // Inner spacing
+      padding: 0 1.5rem;
+      // Flexbox for centering
+      display: flex;
+      align-items: center;
+
+      .fas {
+        // Icon styling
+        color: white;
+        font-size: 2rem;
+        // Clickable
+        cursor: pointer;
+      }
+    }
 
     .home-archive-buttons {
       // Sizing
       width: 100%;
       // Positioning for overlay
       position: absolute;
+      right: 5rem;
       bottom: 0;
       // Flexbox for layout
       display: flex;
@@ -99,13 +173,13 @@ export default {
         // Button styling
         background: $accent-dark-teal;
         opacity: 0.85;
-        padding: 0.625rem 0;
+        padding: 0.625rem 0.2rem;
         border-radius: 10px;
         width: 15rem;
         // Typography
         font-family: $alt-font;
         font-weight: $bold;
-        font-size: calc(clamp(0.8rem, 0.640rem + 0.640vw, 1.2rem));
+        font-size: calc(clamp(0.8rem, 0.64rem + 0.64vw, 1.2rem));
         color: white;
         text-align: center;
         // Remove effects of router link
@@ -260,6 +334,17 @@ export default {
 // Mobile layout
 @media screen and (max-width: 900px) {
   .home {
+    .home-carousel {
+      .home-archive-buttons {
+        flex-direction: column;
+        left: 50%;
+        margin-left: -50%;
+
+        .home-archive-button {
+          width: 8rem;
+        }
+      }
+    }
     .home-featured {
       .home-featured-content {
         display: flex;
