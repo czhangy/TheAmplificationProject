@@ -47,6 +47,8 @@ export default {
         username = "${this.username}"
         password = "${this.password}"`
       );
+      this.username = "";
+      this.password = "";
     },
   },
 };
@@ -169,15 +171,18 @@ export default {
       }
 
       button {
-        // Clear default styling
-        background: none;
+        // Remove default styling
+        border: none;
         // Button styling
-        border: 3px solid $accent-light-teal;
-        padding: 0.4rem 1.5rem;
+        background: $accent-teal;
+        padding: 0.6rem 1.5rem;
         border-radius: 10px;
         // Typography
         font-family: $main-font;
         font-size: $body-font-size;
+        color: white;
+        // Shadow
+        box-shadow: 0 2px 4px $box-shadow;
         // Clickable
         cursor: pointer;
       }
@@ -216,7 +221,6 @@ export default {
           transition: transform 0.2s ease;
           &:hover {
             transform: scale(1.05);
-            border-color: $accent-teal;
           }
         }
       }
