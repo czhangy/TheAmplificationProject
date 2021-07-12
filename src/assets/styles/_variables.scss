@@ -24,5 +24,5 @@ $menu-content: 999;
 $modal-content: 999;
 // Misc
 $box-shadow: lighten(#404040, 25);
-$title-margin: 5rem;
+$title-margin: calc(clamp(2.5rem, 1.500rem + 4.000vw, 5rem));
 $mobile: 900px
