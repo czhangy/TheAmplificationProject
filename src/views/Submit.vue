@@ -6,7 +6,7 @@
       process, how to interact with materials, and other important information.
     </p>
     <Accordion :panelContent="panelContent" />
-    <router-link to="/">I'm ready to submit</router-link>
+    <router-link to="/submission">I'm ready to submit</router-link>
   </div>
 </template>
 
