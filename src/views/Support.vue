@@ -4,20 +4,21 @@
       <h1>Donate to the Amplification Project</h1>
       <p>
         All gifts to The Amplification Project are meaningful, no matter how big
-        or small. Your contributions help us to realize our mission to preserve,
-        share, and amplify art and activism inspired, influenced, and affected
-        by forced migration.
+        or small. 100% of your donation goes directly to the mission of The
+        Amplification Project.
         <br />
         <br />
         Currently, your donation counts towards the development and improvement
         of The Amplification Project's website.
         <br />
         <br />
-        The Amplification Project is in affiliation with Social and
-        Environmental Entrepreneurs (SEE), a non-profit public charity exempt
-        from federal income tax under Section 501(c)(3) of the Internal Revenue
-        Code. Donations to The Amplification Project are tax-deductible through
-        SEE (EIN #95-4116679).
+        <span>
+          The Amplification Project is in affiliation with <a href="https://saveourplanet.org/" target="_blank">Social and
+          Environmental Entrepreneurs (SEE)</a>, a non-profit public charity exempt
+          from federal income tax under Section 501(c)(3) of the Internal
+          Revenue Code. Donations to The Amplification Project are
+          tax-deductible through SEE (EIN #95-4116679).
+        </span>
       </p>
       <div class="support-nav">
         <button id="donate-online-button" @click="setOnlinePage">
@@ -203,6 +204,16 @@ export default {
     font-size: calc(clamp(1rem, 0.8rem + 0.8vw, 1.5rem));
     // Spacing
     margin-bottom: calc(clamp(3rem, 1.8rem + 4.8vw, 6rem));
+
+    span {
+      // Typography
+      font-size: calc(clamp(0.9rem, 0.760rem + 0.560vw, 1.25rem));
+
+      a {
+        // Remove default a tag styling
+        color: white;
+      }
+    }
   }
 
   .support-nav {

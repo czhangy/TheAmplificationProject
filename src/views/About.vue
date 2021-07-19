@@ -2,27 +2,42 @@
   <div class="about">
     <div class="about-container">
       <div class="about-text">
-        <h1>ABOUT</h1>
-        <h2>THE AMPLIFICATION PROJECT</h2>
+        <h1>About</h1>
         <p>
-          The Amplification Project is a community-led participatory public
-          digital archive for artists and activists to document, preserve, and
-          share art and activism inspired, influenced, or affected by
-          experiences of conflict and displacement.
+          The Amplification Project is a public, participatory community-led
+          digital archive of art and activism inspired, influenced, or affected
+          by forced displacement. We offer artists, activists, and other
+          cultural producers a platform to document, preserve, and share new or
+          existing work that narrates or contemplates lived or observed
+          experiences of forced displacement, crossing borders, seeking asylum,
+          and refuge.
+        </p>
+        <br />
+        <p>
+          The Amplification Project was founded in 2019 by an international
+          group of artists, archivists, activists, and curators (see Collective
+          Advisory Group/Founding Members below).
         </p>
       </div>
-      <img
-        src="@/assets/img/About/about1.png"
-        alt="A New Generation of Forced Migration"
-        v-if="windowWidth > 900"
-      />
+      <div class="about-img" v-if="windowWidth > 900">
+        <img
+          src="@/assets/img/About/about1.jpg"
+          alt="Nothing is True, Everything is Possible by Abbas Yousif, 2018"
+        />
+        <p>
+          <em>Nothing is True, Everything is Possible</em> by Abbas Yousif,
+          2018.
+        </p>
+      </div>
     </div>
     <div class="about-container">
-      <img
-        src="@/assets/img/About/about2.png"
-        alt="REPLACE ME"
-        v-if="windowWidth > 900"
-      />
+      <div class="about-img" v-if="windowWidth > 900">
+        <img
+          src="@/assets/img/About/about2.png"
+          alt="Refuge 2 by Basel Uraiqat, 2018"
+        />
+        <p><em>Refuge 2</em> by Basel Uraiqat, 2018</p>
+      </div>
       <div class="about-text">
         <div v-if="!altPanel || windowWidth < 900" class="about-mission-panel">
           <div class="about-mission-nav">
@@ -38,14 +53,6 @@
               >document, preserve, and raise the visibility of art and activism
               inspired, influenced, or affected by forced migration.</span
             >
-            <br />
-            <br />
-            We are a community-led public participatory digital archive to which
-            any artist and activist can preserve and share their work, and
-            anyone with an account can comment on the archive's content. The
-            Amplification Project was founded in 2019 by an international group
-            of artists, archivists, activists, and curators (see Collective
-            Advisory Group/Founding Members below).
           </p>
         </div>
         <div v-if="altPanel || windowWidth < 900" class="about-mission-panel">
@@ -57,40 +64,35 @@
           </div>
           <ul>
             <li>
-              preserving and providing a platform for new and existing artistic
-              and activist productions related to forced migration
+              preserving and providing a platform for new and existing art and
+              activism related to experiences of conflict, forced displacement,
+              asylum, and refuge
             </li>
             <li>
-              in public and political anti-refugee and xenophobic rhetoric
+              disrupting public and political anti-refugee and xenophobic
+              rhetoric
             </li>
             <li>
-              being a counterpoint to the often depersonalized and dehumanized
-              visual representation of asylum seekers and refugees in the media
+              challenging depersonalized and dehumanized media and political
+              representations of asylum seekers and refugees
             </li>
             <li>
-              using archiving to raise awareness about and speak to injustices
-              around refugeehood and displacement
+              mobilizing the archive to raise awareness about inequities and
+              injustices imposed on refugees
             </li>
-            <li>
-              building community, fostering dialogue, and supporting artists'
-              and activists' archiving needs
-            </li>
+            <li>building solidarities and community</li>
           </ul>
         </div>
       </div>
     </div>
     <div class="about-container">
       <div class="about-text">
-        <h3>Ways to Participate</h3>
+        <h3>Ways to participate</h3>
         <p>
-          <span class="about-text-emph">Submit</span> your artwork or activist
-          project to the archive: Click the Submit menu tab to submit materials
-          easily (no registration necessary).
+          <span class="about-text-emph">Submit</span> your work to the archive
           <br />
           <br />
-          <span class="about-text-emph">Comment</span> on art and activist
-          projects in the archive: Create an account or login (top right of each
-          webpage).
+          <span class="about-text-emph">Comment</span> on work in the archive
           <br />
           <br />
           <span class="about-text-emph">Join</span> our Collective Advisory
@@ -98,18 +100,20 @@
           <span>contact us: theamplificationproject@gmail.com</span>
         </p>
       </div>
-      <img
-        src="@/assets/img/About/about3.png"
-        alt="REPLACE ME"
-        v-if="windowWidth > 900"
-      />
+      <div class="about-img" v-if="windowWidth > 900">
+        <img
+          src="@/assets/img/About/about3.png"
+          alt="Mandela Project Venice: We Are Humanity by Lilli Muller, 2019"
+        />
+        <p><em>Mandela Project Venice: We Are Humanity</em> by Lilli Muller, 2019</p>
+      </div>
     </div>
     <div class="about-gap">
       <span />
     </div>
     <div class="about-banner">
       <h2>Meet the Collective Advisory Group</h2>
-      <h5>The Exiled-1, by Qais Al-Sindy (USA, 2015)</h5>
+      <h5><em>The Exiled-1</em>, by Qais Al-Sindy, 2015</h5>
     </div>
     <div class="about-headshots">
       <div class="about-headshot-card">
@@ -157,7 +161,7 @@
           <span>Habibah (Biba) Sheikh </span>
           <br />
           <br />
-          Project Director, Archivist, Founding Member
+          Founding Member
         </p>
       </div>
       <div class="about-headshot-card">
@@ -208,10 +212,29 @@ export default {
   display: flex;
   flex-direction: column;
 
-  img {
+  .about-img {
+    // Positioning
+    position: relative;
     // Sizing
     width: 50%;
-    height: 100%;
+
+    img {
+      // Sizing
+      height: 100%;
+      width: 100%;
+      // Darken
+      filter: brightness(70%);
+    }
+
+    p {
+      // Typography
+      color: white;
+      font-family: $alt-font;
+      // Positioning within container
+      position: absolute;
+      bottom: 0.5rem;
+      right: 1.5rem;
+    }
   }
 
   .about-container {
@@ -226,7 +249,7 @@ export default {
       flex-direction: column;
       justify-content: center;
       // Spacing
-      padding: 0 calc(clamp(2rem, -12.4rem + 25.6vw, 5rem));
+      padding: 2rem calc(clamp(2rem, -12.4rem + 25.6vw, 5rem));
 
       .about-text-emph {
         color: $accent-teal;
@@ -299,7 +322,7 @@ export default {
 
   .about-gap {
     // Spacing
-    padding: calc(clamp(3rem, 1.000rem + 8.000vw, 8rem)) 0;
+    padding: calc(clamp(3rem, 1rem + 8vw, 8rem)) 0;
     // Flexbox for alignment
     display: flex;
     justify-content: center;
@@ -325,19 +348,20 @@ export default {
     // Positioning for children
     position: relative;
     // Spacing
-    padding: 8rem calc(clamp(0.5rem, -0.100rem + 2.400vw, 2rem));
+    padding: 8rem calc(clamp(0.5rem, -0.1rem + 2.4vw, 2rem));
     // Centering
-      text-align: center;
+    text-align: center;
 
     h2 {
       // Typography
-      font-size: calc(clamp(2rem, 1.200rem + 3.200vw, 4rem));
+      font-size: calc(clamp(2rem, 1.2rem + 3.2vw, 4rem));
       color: white;
     }
 
     h5 {
       // Positioning
       position: absolute;
+      right: 1.5rem;
       bottom: 0;
       // Spacing
       margin-bottom: 1rem;
@@ -345,7 +369,7 @@ export default {
       font-family: $alt-font;
       font-weight: $normal;
       color: white;
-      font-size: calc(clamp(0.8rem, 0.420rem + 1.520vw, 1.75rem));
+      font-size: calc(clamp(0.8rem, 0.42rem + 1.52vw, 1.75rem));
     }
   }
   .about-headshots {
@@ -369,7 +393,7 @@ export default {
 
       span {
         // Typography
-        font-size: calc(clamp(1.5rem, 1.300rem + 0.800vw, 2rem));
+        font-size: calc(clamp(1.5rem, 1.3rem + 0.8vw, 2rem));
         font-family: $main-font;
       }
 
@@ -379,7 +403,7 @@ export default {
         // Spacing
         margin-top: 1rem;
         // Typography
-        font-size: calc(clamp(1rem, 0.800rem + 0.800vw, 1.5rem));
+        font-size: calc(clamp(1rem, 0.8rem + 0.8vw, 1.5rem));
         font-family: $alt-font;
         font-weight: $normal;
       }

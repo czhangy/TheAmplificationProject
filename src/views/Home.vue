@@ -77,6 +77,9 @@ export default {
   mounted() {
     window.addEventListener("resize", this.handleSlides);
   },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleSlides);
+  },
   methods: {
     handleIndex(inc) {
       // Edge cases
@@ -219,7 +222,7 @@ export default {
       width: calc(min(100%, 1400px));
       height: 40rem;
       // Spacing
-      padding: 1rem;
+      padding: 1rem 4rem;
       margin-bottom: 2rem;
 
       .home-featured-left {
@@ -335,17 +338,21 @@ export default {
 @media screen and (max-width: 900px) {
   .home {
     .home-carousel {
+      .home-carousel-nav {
+        display: none;
+      }
       .home-archive-buttons {
         flex-direction: column;
         left: 50%;
         margin-left: -50%;
 
         .home-archive-button {
-          width: 8rem;
+          width: 12rem;
         }
       }
     }
     .home-featured {
+
       .home-featured-content {
         display: flex;
         justify-content: center;
