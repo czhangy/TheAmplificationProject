@@ -58,11 +58,11 @@ export default {
 .bar {
   // Flexbox for layout
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   // Spacing
-  margin-top: 2rem;
-  margin-bottom: 5rem;
+  margin: 3rem auto 5rem auto;
+  width: 80%;
 
   .page {
     // Flexbox for centering

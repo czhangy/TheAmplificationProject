@@ -13,7 +13,7 @@
         <h2 class="navbar-text-caption">
           Digital Archive for Forced Migration
           <br />
-          Contemporary Art & Activism
+          Contemporary Art & Action
         </h2>
       </div>
     </router-link>
