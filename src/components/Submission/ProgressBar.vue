@@ -61,7 +61,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   // Spacing
-  margin: 3rem auto 5rem auto;
+  margin: 3rem auto 6rem auto;
   width: 80%;
 
   .page {
