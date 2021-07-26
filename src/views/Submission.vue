@@ -15,6 +15,9 @@
     <div class="page" v-if="curPage === 1 || curPage === 4">
       <PersonalDetails :submissionData="submissionData" />
     </div>
+    <div class="page" v-if="curPage === 2 || curPage === 4">
+      <ContributionDetails :submissionData="submissionData.imageData" />
+    </div>
     <div class="nav-buttons">
       <button v-if="curPage > 0" @click="handleNavClick(-1)">Back</button>
       <button v-if="curPage < pages.length - 1" @click="handleNavClick(1)">
@@ -25,9 +28,11 @@
 </template>
 
 <script>
+// Import local components
 import ProgressBar from "@/components/Submission/ProgressBar";
 import FileUpload from "@/components/Submission/FileUpload";
 import PersonalDetails from "@/components/Submission/PersonalDetails";
+import ContributionDetails from "@/components/Submission/ContributionDetails";
 
 export default {
   name: "Submission",
@@ -35,6 +40,7 @@ export default {
     ProgressBar,
     FileUpload,
     PersonalDetails,
+    ContributionDetails,
   },
   data() {
     return {
@@ -54,6 +60,20 @@ export default {
         creatorFirstNames: [],
         creatorLastNames: [],
         statements: null,
+        imageData: {
+          title: null,
+          set: null,
+          date: null,
+          language: null,
+          city: null,
+          country: null,
+          exhibitCities: [],
+          exhibitCountries: [],
+          exhibitVenues: [],
+          exhibitStartDates: [],
+          exhibitEndDates: [],
+          location: null,
+        },
       },
     };
   },

@@ -83,12 +83,14 @@ export default {
   methods: {
     handleIndex(inc) {
       // Edge cases
-      if (inc != 1 && inc != -1)
+      if (inc !== 1 && inc !== -1)
         console.log("changeSlides() in Home.vue is being used incorrectly");
       // Left bound
-      else if (inc == -1 && !this.index) return;
-      else if (inc == 1 && this.index == 1) return;
+      else if (inc === -1 && !this.index) return;
+      // Right bound
+      else if (inc === 1 && this.index === 1) return;
       this.index += inc;
+      // Move slides
       this.handleSlides();
     },
     handleSlides() {
