@@ -20,11 +20,11 @@
       <div class="input-fields">
         <input
           placeholder="First name"
-          v-model="submissionData.contributorFirstNames[i]"
+          v-model="submissionData.contributorFirstNames[i - 1]"
         />
         <input
           placeholder="Last name"
-          v-model="submissionData.contributorLastNames[i]"
+          v-model="submissionData.contributorLastNames[i - 1]"
         />
       </div>
       <i
@@ -35,7 +35,7 @@
       <i
         class="fas fa-times-circle"
         v-else
-        @click="handleNumContributors(-1, i)"
+        @click="handleNumContributors(-1, i - 1)"
       ></i>
     </div>
     <div
@@ -60,11 +60,11 @@
       <div class="input-fields">
         <input
           placeholder="First name"
-          v-model="submissionData.creatorFirstNames[i]"
+          v-model="submissionData.creatorFirstNames[i - 1]"
         />
         <input
           placeholder="Last name"
-          v-model="submissionData.creatorLastNames[i]"
+          v-model="submissionData.creatorLastNames[i - 1]"
         />
       </div>
       <i
@@ -72,7 +72,11 @@
         v-if="i === 1"
         @click="handleUnfinished"
       ></i>
-      <i class="fas fa-times-circle" v-else @click="handleNumCreators(-1, i)"></i>
+      <i
+        class="fas fa-times-circle"
+        v-else
+        @click="handleNumCreators(-1, i - 1)"
+      ></i>
     </div>
     <div class="container" @click="handleNumCreators(1)">
       <div class="add-button" v-if="numCreators < 5">
@@ -112,16 +116,16 @@ export default {
       this.numContributors += inc;
       // Update remaining fields accordingly
       if (inc === -1) {
-          this.submissionData.contributorFirstNames.splice(ind, 1);
-          this.submissionData.contributorLastNames.splice(ind, 1);
+        this.submissionData.contributorFirstNames.splice(ind, 1);
+        this.submissionData.contributorLastNames.splice(ind, 1);
       }
     },
     handleNumCreators: function (inc, ind) {
       this.numCreators += inc;
       // Update remaining fields accordingly
       if (inc === -1) {
-          this.submissionData.contributorFirstNames.splice(ind, 1);
-          this.submissionData.contributorLastNames.splice(ind, 1);
+        this.submissionData.contributorFirstNames.splice(ind, 1);
+        this.submissionData.contributorLastNames.splice(ind, 1);
       }
     },
   },
@@ -135,117 +139,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fa-info-circle {
-  // Clickable
-  cursor: pointer;
-  // Icon styling
-  color: $accent-teal;
-  font-size: $subheader-font-size;
-  // Spacing
-  margin-left: 0.6rem;
-}
-
-.section-header {
-  // Flexbox for layout
-  display: flex;
-  align-items: center;
-
-  p {
-    // Typography
-    font-size: $subheader-font-size;
-  }
-
-  .fa-asterisk {
-    // Icon styling
-    color: red;
-    font-size: 0.7rem;
-    // Spacing
-    margin-left: 0.3rem;
-    margin-bottom: 1rem;
-  }
-}
-
-.section-field {
-  // Flexbox for layout
-  display: flex;
-  align-items: center;
-  // Spacing
-  margin-top: 1rem;
-  margin-bottom: 3rem;
+input {
   // Sizing
-  width: 25rem;
-
-  input,
-  textarea {
-    // Typography
-    font-family: $alt-font;
-    // Inner spacing
-    padding: 0.5rem;
-  }
-
-  input {
-    // Sizing
-    width: 100%;
-  }
-
-  textarea {
-    // Sizing
-    width: 90%;
-    height: 10rem;
-  }
-
-  .input-fields {
-    // Sizing
-    width: 100%;
-    // Flexbox for layout
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    input {
-      // Sizing
-      width: 48%;
-    }
-  }
-
-  .fa-times-circle {
-    // Clickable
-    cursor: pointer;
-    // Icon styling
-    color: red;
-    font-size: $subheader-font-size;
-    // Spacing
-    margin-left: 0.6rem;
-  }
-}
-
-.container {
-  // Limit width
-  display: inline-block;
-  // Clickable
-  cursor: pointer;
-  // Spacing
-  margin-bottom: 3rem;
-
-  .add-button {
-    // Typography
-    color: $accent-teal;
-    // Flexbox for alignment
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    .fa-plus-circle {
-      // Icon sizing
-      font-size: 1.5rem;
-      // Spacing
-      margin-right: 0.7rem;
-    }
-
-    p {
-      // Typography
-      font-family: $alt-font;
-    }
-  }
+  width: 90%;
 }
 </style>

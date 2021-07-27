@@ -7,16 +7,16 @@
       :key="curPage"
     />
     <div class="page" v-if="curPage === 0 || curPage === 4">
-      <FileUpload
-        :submissionData="submissionData"
-        :onClick="handleTypeSelect"
-      />
+      <FileUpload :onClick="handleTypeSelect" />
     </div>
     <div class="page" v-if="curPage === 1 || curPage === 4">
-      <PersonalDetails :submissionData="submissionData" />
+      <PersonalDetails :submissionData="submissionData.personalData" />
     </div>
     <div class="page" v-if="curPage === 2 || curPage === 4">
-      <ContributionDetails :submissionData="submissionData.imageData" />
+      <ContributionBasics :submissionData="submissionData.imageData" />
+    </div>
+    <div class="page" v-if="curPage === 3 || curPage === 4">
+      <ContributionDetails :submissionData="submissionData.contributionData" />
     </div>
     <div class="nav-buttons">
       <button v-if="curPage > 0" @click="handleNavClick(-1)">Back</button>
@@ -32,6 +32,7 @@
 import ProgressBar from "@/components/Submission/ProgressBar";
 import FileUpload from "@/components/Submission/FileUpload";
 import PersonalDetails from "@/components/Submission/PersonalDetails";
+import ContributionBasics from "@/components/Submission/ContributionBasics";
 import ContributionDetails from "@/components/Submission/ContributionDetails";
 
 export default {
@@ -40,6 +41,7 @@ export default {
     ProgressBar,
     FileUpload,
     PersonalDetails,
+    ContributionBasics,
     ContributionDetails,
   },
   data() {
@@ -53,13 +55,17 @@ export default {
       ],
       curPage: 0,
       submissionData: {
-        submissionType: null,
-        email: null,
-        contributorFirstNames: [],
-        contributorLastNames: [],
-        creatorFirstNames: [],
-        creatorLastNames: [],
-        statements: null,
+        fileData: {
+          fileType: null,
+        },
+        personalData: {
+          email: null,
+          contributorFirstNames: [],
+          contributorLastNames: [],
+          creatorFirstNames: [],
+          creatorLastNames: [],
+          statements: null,
+        },
         imageData: {
           title: null,
           set: null,
@@ -74,6 +80,13 @@ export default {
           exhibitEndDates: [],
           location: null,
         },
+        contributionData: {
+          description: null,
+          tags: [],
+          medium: null,
+          format: "",
+          rights: null,
+        },
       },
     };
   },
@@ -82,7 +95,7 @@ export default {
       alert("This feature needs to be implemented still");
     },
     handleTypeSelect: function (type) {
-      this.submissionData.submissionType = type;
+      this.submissionData.fileData.fileType = type;
       this.handleIconStyling();
     },
     handleIconStyling: function () {
@@ -90,9 +103,10 @@ export default {
       // Set icon colors based on selection
       for (let i = 0; i < arr.length; i++)
         arr[i].style.color =
-          i === this.submissionData.submissionType ? "#298A7E" : "grey";
+          i === this.submissionData.fileData.fileType ? "#298A7E" : "grey";
     },
     handleBarClick: function (i) {
+      // Handle page scroll
       this.curPage = i;
       window.scrollTo(0, 0);
     },
@@ -108,15 +122,145 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .submission {
   width: 100%;
+
+  button {
+    // Button styling
+    background: $accent-dark-teal;
+    border-radius: 10px;
+    // Typography
+    font-family: $alt-font;
+    font-weight: $bold;
+    color: white;
+    text-align: center;
+    // Smooth hover animation
+    transition: all 0.2s ease;
+    // Remove default button styling
+    border: none;
+    // Clickable
+    cursor: pointer;
+  }
 
   .page {
     // Spacing + centering
     margin: 3rem auto 0 auto;
     // Sizing
     width: 80%;
+
+    .fa-info-circle {
+      // Clickable
+      cursor: pointer;
+      // Icon styling
+      color: $accent-teal;
+      font-size: $subheader-font-size;
+      // Spacing
+      margin-left: 0.6rem;
+    }
+
+    .section-header {
+      // Flexbox for layout
+      display: flex;
+      align-items: center;
+      // Sizing
+      max-width: 40rem;
+
+      p {
+        // Typography
+        font-size: $subheader-font-size;
+        font-weight: bold;
+      }
+
+      .fa-asterisk {
+        // Icon styling
+        color: red;
+        font-size: 0.7rem;
+        // Spacing
+        margin-left: 0.3rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .section-field {
+      // Flexbox for layout
+      display: flex;
+      align-items: center;
+      // Spacing
+      margin-top: 1rem;
+      margin-bottom: 3rem;
+      // Sizing
+      width: 25rem;
+
+      input,
+      textarea,
+      select {
+        // Typography
+        font-family: $alt-font;
+        // Inner spacing
+        padding: 0.5rem;
+      }
+
+      textarea {
+        // Sizing
+        width: 90%;
+        height: 10rem;
+      }
+
+      .input-fields {
+        // Sizing
+        width: 90%;
+        // Flexbox for layout
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        input {
+          // Sizing
+          width: 48%;
+        }
+      }
+    }
+
+    .container {
+      // Limit width
+      display: inline-block;
+      // Clickable
+      cursor: pointer;
+      // Spacing
+      margin-bottom: 3rem;
+
+      .add-button {
+        // Typography
+        color: $accent-teal;
+        // Flexbox for alignment
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .fa-plus-circle {
+          // Icon sizing
+          font-size: 1.5rem;
+          // Spacing
+          margin-right: 0.7rem;
+        }
+
+        p {
+          // Typography
+          font-family: $alt-font;
+        }
+      }
+    }
+
+    .fa-times-circle {
+      // Clickable
+      cursor: pointer;
+      // Icon styling
+      color: red;
+      font-size: $subheader-font-size;
+      // Spacing
+      margin-left: 0.6rem;
+    }
   }
 
   .nav-buttons {
@@ -128,21 +272,9 @@ export default {
       // Spacing
       margin: 3rem;
       // Button styling
-      background: $accent-dark-teal;
       padding: 0.625rem 2rem;
-      border-radius: 10px;
       // Typography
-      font-family: $alt-font;
-      font-weight: $bold;
       font-size: calc(clamp(0.8rem, 0.64rem + 0.64vw, 1.2rem));
-      color: white;
-      text-align: center;
-      // Smooth hover animation
-      transition: all 0.2s ease;
-      // Remove default button styling
-      border: none;
-      // Clickable
-      cursor: pointer;
     }
   }
 }
@@ -152,15 +284,6 @@ export default {
   button {
     &:hover {
       transform: scale(1.05);
-    }
-  }
-
-  .media-icon {
-    &:hover {
-      i,
-      p {
-        transform: scale(1.1);
-      }
     }
   }
 }

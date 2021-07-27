@@ -62,36 +62,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fa-info-circle {
-  // Clickable
-  cursor: pointer;
-  // Icon styling
-  color: $accent-teal;
-  font-size: $subheader-font-size;
-  // Spacing
-  margin-left: 0.6rem;
-}
-
-.section-header {
-  // Flexbox for layout
-  display: flex;
-  align-items: center;
-
-  p {
-    // Typography
-    font-size: $subheader-font-size;
-  }
-
-  .fa-asterisk {
-    // Icon styling
-    color: red;
-    font-size: 0.7rem;
-    // Spacing
-    margin-left: 0.3rem;
-    margin-bottom: 1rem;
-  }
-}
-
 .media-icons {
   // Flexbox for layout
   display: flex;
@@ -161,12 +131,6 @@ export default {
 
 // Sticky hover
 @media (hover: hover) {
-  button {
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
   .media-icon {
     &:hover {
       i,

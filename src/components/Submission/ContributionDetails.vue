@@ -1,141 +1,81 @@
 <template>
   <div>
     <div class="section-header">
-      <p>Image title</p>
+      <p>Image description</p>
     </div>
-    <div class="section-field">
-      <input placeholder="Image title" v-model="submissionData.title" />
+    <div class="section-field" :style="{ width: '100%' }">
+      <textarea
+        placeholder="Type here..."
+        v-model="submissionData.description"
+      />
       <i class="fas fa-info-circle" @click="handleUnfinished"></i>
     </div>
     <div class="section-header">
-      <p>
-        Title of collection, set, or series this image is part of (inside or
-        outside of The Amplification Project)
-      </p>
+      <p>Keywords/Tags that describe, identify, or interpret the image</p>
     </div>
-    <div class="section-field">
+    <div
+      class="section-field"
+      v-for="i in numTags"
+      :key="i"
+      :style="{ marginBottom: '1rem' }"
+    >
       <input
-        placeholder="Title of collection, set, or series"
-        v-model="submissionData.set"
+        placeholder="Enter descriptive term"
+        v-model="submissionData.tags[i - 1]"
       />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i
+        class="fas fa-info-circle"
+        v-if="i === 1"
+        @click="handleUnfinished"
+      ></i>
+      <i
+        class="fas fa-times-circle"
+        v-else
+        @click="handleNumTags(-1, i - 1)"
+      ></i>
     </div>
-    <div class="section-header">
-      <p>Date of creation</p>
-    </div>
-    <div class="section-field">
-      <Datepicker
-        v-model="submissionData.date"
-        inputFormat="MM/dd/yyyy"
-        :style="{
-          width: '10rem',
-          padding: '0.5rem',
-          fontFamily: 'Open Sans',
-        }"
-      />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
-    </div>
-    <div class="section-header">
-      <p>Language</p>
-    </div>
-    <div class="section-field">
-      <input placeholder="Language" v-model="submissionData.language" />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
-    </div>
-    <div class="section-header">
-      <p>City and country image was made in</p>
-    </div>
-    <div class="section-field">
-      <div class="input-fields">
-        <input placeholder="City" v-model="submissionData.city" />
-        <input placeholder="Country" v-model="submissionData.country" />
-      </div>
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
-    </div>
-    <div class="section-header">
-      <p>Exhibit information (if applicable)</p>
-    </div>
-    <div v-for="i in numExhibits" :key="i" :style="{ marginBottom: '1rem' }">
-      <div class="section-field" :style="{ marginBottom: '1rem' }">
-        <div class="input-fields">
-          <input placeholder="City" v-model="submissionData.exhibitCities[i]" />
-          <input
-            placeholder="Country"
-            v-model="submissionData.exhibitCountries[i]"
-          />
-        </div>
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1"
-          @click="handleUnfinished"
-        ></i>
-      </div>
-      <div class="section-field" :style="{ marginBottom: '1rem' }">
-        <input placeholder="Language" v-model="submissionData.language" />
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1"
-          @click="handleUnfinished"
-        ></i>
-      </div>
-      <div class="section-field" :style="{ marginBottom: '1rem' }">
-        <div class="date-inputs">
-          <Datepicker
-            v-model="submissionData.exhibitStartDates[i]"
-            inputFormat="MM/dd/yyyy"
-            :style="{
-              width: '10rem',
-              padding: '0.5rem',
-              fontFamily: 'Open Sans',
-            }"
-          />
-          <p>-</p>
-          <Datepicker
-            v-model="submissionData.exhibitEndDates[i]"
-            inputFormat="MM/dd/yyyy"
-            :style="{
-              width: '10rem',
-              padding: '0.5rem',
-              fontFamily: 'Open Sans',
-            }"
-          />
-        </div>
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1"
-          @click="handleUnfinished"
-        ></i>
-      </div>
-    </div>
-    <div class="container" @click="handleNumExhibits(1)">
-      <div class="add-button" v-if="numExhibits < 5">
+    <div class="container" v-if="numTags < 5" @click="handleNumTags(1)">
+      <div class="add-button">
         <i class="fas fa-plus-circle"></i>
-        <p>Add another exhibit</p>
+        <p>Add another tag</p>
       </div>
     </div>
     <div class="section-header">
-      <p>Find a geographic location for the image</p>
+      <p>Medium of original work</p>
     </div>
-    <div class="section-field" :style="{ width: '30rem' }">
-      <input
-        placeholder="Search by city, state, country, or continent"
-        v-model="submissionData.location"
-        :style="{ width: '70%' }"
-      />
-      <button @click="handleLocationSearch">Find</button>
+    <div class="section-field">
+      <input placeholder="Enter medium type" v-model="submissionData.medium" />
+      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+    </div>
+    <div class="section-header">
+      <p>File format</p>
+    </div>
+    <div class="section-field">
+      <select v-model="submissionData.format" @change="handleDropdownStyling">
+        <option disabled value="">Select file format</option>
+        <option>JPG</option>
+        <option>PNG</option>
+        <option>JPEG</option>
+      </select>
+      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+    </div>
+    <div class="section-header">
+      <p>Rights</p>
+    </div>
+    <div class="section-field" :style="{ width: '100%' }">
+      <textarea placeholder="Type here..." v-model="submissionData.rights" />
       <i class="fas fa-info-circle" @click="handleUnfinished"></i>
     </div>
   </div>
 </template>
 
 <script>
-// Import global components
-import Datepicker from "vue3-datepicker";
-
 export default {
   name: "ContributionDetails",
-  components: {
-    Datepicker,
+  data() {
+    return {
+      numTags: 1,
+    };
   },
   props: {
     submissionData: {
@@ -143,161 +83,36 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      numExhibits: 1,
-    };
-  },
   methods: {
-    handleNumExhibits: function (inc, ind) {
-      this.numExhibits += inc;
-      // Update remaining fields accordingly
-      if (inc === -1) {
-        this.submissionData.exhibitCities.splice(ind, 1);
-        this.submissionData.exhibitCountries.splice(ind, 1);
-        this.submissionData.exhibitVenues.splice(ind, 1);
-        this.submissionData.exhibitStartDates.splice(ind, 1);
-        this.submissionData.exhibitEndDates.splice(ind, 1);
-      }
+    handleUnfinished: function () {
+      console.log("this is a WIP");
     },
-    handleLocationSearch: function () {
-      alert("This feature has not been implemented yet");
+    handleNumTags: function (inc, ind) {
+      this.numTags += inc;
+      // Update remaining fields accordingly
+      if (inc === -1) this.submissionData.tags.splice(ind, 1);
+    },
+    handleDropdownStyling: function () {
+      document.getElementsByTagName("select")[0].style.color = "black";
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.section-header {
-  // Flexbox for layout
-  display: flex;
-  align-items: center;
+input,
+select {
   // Sizing
-  width: 40rem;
-
-  p {
-    // Typography
-    font-size: $subheader-font-size;
-  }
+  width: 50%;
 }
 
-.section-field {
-  // Variables for Datepicker
-  --vdp-hover-bg-color: #8abbac;
-  --vdp-selected-bg-color: #298a7e;
-  // Flexbox for layout
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  // Spacing
-  margin-top: 1rem;
-  margin-bottom: 3rem;
-  // Sizing
-  width: 25rem;
+select {
+  // Typography
+  color: grey;
 
-  input {
-    // Sizing
-    width: 90%;
+  option {
     // Typography
-    font-family: $alt-font;
-    // Inner spacing
-    padding: 0.5rem;
-  }
-
-  p {
-    // Spacing
-    margin: 0 0.5rem;
-  }
-
-  button {
-    // Typography
-    font-family: $alt-font;
-    font-weight: $bold;
-    font-size: 1rem;
-    color: white;
-    text-align: center;
-    // Button styling
-    background: $accent-dark-teal;
-    padding: 0.7rem 1.5rem;
-    border-radius: 10px;
-    // Smooth hover animation
-    transition: all 0.2s ease;
-    // Remove default button styling
-    border: none;
-    // Clickable
-    cursor: pointer;
-  }
-
-  .input-fields {
-    // Sizing
-    width: 90%;
-    // Flexbox for layout
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    input {
-      // Sizing
-      width: 48%;
-    }
-  }
-
-  .date-inputs {
-    // Flexbox for layout
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    // Sizing
-    width: 90%;
-  }
-}
-
-.fa-info-circle {
-  // Clickable
-  cursor: pointer;
-  // Icon styling
-  color: $accent-teal;
-  font-size: $subheader-font-size;
-  // Spacing
-  margin-left: 0.6rem;
-}
-
-.container {
-  // Limit width
-  display: inline-block;
-  // Clickable
-  cursor: pointer;
-  // Spacing
-  margin-bottom: 3rem;
-
-  .add-button {
-    // Typography
-    color: $accent-teal;
-    // Flexbox for alignment
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-
-    .fa-plus-circle {
-      // Icon sizing
-      font-size: 1.5rem;
-      // Spacing
-      margin-right: 0.7rem;
-    }
-
-    p {
-      // Typography
-      font-family: $alt-font;
-    }
-  }
-}
-
-// Sticky hover
-@media (hover: hover) {
-  button {
-    &:hover {
-      transform: scale(1.05);
-    }
+    color: black;
   }
 }
 </style>
