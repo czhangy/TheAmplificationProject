@@ -5,7 +5,9 @@
     </div>
     <div class="section-field">
       <input placeholder="Image title" v-model="submissionData.title" />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(0)"
+        ><Tooltip :open="tooltipState[0]"
+      /></i>
     </div>
     <div class="section-header">
       <p>
@@ -18,7 +20,9 @@
         placeholder="Title of collection, set, or series"
         v-model="submissionData.set"
       />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(1)"
+        ><Tooltip :open="tooltipState[1]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Date of creation</p>
@@ -33,14 +37,18 @@
           fontFamily: 'Open Sans',
         }"
       />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(2)"
+        ><Tooltip :message="tooltipMessage[2]" :open="tooltipState[2]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Language</p>
     </div>
     <div class="section-field">
       <input placeholder="Language" v-model="submissionData.language" />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(3)"
+        ><Tooltip :open="tooltipState[3]"
+      /></i>
     </div>
     <div class="section-header">
       <p>City and country image was made in</p>
@@ -50,7 +58,9 @@
         <input placeholder="City" v-model="submissionData.city" />
         <input placeholder="Country" v-model="submissionData.country" />
       </div>
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(4)"
+        ><Tooltip :open="tooltipState[4]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Exhibit information (if applicable)</p>
@@ -64,19 +74,15 @@
             v-model="submissionData.exhibitCountries[i]"
           />
         </div>
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1"
-          @click="handleUnfinished"
-        ></i>
+        <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(5)"
+          ><Tooltip :open="tooltipState[5]"
+        /></i>
       </div>
       <div class="section-field" :style="{ marginBottom: '1rem' }">
         <input placeholder="Language" v-model="submissionData.language" />
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1"
-          @click="handleUnfinished"
-        ></i>
+        <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(6)"
+          ><Tooltip :open="tooltipState[6]"
+        /></i>
       </div>
       <div class="section-field" :style="{ marginBottom: '1rem' }">
         <div class="date-inputs">
@@ -100,11 +106,9 @@
             }"
           />
         </div>
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1"
-          @click="handleUnfinished"
-        ></i>
+        <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(7)"
+          ><Tooltip :open="tooltipState[7]"
+        /></i>
       </div>
     </div>
     <div class="container" @click="handleNumExhibits(1)">
@@ -126,7 +130,9 @@
         :style="{ width: '70%' }"
       />
       <button @click="handleLocationSearch">Find</button>
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(8)"
+        ><Tooltip :message="tooltipMessage[8]" :open="tooltipState[8]"
+      /></i>
     </div>
   </div>
 </template>
@@ -135,10 +141,14 @@
 // Import global components
 import Datepicker from "vue3-datepicker";
 
+// Import local components
+import Tooltip from "@/components/Submission/Tooltip";
+
 export default {
   name: "ContributionBasics",
   components: {
     Datepicker,
+    Tooltip,
   },
   props: {
     submissionData: {
@@ -149,9 +159,34 @@ export default {
   data() {
     return {
       numExhibits: 1,
+      tooltipMessage: [
+        null,
+        null,
+        "Give the date that the original work was created. For multi-day projects, give whatever date you feel is best.",
+        null,
+        null,
+        null,
+        null,
+        null,
+        "Give the location where the work was originally created.",
+      ],
+      tooltipState: [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ],
     };
   },
   methods: {
+    handleTooltip: function (ind) {
+      this.tooltipState[ind] = !this.tooltipState[ind];
+    },
     handleNumExhibits: function (inc, ind) {
       this.numExhibits += inc;
       // Update remaining fields accordingly

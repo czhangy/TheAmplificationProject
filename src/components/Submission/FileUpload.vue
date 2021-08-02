@@ -3,7 +3,7 @@
     <div class="section-header">
       <p>Select item contribution type</p>
       <i class="fas fa-asterisk"></i>
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(0)"><Tooltip :open="tooltipState[0]" /></i>
     </div>
     <div class="media-icons">
       <div class="media-icon" @click="onClick(0)">
@@ -30,7 +30,7 @@
     <div class="section-header">
       <p>File Upload</p>
       <i class="fas fa-asterisk"></i>
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(1)"><Tooltip :open="tooltipState[1]" /></i>
     </div>
     <div class="file-upload">
       <p>Drag & drop your files here</p>
@@ -41,8 +41,19 @@
 </template>
 
 <script>
+// Import local components
+import Tooltip from "@/components/Submission/Tooltip";
+
 export default {
   name: "FileUpload",
+  components: {
+    Tooltip,
+  },
+  data() {
+    return {
+      tooltipState: [false, false],
+    };
+  },
   props: {
     submissionData: {
       type: Object,
@@ -54,8 +65,8 @@ export default {
     },
   },
   methods: {
-    handleUnfinished: function () {
-      alert("This feature needs to be implemented still");
+    handleTooltip: function (ind) {
+      this.tooltipState[ind] = !this.tooltipState[ind];
     },
   },
 };
@@ -91,6 +102,7 @@ export default {
     p {
       // Typography
       font-size: $body-font-size;
+      font-weight: bold;
     }
   }
 }

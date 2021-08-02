@@ -3,12 +3,14 @@
     <div class="section-header">
       <p>Image description</p>
     </div>
-    <div class="section-field" :style="{ width: '100%' }">
+    <div class="section-field" :style="{ width: '80%' }">
       <textarea
         placeholder="Type here..."
         v-model="submissionData.description"
       />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(0)"
+        ><Tooltip :open="tooltipState[0]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Keywords/Tags that describe, identify, or interpret the image</p>
@@ -26,8 +28,9 @@
       <i
         class="fas fa-info-circle"
         v-if="i === 1"
-        @click="handleUnfinished"
-      ></i>
+        @click="handleTooltip(1)"
+      ><Tooltip :open="tooltipState[1]"
+      /></i>
       <i
         class="fas fa-times-circle"
         v-else
@@ -45,7 +48,8 @@
     </div>
     <div class="section-field">
       <input placeholder="Enter medium type" v-model="submissionData.medium" />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(2)"><Tooltip :open="tooltipState[2]"
+      /></i>
     </div>
     <div class="section-header">
       <p>File format</p>
@@ -57,24 +61,32 @@
         <option>PNG</option>
         <option>JPEG</option>
       </select>
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(3)"><Tooltip :open="tooltipState[3]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Rights</p>
     </div>
-    <div class="section-field" :style="{ width: '100%' }">
+    <div class="section-field" :style="{ width: '80%' }">
       <textarea placeholder="Type here..." v-model="submissionData.rights" />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(4)"><Tooltip :open="tooltipState[4]"
+      /></i>
     </div>
   </div>
 </template>
 
 <script>
+import Tooltip from "@/components/Submission/Tooltip";
+
 export default {
   name: "ContributionDetails",
+  components: {
+    Tooltip,
+  },
   data() {
     return {
       numTags: 1,
+      tooltipState: [false, false, false, false, false],
     };
   },
   props: {
@@ -84,8 +96,8 @@ export default {
     },
   },
   methods: {
-    handleUnfinished: function () {
-      console.log("this is a WIP");
+    handleTooltip: function (ind) {
+      this.tooltipState[ind] = !this.tooltipState[ind];
     },
     handleNumTags: function (inc, ind) {
       this.numTags += inc;

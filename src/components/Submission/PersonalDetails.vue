@@ -6,7 +6,9 @@
     </div>
     <div class="section-field">
       <input placeholder="Your email" v-model="submissionData.email" />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(0)"
+        ><Tooltip :open="tooltipState[0]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Name(s) of contributor(s)</p>
@@ -27,11 +29,9 @@
           v-model="submissionData.contributorLastNames[i - 1]"
         />
       </div>
-      <i
-        class="fas fa-info-circle"
-        v-if="i === 1"
-        @click="handleUnfinished"
-      ></i>
+      <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(1)"
+        ><Tooltip :open="tooltipState[1]"
+      /></i>
       <i
         class="fas fa-times-circle"
         v-else
@@ -67,11 +67,9 @@
           v-model="submissionData.creatorLastNames[i - 1]"
         />
       </div>
-      <i
-        class="fas fa-info-circle"
-        v-if="i === 1"
-        @click="handleUnfinished"
-      ></i>
+      <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(2)"
+        ><Tooltip :open="tooltipState[2]"
+      /></i>
       <i
         class="fas fa-times-circle"
         v-else
@@ -89,19 +87,34 @@
         Artist statements and/or biographies of creator(s) and contributor(s)
       </p>
     </div>
-    <div class="section-field" :style="{ width: '100%' }">
+    <div class="section-field" :style="{ width: '80%' }">
       <textarea
         placeholder="Type here..."
         v-model="submissionData.statements"
       />
-      <i class="fas fa-info-circle" @click="handleUnfinished"></i>
+      <i class="fas fa-info-circle" @click="handleTooltip(3)"
+        ><Tooltip :open="tooltipState[3]"
+      /></i>
     </div>
   </div>
 </template>
 
 <script>
+// Import local components
+import Tooltip from "@/components/Submission/Tooltip";
+
 export default {
   name: "PersonalDetails",
+  components: {
+    Tooltip,
+  },
+  data() {
+    return {
+      tooltipState: [false, false, false, false],
+      numContributors: 1,
+      numCreators: 1,
+    };
+  },
   props: {
     submissionData: {
       type: Object,
@@ -109,8 +122,8 @@ export default {
     },
   },
   methods: {
-    handleUnfinished: function () {
-      alert("This feature needs to be implemented still");
+    handleTooltip: function (ind) {
+      this.tooltipState[ind] = !this.tooltipState[ind];
     },
     handleNumContributors: function (inc, ind) {
       this.numContributors += inc;
@@ -128,12 +141,6 @@ export default {
         this.submissionData.contributorLastNames.splice(ind, 1);
       }
     },
-  },
-  data() {
-    return {
-      numContributors: 1,
-      numCreators: 1,
-    };
   },
 };
 </script>

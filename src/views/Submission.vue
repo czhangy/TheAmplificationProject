@@ -7,7 +7,7 @@
       :key="curPage"
     />
     <div class="page" v-if="curPage === 0 || curPage === 4">
-      <FileUpload :onClick="handleTypeSelect" />
+      <FileUpload :submissionData="submissionData" :onClick="handleTypeSelect" />
     </div>
     <div class="page" v-if="curPage === 1 || curPage === 4">
       <PersonalDetails :submissionData="submissionData.personalData" />
@@ -157,6 +157,8 @@ export default {
       font-size: $subheader-font-size;
       // Spacing
       margin-left: 0.6rem;
+      // Positioning for tooltips
+      position: relative;
     }
 
     .section-header {
