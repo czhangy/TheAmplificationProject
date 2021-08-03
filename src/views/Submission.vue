@@ -7,16 +7,29 @@
       :key="curPage"
     />
     <div class="page" v-if="curPage === 0 || curPage === 4">
-      <FileUpload :submissionData="submissionData" :onClick="handleTypeSelect" />
+      <FileUpload
+        :submissionData="submissionData"
+        :onClick="handleTypeSelect"
+        :disabled="curPage === 4"
+      />
     </div>
     <div class="page" v-if="curPage === 1 || curPage === 4">
-      <PersonalDetails :submissionData="submissionData.personalData" />
+      <PersonalDetails
+        :submissionData="submissionData.personalData"
+        :disabled="curPage === 4"
+      />
     </div>
     <div class="page" v-if="curPage === 2 || curPage === 4">
-      <ContributionBasics :submissionData="submissionData.imageData" />
+      <ContributionBasics
+        :submissionData="submissionData.imageData"
+        :disabled="curPage === 4"
+      />
     </div>
     <div class="page" v-if="curPage === 3 || curPage === 4">
-      <ContributionDetails :submissionData="submissionData.contributionData" />
+      <ContributionDetails
+        :submissionData="submissionData.contributionData"
+        :disabled="curPage === 4"
+      />
     </div>
     <div class="nav-buttons">
       <button v-if="curPage > 0" @click="handleNavClick(-1)">Back</button>
@@ -95,8 +108,11 @@ export default {
       alert("This feature needs to be implemented still");
     },
     handleTypeSelect: function (type) {
-      this.submissionData.fileData.fileType = type;
-      this.handleIconStyling();
+      // Disable select on summary page
+      if (this.curPage !== 4) {
+        this.submissionData.fileData.fileType = type;
+        this.handleIconStyling();
+      }
     },
     handleIconStyling: function () {
       let arr = document.getElementsByClassName("icon");
@@ -224,13 +240,21 @@ export default {
       }
     }
 
-    .container {
+    .textarea-field {
+      // Overwrite sizing
+      width: 80%;
+    }
+
+    .grouped-field {
+      // Spacing
+      margin-bottom: 1rem;
+    }
+
+    .add-container {
       // Limit width
       display: inline-block;
       // Clickable
       cursor: pointer;
-      // Spacing
-      margin-bottom: 3rem;
 
       .add-button {
         // Typography

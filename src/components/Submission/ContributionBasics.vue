@@ -4,8 +4,12 @@
       <p>Image title</p>
     </div>
     <div class="section-field">
-      <input placeholder="Image title" v-model="submissionData.title" />
-      <i class="fas fa-info-circle" @click="handleTooltip(0)"
+      <input
+        placeholder="Image title"
+        v-model="submissionData.title"
+        :disabled="disabled"
+      />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
         ><Tooltip :open="tooltipState[0]"
       /></i>
     </div>
@@ -19,8 +23,9 @@
       <input
         placeholder="Title of collection, set, or series"
         v-model="submissionData.set"
+        :disabled="disabled"
       />
-      <i class="fas fa-info-circle" @click="handleTooltip(1)"
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(1)"
         ><Tooltip :open="tooltipState[1]"
       /></i>
     </div>
@@ -36,8 +41,9 @@
           padding: '0.5rem',
           fontFamily: 'Open Sans',
         }"
+        :disabled="disabled"
       />
-      <i class="fas fa-info-circle" @click="handleTooltip(2)"
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(2)"
         ><Tooltip :message="tooltipMessage[2]" :open="tooltipState[2]"
       /></i>
     </div>
@@ -45,8 +51,12 @@
       <p>Language</p>
     </div>
     <div class="section-field">
-      <input placeholder="Language" v-model="submissionData.language" />
-      <i class="fas fa-info-circle" @click="handleTooltip(3)"
+      <input
+        placeholder="Language"
+        v-model="submissionData.language"
+        :disabled="disabled"
+      />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(3)"
         ><Tooltip :open="tooltipState[3]"
       /></i>
     </div>
@@ -55,36 +65,59 @@
     </div>
     <div class="section-field">
       <div class="input-fields">
-        <input placeholder="City" v-model="submissionData.city" />
-        <input placeholder="Country" v-model="submissionData.country" />
+        <input
+          placeholder="City"
+          v-model="submissionData.city"
+          :disabled="disabled"
+        />
+        <input
+          placeholder="Country"
+          v-model="submissionData.country"
+          :disabled="disabled"
+        />
       </div>
-      <i class="fas fa-info-circle" @click="handleTooltip(4)"
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(4)"
         ><Tooltip :open="tooltipState[4]"
       /></i>
     </div>
     <div class="section-header">
       <p>Exhibit information (if applicable)</p>
     </div>
-    <div v-for="i in numExhibits" :key="i" :style="{ marginBottom: '1rem' }">
-      <div class="section-field" :style="{ marginBottom: '1rem' }">
+    <div class="grouped-field" v-for="i in numExhibits" :key="i">
+      <div class="section-field grouped-field">
         <div class="input-fields">
-          <input placeholder="City" v-model="submissionData.exhibitCities[i]" />
+          <input
+            placeholder="City"
+            v-model="submissionData.exhibitCities[i]"
+            :disabled="disabled"
+          />
           <input
             placeholder="Country"
             v-model="submissionData.exhibitCountries[i]"
+            :disabled="disabled"
           />
         </div>
-        <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(5)"
+        <i
+          class="fas fa-info-circle"
+          v-if="i === 1 && !disabled"
+          @click="handleTooltip(5)"
           ><Tooltip :open="tooltipState[5]"
         /></i>
       </div>
-      <div class="section-field" :style="{ marginBottom: '1rem' }">
-        <input placeholder="Language" v-model="submissionData.language" />
-        <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(6)"
+      <div class="section-field grouped-field">
+        <input
+          placeholder="Language"
+          v-model="submissionData.language"
+          :disabled="disabled"
+        />
+        <i
+          class="fas fa-info-circle"
+          v-if="i === 1 && !disabled"
+          @click="handleTooltip(6)"
           ><Tooltip :open="tooltipState[6]"
         /></i>
       </div>
-      <div class="section-field" :style="{ marginBottom: '1rem' }">
+      <div class="section-field grouped-field">
         <div class="date-inputs">
           <Datepicker
             v-model="submissionData.exhibitStartDates[i - 1]"
@@ -94,6 +127,7 @@
               padding: '0.5rem',
               fontFamily: 'Open Sans',
             }"
+            :disabled="disabled"
           />
           <p>-</p>
           <Datepicker
@@ -104,33 +138,35 @@
               padding: '0.5rem',
               fontFamily: 'Open Sans',
             }"
+            :disabled="disabled"
           />
         </div>
-        <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(7)"
+        <i
+          class="fas fa-info-circle"
+          v-if="i === 1 && !disabled"
+          @click="handleTooltip(7)"
           ><Tooltip :open="tooltipState[7]"
         /></i>
       </div>
     </div>
-    <div class="container" @click="handleNumExhibits(1)">
+    <div class="add-container" v-if="!disabled" @click="handleNumExhibits(1)">
       <div class="add-button" v-if="numExhibits < 5">
         <i class="fas fa-plus-circle"></i>
         <p>Add another exhibit</p>
       </div>
     </div>
-    <div class="section-header">
+    <div class="section-header" id="location-header">
       <p>Find a geographic location for the image</p>
     </div>
-    <div
-      class="section-field"
-      :style="{ width: '30rem', justifyContent: 'space-between' }"
-    >
+    <div class="section-field" id="date-interval-field">
       <input
+        id="location-field"
         placeholder="Search by city, state, country, or continent"
         v-model="submissionData.location"
-        :style="{ width: '70%' }"
+        :disabled="disabled"
       />
-      <button @click="handleLocationSearch">Find</button>
-      <i class="fas fa-info-circle" @click="handleTooltip(8)"
+      <button v-if="!disabled" @click="handleLocationSearch">Find</button>
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(8)"
         ><Tooltip :message="tooltipMessage[8]" :open="tooltipState[8]"
       /></i>
     </div>
@@ -154,6 +190,10 @@ export default {
     submissionData: {
       type: Object,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -236,5 +276,22 @@ export default {
     // Sizing
     width: 90%;
   }
+}
+
+#date-interval-field {
+  // Sizing
+  width: 30rem;
+  // Spacing
+  justify-content: space-between;
+}
+
+#location-header {
+  // Spacing
+  margin-top: 3rem;
+}
+
+#location-field {
+  // Overwrite sizing
+  width: 70%;
 }
 </style>

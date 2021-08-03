@@ -3,7 +3,9 @@
     <div class="section-header">
       <p>Select item contribution type</p>
       <i class="fas fa-asterisk"></i>
-      <i class="fas fa-info-circle" @click="handleTooltip(0)"><Tooltip :open="tooltipState[0]" /></i>
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
+        ><Tooltip :open="tooltipState[0]"
+      /></i>
     </div>
     <div class="media-icons">
       <div class="media-icon" @click="onClick(0)">
@@ -30,7 +32,9 @@
     <div class="section-header">
       <p>File Upload</p>
       <i class="fas fa-asterisk"></i>
-      <i class="fas fa-info-circle" @click="handleTooltip(1)"><Tooltip :open="tooltipState[1]" /></i>
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(1)"
+        ><Tooltip :open="tooltipState[1]"
+      /></i>
     </div>
     <div class="file-upload">
       <p>Drag & drop your files here</p>
@@ -63,6 +67,10 @@ export default {
       type: Function,
       required: true,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleTooltip: function (ind) {
@@ -88,8 +96,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    // Clickable
-    cursor: pointer;
 
     i {
       // Spacing
@@ -138,18 +144,6 @@ export default {
     font-family: $alt-font;
     // Clickable
     cursor: pointer;
-  }
-}
-
-// Sticky hover
-@media (hover: hover) {
-  .media-icon {
-    &:hover {
-      i,
-      p {
-        transform: scale(1.1);
-      }
-    }
   }
 }
 </style>

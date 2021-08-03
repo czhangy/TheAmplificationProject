@@ -5,8 +5,12 @@
       <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field">
-      <input placeholder="Your email" v-model="submissionData.email" />
-      <i class="fas fa-info-circle" @click="handleTooltip(0)"
+      <input
+        placeholder="Your email"
+        v-model="submissionData.email"
+        :disabled="disabled"
+      />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
         ><Tooltip :open="tooltipState[0]"
       /></i>
     </div>
@@ -14,33 +18,37 @@
       <p>Name(s) of contributor(s)</p>
     </div>
     <div
-      class="section-field"
+      class="section-field grouped-field"
       v-for="i in numContributors"
       :key="i"
-      :style="{ marginBottom: '1rem' }"
     >
       <div class="input-fields">
         <input
           placeholder="First name"
           v-model="submissionData.contributorFirstNames[i - 1]"
+          :disabled="disabled"
         />
         <input
           placeholder="Last name"
           v-model="submissionData.contributorLastNames[i - 1]"
+          :disabled="disabled"
         />
       </div>
-      <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(1)"
+      <i
+        class="fas fa-info-circle"
+        v-if="i === 1 && !disabled"
+        @click="handleTooltip(1)"
         ><Tooltip :open="tooltipState[1]"
       /></i>
       <i
         class="fas fa-times-circle"
-        v-else
+        v-else-if="!disabled"
         @click="handleNumContributors(-1, i - 1)"
       ></i>
     </div>
     <div
-      class="container"
-      v-if="numContributors < 5"
+      class="add-container"
+      v-if="numContributors < 5 && !disabled"
       @click="handleNumContributors(1)"
     >
       <div class="add-button">
@@ -48,51 +56,60 @@
         <p>Add another contributor</p>
       </div>
     </div>
-    <div class="section-header">
+    <div class="section-header" id="creator-header">
       <p>Name(s) of creator(s)</p>
     </div>
     <div
-      class="section-field"
+      class="section-field grouped-field"
       v-for="i in numCreators"
       :key="i"
-      :style="{ marginBottom: '1rem' }"
     >
       <div class="input-fields">
         <input
           placeholder="First name"
           v-model="submissionData.creatorFirstNames[i - 1]"
+          :disabled="disabled"
         />
         <input
           placeholder="Last name"
           v-model="submissionData.creatorLastNames[i - 1]"
+          :disabled="disabled"
         />
       </div>
-      <i class="fas fa-info-circle" v-if="i === 1" @click="handleTooltip(2)"
+      <i
+        class="fas fa-info-circle"
+        v-if="i === 1 && !disabled"
+        @click="handleTooltip(2)"
         ><Tooltip :open="tooltipState[2]"
       /></i>
       <i
         class="fas fa-times-circle"
-        v-else
+        v-else-if="!disabled"
         @click="handleNumCreators(-1, i - 1)"
       ></i>
     </div>
-    <div class="container" @click="handleNumCreators(1)">
-      <div class="add-button" v-if="numCreators < 5">
+    <div
+      class="add-container"
+      v-if="numCreators < 5 && !disabled"
+      @click="handleNumCreators(1)"
+    >
+      <div class="add-button">
         <i class="fas fa-plus-circle"></i>
         <p>Add another creator</p>
       </div>
     </div>
-    <div class="section-header">
+    <div class="section-header" id="statement-header">
       <p>
         Artist statements and/or biographies of creator(s) and contributor(s)
       </p>
     </div>
-    <div class="section-field" :style="{ width: '80%' }">
+    <div class="section-field textarea-field">
       <textarea
         placeholder="Type here..."
         v-model="submissionData.statements"
+        :disabled="disabled"
       />
-      <i class="fas fa-info-circle" @click="handleTooltip(3)"
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(3)"
         ><Tooltip :open="tooltipState[3]"
       /></i>
     </div>
@@ -119,6 +136,10 @@ export default {
     submissionData: {
       type: Object,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -149,5 +170,15 @@ export default {
 input {
   // Sizing
   width: 90%;
+}
+
+#creator-header {
+  // Spacing
+  margin-top: 3rem;
+}
+
+#statement-header {
+  // Spacing
+  margin-top: 3rem;
 }
 </style>
