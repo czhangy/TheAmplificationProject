@@ -69,6 +69,7 @@ export default {
       curPage: 0,
       submissionData: {
         fileData: {
+          file: null,
           fileType: null,
         },
         personalData: {

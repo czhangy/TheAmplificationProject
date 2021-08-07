@@ -39,7 +39,10 @@
     <div class="file-upload">
       <p>Drag & drop your files here</p>
       <span>OR</span>
-      <button @click="handleUnfinished">Choose File</button>
+      <label class="custom-file-upload">
+        <input type="file" />
+        Choose File
+      </label>
     </div>
   </div>
 </template>
@@ -135,15 +138,21 @@ export default {
     margin: 3rem 0;
   }
 
-  button {
-    // Border styling
-    border: 1px solid lightgrey;
+  .custom-file-upload {
     // Container spacing
     padding: 0.5rem 1rem;
     // Typography
     font-family: $alt-font;
     // Clickable
     cursor: pointer;
+    // Button styling
+    background: $accent-teal;
+    color: white;
+    border-radius: 5px;
+
+    input[type="file"] {
+      display: none;
+    }
   }
 }
 </style>
