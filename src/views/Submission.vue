@@ -8,7 +8,7 @@
     />
     <div class="page" v-if="curPage === 0 || curPage === 4">
       <FileUpload
-        :submissionData="submissionData"
+        :submissionData="submissionData.fileData"
         :onClick="handleTypeSelect"
         :disabled="curPage === 4"
       />
@@ -69,7 +69,7 @@ export default {
       curPage: 0,
       submissionData: {
         fileData: {
-          file: null,
+          files: [],
           fileType: null,
         },
         personalData: {
@@ -145,15 +145,13 @@ export default {
 
   button {
     // Button styling
-    background: $accent-dark-teal;
+    background: $accent-teal;
     border-radius: 10px;
     // Typography
     font-family: $alt-font;
     font-weight: $bold;
     color: white;
     text-align: center;
-    // Smooth hover animation
-    transition: all 0.2s ease;
     // Remove default button styling
     border: none;
     // Clickable
@@ -306,11 +304,17 @@ export default {
   }
 }
 
+.pointer {
+  // Clickable
+  cursor: pointer;
+}
+
 // Sticky hover
 @media (hover: hover) {
   button {
     &:hover {
-      transform: scale(1.05);
+      // Animate
+      background: $accent-dark-teal;
     }
   }
 }

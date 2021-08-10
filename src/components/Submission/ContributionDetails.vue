@@ -92,6 +92,7 @@
 </template>
 
 <script>
+// Import local components
 import Tooltip from "@/components/Submission/Tooltip";
 
 export default {

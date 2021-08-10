@@ -7,7 +7,7 @@
         ><Tooltip :open="tooltipState[0]"
       /></i>
     </div>
-    <div class="media-icons">
+    <div id="media-icons">
       <div class="media-icon" @click="onClick(0)">
         <i class="fas icon fa-file-alt"></i>
         <p>Text</p>
@@ -36,14 +36,25 @@
         ><Tooltip :open="tooltipState[1]"
       /></i>
     </div>
-    <div class="file-upload">
+    <div id="file-upload" v-if="!disabled">
       <p>Drag & drop your files here</p>
       <span>OR</span>
-      <label class="custom-file-upload">
-        <input type="file" />
+      <label>
+        <input type="file" @change="handleFileSelect" />
         Choose File
       </label>
     </div>
+    <ul>
+      <li v-for="(file, i) in submissionData.files" :key="i">
+        <p>{{ file.name }}</p>
+        <i
+          class="fa fa-times"
+          v-if="!disabled"
+          aria-hidden="true"
+          @click="handleFileRemove(i)"
+        ></i>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -59,6 +70,7 @@ export default {
   data() {
     return {
       tooltipState: [false, false],
+      files: [],
     };
   },
   props: {
@@ -75,16 +87,92 @@ export default {
       default: false,
     },
   },
+  mounted() {
+    // Handle icon cursor
+    if (this.disabled)
+      document.getElementsByClassName("media-icon").forEach((icon) => {
+        icon.classList.remove("pointer");
+      });
+    else
+      document.getElementsByClassName("media-icon").forEach((icon) => {
+        icon.classList.add("pointer");
+      });
+    // Set up drag and drop
+    if (!this.disabled) {
+      // Select area for drag and drop
+      let dropArea = document.getElementById("file-upload");
+      // Prevent defaults on target events
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, this.preventDefaults, false);
+      });
+      // Highlight during drag and drop process
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.addEventListener(
+          eventName,
+          () => dropArea.classList.add("highlighted"),
+          false
+        );
+      });
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(
+          eventName,
+          () => dropArea.classList.remove("highlighted"),
+          false
+        );
+      });
+      // Handle the drop action
+      dropArea.addEventListener("drop", this.handleFileSelect, false);
+    }
+  },
+  beforeUnmount() {
+    // Clean up drag and drop
+    if (!this.disabled) {
+      let dropArea = document.getElementById('file-upload');
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropArea.removeEventListener(eventName, this.preventDefaults, false);
+      });
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.removeEventListener(
+          eventName,
+          () => dropArea.classList.add("highlighted"),
+          false
+        );
+      });
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.removeEventListener(
+          eventName,
+          () => dropArea.classList.remove("highlighted"),
+          false
+        );
+      });
+      dropArea.removeEventListener("drop", this.handleFileSelect, false);
+    }
+  },
   methods: {
     handleTooltip: function (ind) {
       this.tooltipState[ind] = !this.tooltipState[ind];
+    },
+    // File select methods
+    handleFileSelect: function (e) {
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.submissionData.files.push(files[0]);
+    },
+    preventDefaults: function (e) {
+      // Prevent event's default behaviors
+      e.preventDefault();
+      // Stop events from bubbling higher than necessary
+      e.stopPropagation();
+    },
+    handleFileRemove: function (ind) {
+      this.submissionData.files.splice(ind, 1);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.media-icons {
+#media-icons {
   // Flexbox for layout
   display: flex;
   justify-content: space-between;
@@ -116,7 +204,7 @@ export default {
   }
 }
 
-.file-upload {
+#file-upload {
   // Sizing
   width: 90%;
   // Box styling
@@ -138,11 +226,12 @@ export default {
     margin: 3rem 0;
   }
 
-  .custom-file-upload {
+  label {
     // Container spacing
     padding: 0.5rem 1rem;
     // Typography
     font-family: $alt-font;
+    font-weight: bold;
     // Clickable
     cursor: pointer;
     // Button styling
@@ -151,7 +240,60 @@ export default {
     border-radius: 5px;
 
     input[type="file"] {
+      // Hide default button
       display: none;
+    }
+  }
+}
+
+.highlighted {
+  // Color background fror drag hover
+  background: lighten(lightgrey, 10);
+}
+
+ul {
+  // Sizing
+  width: 90%;
+  // Centering + spacing
+  margin: 0 auto;
+  // Remove bullet points
+  list-style: none;
+
+  li {
+    // Container spacing
+    padding: 2rem;
+    // Style container
+    background: lighten(lightgrey, 10);
+    border: 2px solid lightgrey;
+    // Flexbox for layout
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // Spacing
+    margin-top: 2rem;
+
+    p {
+      // Typography
+      font-size: $subheader-font-size;
+      font-family: $alt-font;
+      font-weight: normal;
+    }
+
+    .fa-times {
+      // Icon sizing
+      font-size: 2rem;
+      // Clickable
+      cursor: pointer;
+    }
+  }
+}
+
+// Handle sticky hover
+@media (hover: hover) {
+  #file-upload > label {
+    &:hover {
+      // Animate
+      background: $accent-dark-teal;
     }
   }
 }

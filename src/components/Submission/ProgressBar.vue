@@ -1,12 +1,12 @@
 <template>
-  <div class="bar">
+  <div id="bar">
     <div class="page" v-for="(page, i) in pages" :key="i">
       <div class="page-circle" @click="handleCircleClick(i)">
         {{ i + 1 }}
       </div>
-      <div class="page-label">
+      <p>
         {{ page }}
-      </div>
+      </p>
     </div>
   </div>
 </template>
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bar {
+#bar {
   // Flexbox for layout
   display: flex;
   justify-content: space-between;
@@ -91,7 +91,7 @@ export default {
       margin-bottom: 1rem;
     }
 
-    .page-label {
+    p {
       // Typography
       font-family: $alt-font;
     }
