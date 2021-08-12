@@ -31,11 +31,31 @@
         :disabled="curPage === 4"
       />
     </div>
-    <div class="nav-buttons">
+    <div id="checkboxes" v-if="curPage === 4">
+      <div class="field">
+        <input type="checkbox" id="publish" v-model="checkboxes.publish" />
+        <label for="publish">Publish my contribution on the web.</label>
+      </div>
+      <div class="field">
+        <input type="checkbox" id="private" v-model="checkboxes.private" />
+        <label for="private">Keep identity private.</label>
+      </div>
+      <div class="field">
+        <input type="checkbox" id="agreement" v-model="checkboxes.agreement" />
+        <label for="agreement"
+          >I agree to the
+          <router-link to="/termsandconditions"
+            >Terms and Conditions.</router-link
+          ></label
+        >
+      </div>
+    </div>
+    <div id="nav-buttons">
       <button v-if="curPage > 0" @click="handleNavClick(-1)">Back</button>
       <button v-if="curPage < pages.length - 1" @click="handleNavClick(1)">
         Next
       </button>
+      <button v-else @click="handleUnfinished">Submit</button>
     </div>
   </div>
 </template>
@@ -67,6 +87,11 @@ export default {
         "Review & Submit",
       ],
       curPage: 0,
+      checkboxes: {
+        publish: false,
+        private: false,
+        agreement: false,
+      },
       submissionData: {
         fileData: {
           files: [],
@@ -141,6 +166,7 @@ export default {
 
 <style lang="scss">
 .submission {
+  // Sizing
   width: 100%;
 
   button {
@@ -288,7 +314,48 @@ export default {
     }
   }
 
-  .nav-buttons {
+  #checkboxes {
+    width: 500px;
+    // Sizing
+    margin: 0 auto;
+    // Spacing
+    margin-top: 32px;
+
+    .field {
+      // Flexbox for alignment
+      display: flex;
+      align-items: center;
+      // Spacing
+      margin-bottom: 16px;
+
+      input[type="checkbox"] {
+        // Spacing
+        margin-right: 30px;
+        // Sizing
+        height: 24px;
+        width: 24px;
+      }
+
+      label {
+        // Typography
+        font-size: $subheader-font-size;
+        font-family: $alt-font;
+
+        a {
+          // Typography
+          color: $accent-teal;
+          text-decoration: none;
+        }
+      }
+
+      &:last-child {
+        // Remove spacing on bottom
+        margin: 0;
+      }
+    }
+  }
+
+  #nav-buttons {
     // Flexbox for centering
     display: flex;
     justify-content: center;

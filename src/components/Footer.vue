@@ -1,13 +1,6 @@
 <template>
-  <div class="footer">
+  <div id="footer">
     <div class="footer-text">
-      <div>
-        <router-link to="/about" class="footer-link"> About </router-link>
-        |
-        <router-link to="/termsandconditions" class="footer-link">
-          Terms and Conditions
-        </router-link>
-      </div>
       Powered by <a href="https://omeka.org/" target="_blank">Omeka</a> | Site
       Hosted by
       <a href="https://reclaimhosting.com/" target="_blank">Reclaim Hosting</a>
@@ -68,7 +61,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.footer {
+#footer {
   // Sizing
   width: 100%;
   // Bar styling
@@ -153,7 +146,6 @@ export default {
     text-align: center;
     // Icon sizing
     font-size: 1.25rem;
-    
 
     .fa {
       // Icon centering
@@ -179,7 +171,7 @@ export default {
 // Media queries
 // Sticky hover
 @media (hover: hover) {
-  .footer {
+  #footer {
     .footer-mailing-list {
       button {
         transition: transform 0.2s ease;
@@ -203,28 +195,27 @@ export default {
 
 // Mobile layout
 @media screen and (max-width: 1300px) {
-  .footer {
-    .footer-mailing-list {
-      margin: 0 2rem;
-      .mailing-list-fields {
-        flex-direction: column;
-        align-items: flex-start;
-        label {
-          margin: 0;
-        }
+  #footer > footer-mailing-list {
+    margin: 0 2rem;
+    .mailing-list-fields {
+      flex-direction: column;
+      align-items: flex-start;
+      label {
+        margin: 0;
       }
-      button {
-        margin-top: 1rem;
-      }
+    }
+    button {
+      margin-top: 1rem;
     }
   }
 }
 
 @media screen and (max-width: 900px) {
-  .footer {
+  #footer {
     flex-direction: column;
     height: auto;
     padding: 3rem 1rem;
+
     .footer-text {
       text-align: center;
       margin-bottom: 1rem;
