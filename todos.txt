@@ -1,9 +1,0 @@
-***Make responsive***
-
-Deploy site
-Fix menu bug
-Other resources page
-Add instagram link into footer
-Research metadata extraction html
-Carousel on home page
-Link to terms and conditions in footer

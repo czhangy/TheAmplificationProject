@@ -1,7 +1,7 @@
 <template>
-  <div class="menu-overlay" @click="closeMenu">
-    <div class="menu">
-      <div class="menu-header">
+  <div id="menu-overlay" @click="closeMenu">
+    <div id="menu">
+      <div id="menu-header">
         <i class="fas fa-times" @click="closeMenu"></i>
         <div v-if="windowWidth < 900">
           <router-link to="/login" class="menu-auth"> login </router-link>
@@ -34,25 +34,25 @@ export default {
   name: "Menu",
   methods: {
     openMenu: function () {
-      document.getElementsByClassName("menu-overlay")[0].style.top = 0;
-      document.getElementsByClassName("menu")[0].style.boxShadow =
+      document.getElementById("menu-overlay").style.top = 0;
+      document.getElementById("menu").style.boxShadow =
         "0 0 10px #404040";
       this.disableScroll();
     },
     closeMenu: function () {
-      document.getElementsByClassName("menu")[0].style.boxShadow = "none";
-      document.getElementsByClassName("menu-overlay")[0].style.top = "-100vh";
+      document.getElementById("menu").style.boxShadow = "none";
+      document.getElementById("menu-overlay").style.top = "-100vh";
       this.enableScroll();
     },
     initMenu: function () {
       this.windowWidth = window.innerWidth;
       if (this.windowWidth < 900) {
-        document.getElementsByClassName("menu")[0].style.width = "100%";
-        document.getElementsByClassName("menu")[0].style.right = "0";
+        document.getElementById("menu").style.width = "100%";
+        document.getElementById("menu").style.right = "0";
       } else {
-        document.getElementsByClassName("menu")[0].style.width =
+        document.getElementById("menu").style.width =
           "calc(max(30%, 400px))";
-        document.getElementsByClassName("menu")[0].style.right = "6rem";
+        document.getElementById("menu").style.right = "6rem";
       }
     },
     disableScroll: function () {
@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.menu-overlay {
+#menu-overlay {
   // Position relative to navbar
   position: absolute;
   top: -100vh;
@@ -100,7 +100,7 @@ export default {
   // Smooth animation
   transition: top 0.2s ease;
 
-  .menu {
+  #menu {
     // Position relative to overlay
     position: absolute;
     top: 0;
@@ -114,7 +114,7 @@ export default {
     flex-direction: column;
     align-items: center;
 
-    .menu-header {
+    #menu-header {
       // Typography
       font-family: $alt-font;
       font-size: 1.2rem;
@@ -151,6 +151,7 @@ export default {
     .menu-link {
       // Typography
       font-size: $subheader-font-size;
+      font-weight: bold;
       padding: 2rem;
       // Remove effects of router link
       color: $font-color;
@@ -165,6 +166,15 @@ export default {
       width: 100%;
       // Bar styling
       background: lightgrey;
+    }
+  }
+}
+
+// Sticky hover
+@media (hover: hover) {
+  #menu-overlay > #menu > .menu-link {
+    &:hover {
+      background: lighten(lightgrey, 10);
     }
   }
 }

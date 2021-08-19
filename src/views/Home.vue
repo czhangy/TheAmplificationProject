@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <div class="home-carousel">
+  <div id="home">
+    <div id="home-carousel">
       <div class="home-carousel-slides">
         <img src="@/assets/img/Home/home1.png" />
         <img src="@/assets/img/Home/home7.png" />
@@ -20,7 +20,7 @@
         </router-link>
       </div>
     </div>
-    <div class="home-featured">
+    <div id="home-featured">
       <h3 class="home-featured-header">featured</h3>
       <div class="home-featured-content">
         <div class="home-featured-left">
@@ -63,7 +63,9 @@
 </template>
 
 <script>
+// Import global components
 import HoverPanel from "@/components/HoverPanel";
+
 export default {
   name: "Home",
   components: {
@@ -103,13 +105,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
+#home {
   // Flexbox for alignment
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .home-carousel {
+  #home-carousel {
     // Sizing
     width: 80%;
     height: 30rem;
@@ -197,7 +199,7 @@ export default {
     }
   }
 
-  .home-featured {
+  #home-featured {
     // Sizing
     width: 100%;
     // Flexbox for layout
@@ -321,28 +323,23 @@ export default {
 // Media queries
 // Sticky hover
 @media (hover: hover) {
-  .home {
-    .home-carousel {
-      .home-archive-buttons {
-        .home-archive-button {
-          &:hover {
-            background: $accent-light-teal;
-            opacity: 1;
-            transform: scale(1.05);
-          }
-        }
-      }
+  #home > #home-carousel > .home-archive-buttons > .home-archive-button {
+    &:hover {
+      background: $accent-light-teal;
+      opacity: 1;
+      transform: scale(1.05);
     }
   }
 }
 
 // Mobile layout
 @media screen and (max-width: 900px) {
-  .home {
-    .home-carousel {
+  #home {
+    #home-carousel {
       .home-carousel-nav {
         display: none;
       }
+
       .home-archive-buttons {
         flex-direction: column;
         left: 50%;
@@ -353,31 +350,29 @@ export default {
         }
       }
     }
-    .home-featured {
 
-      .home-featured-content {
-        display: flex;
-        justify-content: center;
+    #home-featured > .home-featured-content {
+      display: flex;
+      justify-content: center;
 
-        .home-featured-left {
-          display: none;
-        }
+      .home-featured-left {
+        display: none;
+      }
 
-        .home-featured-mid-top {
-          display: none;
-        }
+      .home-featured-mid-top {
+        display: none;
+      }
 
-        .home-featured-mid-bottom-left {
-          display: none;
-        }
+      .home-featured-mid-bottom-left {
+        display: none;
+      }
 
-        .home-featured-mid-bottom-right {
-          display: none;
-        }
+      .home-featured-mid-bottom-right {
+        display: none;
+      }
 
-        .home-featured-right {
-          width: 100%;
-        }
+      .home-featured-right {
+        width: 100%;
       }
     }
   }

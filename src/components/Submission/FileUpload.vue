@@ -36,7 +36,7 @@
         ><Tooltip :open="tooltipState[1]"
       /></i>
     </div>
-    <div id="file-upload" v-if="!disabled">
+    <div id="file-upload" v-if="!disabled && maxFiles > submissionData.files.length">
       <p>Drag & drop your files here</p>
       <span>OR</span>
       <label>
@@ -70,7 +70,6 @@ export default {
   data() {
     return {
       tooltipState: [false, false],
-      files: [],
     };
   },
   props: {
@@ -86,6 +85,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    maxFiles: {
+      type: Number,
+      default: 1,
+    }
   },
   mounted() {
     // Handle icon cursor

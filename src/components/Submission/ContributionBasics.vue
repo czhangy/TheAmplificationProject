@@ -33,16 +33,7 @@
       <p>Date of creation</p>
     </div>
     <div class="section-field">
-      <Datepicker
-        v-model="submissionData.date"
-        inputFormat="MM/dd/yyyy"
-        :style="{
-          width: '10rem',
-          padding: '0.5rem',
-          fontFamily: 'Open Sans',
-        }"
-        :disabled="disabled"
-      />
+      <input type="date" v-model="submissionData.date" :disabled="disabled" />
       <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(2)"
         ><Tooltip :message="tooltipMessage[2]" :open="tooltipState[2]"
       /></i>
@@ -119,25 +110,15 @@
       </div>
       <div class="section-field grouped-field">
         <div class="date-inputs">
-          <Datepicker
+          <input
+            type="date"
             v-model="submissionData.exhibitStartDates[i - 1]"
-            inputFormat="MM/dd/yyyy"
-            :style="{
-              width: '10rem',
-              padding: '0.5rem',
-              fontFamily: 'Open Sans',
-            }"
             :disabled="disabled"
           />
           <p>-</p>
-          <Datepicker
+          <input
+            type="date"
             v-model="submissionData.exhibitEndDates[i - 1]"
-            inputFormat="MM/dd/yyyy"
-            :style="{
-              width: '10rem',
-              padding: '0.5rem',
-              fontFamily: 'Open Sans',
-            }"
             :disabled="disabled"
           />
         </div>
@@ -158,9 +139,8 @@
     <div class="section-header" id="location-header">
       <p>Find a geographic location for the image</p>
     </div>
-    <div class="section-field" id="date-interval-field">
+    <div class="section-field" id="location-field">
       <input
-        id="location-field"
         placeholder="Search by city, state, country, or continent"
         v-model="submissionData.location"
         :disabled="disabled"
@@ -170,12 +150,16 @@
         ><Tooltip :message="tooltipMessage[8]" :open="tooltipState[8]"
       /></i>
     </div>
+    <div id="map-container"></div>
   </div>
 </template>
 
 <script>
+// Import external stylesheets
+import "leaflet/dist/leaflet.css";
+
 // Import global components
-import Datepicker from "vue3-datepicker";
+import L from "leaflet";
 
 // Import local components
 import Tooltip from "@/components/Submission/Tooltip";
@@ -183,7 +167,6 @@ import Tooltip from "@/components/Submission/Tooltip";
 export default {
   name: "ContributionBasics",
   components: {
-    Datepicker,
     Tooltip,
   },
   props: {
@@ -198,7 +181,9 @@ export default {
   },
   data() {
     return {
+      // Limits
       numExhibits: 1,
+      // Page state data
       tooltipMessage: [
         null,
         null,
@@ -221,6 +206,10 @@ export default {
         false,
         false,
       ],
+      // Map attributes
+      center: [34.0522, -118.24],
+      map: null,
+      marker: null,
     };
   },
   methods: {
@@ -238,9 +227,49 @@ export default {
         this.submissionData.exhibitEndDates.splice(ind, 1);
       }
     },
+    // Map functions
     handleLocationSearch: function () {
       alert("This feature has not been implemented yet");
     },
+    handleLeafletSetup: function () {
+      let self = this;
+      // Set map object
+      this.map = L.map("map-container").setView(this.center, 13);
+      // Leaflet initialization
+      L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+        {
+          attribution:
+            'Map data (c) <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: "mapbox/streets-v11",
+          accessToken: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN,
+        }
+      ).addTo(this.map);
+      // Add click handler
+      this.map.addEventListener("click", function (e) {
+        self.handleMarker(e);
+      });
+    },
+    handleMarker: function (e) {
+      // Fix icon
+      const defaultIcon = new L.icon({
+        iconUrl: require("leaflet/dist/images/marker-icon.png"),
+        iconSize: [16, 24],
+        iconAnchor: [10, 25],
+        popupAnchor: [0, -2],
+      });
+      // Clear existing marker
+      if (this.marker !== null) this.map.removeLayer(this.marker);
+      // Add marker to clicked location
+      this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
+        icon: defaultIcon,
+      }).addTo(this.map);
+    },
+  },
+  mounted() {
+    // Set up map
+    this.handleLeafletSetup();
   },
 };
 </script>
@@ -258,14 +287,14 @@ export default {
 
   p {
     // Spacing
-    margin: 0 0.5rem;
+    margin: 0 8px;
   }
 
   button {
     // Typography
     font-size: 1rem;
     // Button styling
-    padding: 0.7rem 1.5rem;
+    padding: 12px 24px;
   }
 
   .date-inputs {
@@ -278,20 +307,27 @@ export default {
   }
 }
 
-#date-interval-field {
-  // Sizing
-  width: 30rem;
-  // Spacing
-  justify-content: space-between;
-}
-
 #location-header {
   // Spacing
-  margin-top: 3rem;
+  margin-top: 48px;
 }
 
 #location-field {
-  // Overwrite sizing
-  width: 70%;
+  // Sizing
+  width: 480px;
+  // Spacing
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  input {
+    // Overwrite sizing
+    width: 70%;
+  }
+}
+
+#map-container {
+  // Sizing
+  height: 50vh;
+  width: 100%;
 }
 </style>
