@@ -62,6 +62,9 @@
         v-model="submissionData.rights"
         :disabled="disabled"
       />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(4)"
+        ><Tooltip :open="tooltipStates[4]" :message="tooltipMessages[4]"
+      /></i>
     </div>
     <div class="section-header">
       <p>Tags or keywords</p>
@@ -76,8 +79,8 @@
       <i
         class="fas fa-info-circle"
         v-if="i === 1 && !disabled"
-        @click="handleTooltip(4)"
-        ><Tooltip :open="tooltipStates[4]" :message="tooltipMessages[4]"
+        @click="handleTooltip(5)"
+        ><Tooltip :open="tooltipStates[5]" :message="tooltipMessages[5]"
       /></i>
       <i
         class="fas fa-times-circle"
@@ -112,12 +115,13 @@ export default {
       // Data variables
       numTags: 1,
       // Tooltip variables
-      tooltipStates: [false, false, false, false, false],
+      tooltipStates: [false, false, false, false, false, false],
       tooltipMessages: [
         "Anything you would like to mention about the work – subject, theme, comments about and interpretation of it, how/why you created it, etc.",
         "Outer size of the paper, canvas, or other material that is the base of an artwork",
         "Oil on linen, mixed media, wood, acrylic, etc.",
         "Hours, minutes, seconds",
+        "Information about the copyright status and the rights holder for the work. Can also include a link to a website containing more rights and/or contact information",
         "One to three words that describe, interpret, or provide details about the work",
       ],
     };
