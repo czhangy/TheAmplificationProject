@@ -2,6 +2,7 @@
   <div id="contribution-basics">
     <div class="section-header">
       <p>Title of work</p>
+      <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field">
       <input
@@ -12,6 +13,7 @@
     </div>
     <div class="section-header">
       <p>Year work completed</p>
+      <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field">
       <input
@@ -32,6 +34,7 @@
     </div>
     <div class="section-header">
       <p>City and country where you created the work</p>
+      <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field" id="location-field">
       <div class="input-fields">

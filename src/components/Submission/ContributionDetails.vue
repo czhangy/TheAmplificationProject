@@ -13,16 +13,6 @@
         ><Tooltip :open="tooltipStates[0]" :message="tooltipMessages[0]"
       /></i>
     </div>
-    <div class="section-header">
-      <p>Copyright</p>
-    </div>
-    <div class="section-field textarea-field">
-      <textarea
-        placeholder="Type here..."
-        v-model="submissionData.rights"
-        :disabled="disabled"
-      />
-    </div>
     <div class="section-header" v-if="fileType === 1">
       <p>Size of work</p>
     </div>
@@ -63,7 +53,19 @@
       /></i>
     </div>
     <div class="section-header">
+      <p>Copyright</p>
+      <i class="fas fa-asterisk"></i>
+    </div>
+    <div class="section-field">
+      <input
+        placeholder="Enter rights"
+        v-model="submissionData.rights"
+        :disabled="disabled"
+      />
+    </div>
+    <div class="section-header">
       <p>Tags or keywords</p>
+      <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field grouped-field" v-for="i in numTags" :key="i">
       <input
@@ -85,7 +87,7 @@
     </div>
     <div
       class="add-container"
-      v-if="numTags < 5 && !disabled"
+      v-if="numTags < 3 && !disabled"
       @click="handleNumTags(1)"
     >
       <div class="add-button">

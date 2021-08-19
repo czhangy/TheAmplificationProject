@@ -3,9 +3,6 @@
     <div class="section-header">
       <p>Select item contribution type</p>
       <i class="fas fa-asterisk"></i>
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
-        ><Tooltip :open="tooltipStates[0]"
-      /></i>
     </div>
     <div id="media-icons">
       <div class="media-icon" @click="onClick(0)">
@@ -28,9 +25,6 @@
     <div class="section-header">
       <p>File Upload</p>
       <i class="fas fa-asterisk"></i>
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(1)"
-        ><Tooltip :open="tooltipStates[1]"
-      /></i>
     </div>
     <div
       id="file-upload-area"
@@ -65,13 +59,6 @@ export default {
   name: "FileUpload",
   components: {
     Tooltip,
-  },
-  data() {
-    return {
-      // Tooltip variables
-      tooltipStates: [false, false],
-      tooltipMessages: [null, null],
-    };
   },
   props: {
     submissionData: {

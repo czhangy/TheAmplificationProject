@@ -13,6 +13,7 @@
     </div>
     <div class="section-header">
       <p>{{ creatorType }} name(s)</p>
+      <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field grouped-field" v-for="i in numCreators" :key="i">
       <div class="input-fields">
