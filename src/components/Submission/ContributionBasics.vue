@@ -1,153 +1,53 @@
 <template>
-  <div>
+  <div id="contribution-basics">
     <div class="section-header">
-      <p>Image title</p>
+      <p>Title of work</p>
     </div>
     <div class="section-field">
       <input
-        placeholder="Image title"
+        placeholder="Enter title"
         v-model="submissionData.title"
         :disabled="disabled"
       />
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
-        ><Tooltip :open="tooltipState[0]"
-      /></i>
     </div>
     <div class="section-header">
-      <p>
-        Title of collection, set, or series this image is part of (inside or
-        outside of The Amplification Project)
-      </p>
+      <p>Year work completed</p>
     </div>
     <div class="section-field">
       <input
-        placeholder="Title of collection, set, or series"
-        v-model="submissionData.set"
+        placeholder="YYYY"
+        v-model="submissionData.completionYear"
         :disabled="disabled"
       />
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(1)"
-        ><Tooltip :open="tooltipState[1]"
-      /></i>
     </div>
-    <div class="section-header">
-      <p>Date of creation</p>
+    <div class="section-header" v-if="fileType === 0">
+      <p>Language of work</p>
     </div>
-    <div class="section-field">
-      <input type="date" v-model="submissionData.date" :disabled="disabled" />
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(2)"
-        ><Tooltip :message="tooltipMessage[2]" :open="tooltipState[2]"
-      /></i>
-    </div>
-    <div class="section-header">
-      <p>Language</p>
-    </div>
-    <div class="section-field">
+    <div class="section-field" v-if="fileType === 0">
       <input
-        placeholder="Language"
+        placeholder="Enter language"
         v-model="submissionData.language"
         :disabled="disabled"
       />
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(3)"
-        ><Tooltip :open="tooltipState[3]"
-      /></i>
     </div>
     <div class="section-header">
-      <p>City and country image was made in</p>
+      <p>City and country where you created the work</p>
     </div>
-    <div class="section-field">
+    <div class="section-field" id="location-field">
       <div class="input-fields">
         <input
-          placeholder="City"
+          placeholder="Enter city"
           v-model="submissionData.city"
           :disabled="disabled"
         />
         <input
-          placeholder="Country"
+          placeholder="Enter country"
           v-model="submissionData.country"
           :disabled="disabled"
         />
       </div>
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(4)"
-        ><Tooltip :open="tooltipState[4]"
-      /></i>
-    </div>
-    <div class="section-header">
-      <p>Exhibit information (if applicable)</p>
-    </div>
-    <div class="grouped-field" v-for="i in numExhibits" :key="i">
-      <div class="section-field grouped-field">
-        <div class="input-fields">
-          <input
-            placeholder="City"
-            v-model="submissionData.exhibitCities[i]"
-            :disabled="disabled"
-          />
-          <input
-            placeholder="Country"
-            v-model="submissionData.exhibitCountries[i]"
-            :disabled="disabled"
-          />
-        </div>
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1 && !disabled"
-          @click="handleTooltip(5)"
-          ><Tooltip :open="tooltipState[5]"
-        /></i>
-      </div>
-      <div class="section-field grouped-field">
-        <input
-          placeholder="Language"
-          v-model="submissionData.language"
-          :disabled="disabled"
-        />
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1 && !disabled"
-          @click="handleTooltip(6)"
-          ><Tooltip :open="tooltipState[6]"
-        /></i>
-      </div>
-      <div class="section-field grouped-field">
-        <div class="date-inputs">
-          <input
-            type="date"
-            v-model="submissionData.exhibitStartDates[i - 1]"
-            :disabled="disabled"
-          />
-          <p>-</p>
-          <input
-            type="date"
-            v-model="submissionData.exhibitEndDates[i - 1]"
-            :disabled="disabled"
-          />
-        </div>
-        <i
-          class="fas fa-info-circle"
-          v-if="i === 1 && !disabled"
-          @click="handleTooltip(7)"
-          ><Tooltip :open="tooltipState[7]"
-        /></i>
-      </div>
-    </div>
-    <div class="add-container" v-if="!disabled" @click="handleNumExhibits(1)">
-      <div class="add-button" v-if="numExhibits < 5">
-        <i class="fas fa-plus-circle"></i>
-        <p>Add another exhibit</p>
-      </div>
-    </div>
-    <div class="section-header" id="location-header">
-      <p>Find a geographic location for the image</p>
-    </div>
-    <div class="section-field" id="location-field">
-      <input
-        placeholder="Search by city, state, country, or continent"
-        v-model="submissionData.location"
-        :disabled="disabled"
-      />
-      <button v-if="!disabled" @click="handleLocationSearch">Find</button>
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(8)"
-        ><Tooltip :message="tooltipMessage[8]" :open="tooltipState[8]"
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
+        ><Tooltip :open="tooltipStates[0]" :message="tooltipMessages[0]"
       /></i>
     </div>
     <div id="map-container"></div>
@@ -178,54 +78,26 @@ export default {
       type: Boolean,
       default: false,
     },
+    fileType: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
-      // Limits
-      numExhibits: 1,
-      // Page state data
-      tooltipMessage: [
-        null,
-        null,
-        "Give the date that the original work was created. For multi-day projects, give whatever date you feel is best.",
-        null,
-        null,
-        null,
-        null,
-        null,
-        "Give the location where the work was originally created.",
-      ],
-      tooltipState: [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-      ],
-      // Map attributes
+      // Tooltip variables
+      tooltipMessages: ["Locate on the map where you created the work"],
+      tooltipStates: [false],
+      // Map variables
       center: [34.0522, -118.24],
       map: null,
       marker: null,
     };
   },
   methods: {
+    // Tooltip toggle function
     handleTooltip: function (ind) {
-      this.tooltipState[ind] = !this.tooltipState[ind];
-    },
-    handleNumExhibits: function (inc, ind) {
-      this.numExhibits += inc;
-      // Update remaining fields accordingly
-      if (inc === -1) {
-        this.submissionData.exhibitCities.splice(ind, 1);
-        this.submissionData.exhibitCountries.splice(ind, 1);
-        this.submissionData.exhibitVenues.splice(ind, 1);
-        this.submissionData.exhibitStartDates.splice(ind, 1);
-        this.submissionData.exhibitEndDates.splice(ind, 1);
-      }
+      this.tooltipStates[ind] = !this.tooltipStates[ind];
     },
     // Map functions
     handleLocationSearch: function () {
@@ -275,59 +147,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section-field {
-  // Variables for Datepicker
-  --vdp-hover-bg-color: #8abbac;
-  --vdp-selected-bg-color: #298a7e;
-
-  input {
-    // Sizing
-    width: 90%;
-  }
-
-  p {
+#contribution-basics {
+  #location-field {
     // Spacing
-    margin: 0 8px;
-  }
-
-  button {
-    // Typography
-    font-size: 1rem;
-    // Button styling
-    padding: 12px 24px;
-  }
-
-  .date-inputs {
-    // Flexbox for layout
-    display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  #map-container {
     // Sizing
-    width: 90%;
+    height: 50vh;
+    width: 100%;
   }
 }
 
-#location-header {
-  // Spacing
-  margin-top: 48px;
-}
-
-#location-field {
+input {
   // Sizing
-  width: 480px;
-  // Spacing
-  justify-content: space-between;
-  margin-bottom: 16px;
-
-  input {
-    // Overwrite sizing
-    width: 70%;
-  }
-}
-
-#map-container {
-  // Sizing
-  height: 50vh;
-  width: 100%;
+  width: 90%;
 }
 </style>

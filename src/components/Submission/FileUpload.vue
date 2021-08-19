@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div id="file-upload">
     <div class="section-header">
       <p>Select item contribution type</p>
       <i class="fas fa-asterisk"></i>
       <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
-        ><Tooltip :open="tooltipState[0]"
+        ><Tooltip :open="tooltipStates[0]"
       /></i>
     </div>
     <div id="media-icons">
@@ -24,19 +24,18 @@
         <i class="fas icon fa-volume-up"></i>
         <p>Audio</p>
       </div>
-      <div class="media-icon" @click="onClick(4)">
-        <i class="fas icon fa-calendar-alt"></i>
-        <p>Event</p>
-      </div>
     </div>
     <div class="section-header">
       <p>File Upload</p>
       <i class="fas fa-asterisk"></i>
       <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(1)"
-        ><Tooltip :open="tooltipState[1]"
+        ><Tooltip :open="tooltipStates[1]"
       /></i>
     </div>
-    <div id="file-upload" v-if="!disabled && maxFiles > submissionData.files.length">
+    <div
+      id="file-upload-area"
+      v-if="!disabled && maxFiles > submissionData.files.length"
+    >
       <p>Drag & drop your files here</p>
       <span>OR</span>
       <label>
@@ -69,7 +68,9 @@ export default {
   },
   data() {
     return {
-      tooltipState: [false, false],
+      // Tooltip variables
+      tooltipStates: [false, false],
+      tooltipMessages: [null, null],
     };
   },
   props: {
@@ -88,72 +89,84 @@ export default {
     maxFiles: {
       type: Number,
       default: 1,
-    }
+    },
   },
   mounted() {
-    // Handle icon cursor
-    if (this.disabled)
-      document.getElementsByClassName("media-icon").forEach((icon) => {
-        icon.classList.remove("pointer");
-      });
-    else
-      document.getElementsByClassName("media-icon").forEach((icon) => {
-        icon.classList.add("pointer");
-      });
+    // Handle pointer cursor on icons
+    this.handleIconStyling();
     // Set up drag and drop
-    if (!this.disabled) {
-      // Select area for drag and drop
-      let dropArea = document.getElementById("file-upload");
-      // Prevent defaults on target events
-      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-        dropArea.addEventListener(eventName, this.preventDefaults, false);
-      });
-      // Highlight during drag and drop process
-      ["dragenter", "dragover"].forEach((eventName) => {
-        dropArea.addEventListener(
-          eventName,
-          () => dropArea.classList.add("highlighted"),
-          false
-        );
-      });
-      ["dragleave", "drop"].forEach((eventName) => {
-        dropArea.addEventListener(
-          eventName,
-          () => dropArea.classList.remove("highlighted"),
-          false
-        );
-      });
-      // Handle the drop action
-      dropArea.addEventListener("drop", this.handleFileSelect, false);
-    }
+    this.handleDropAreaInit();
   },
   beforeUnmount() {
     // Clean up drag and drop
-    if (!this.disabled) {
-      let dropArea = document.getElementById('file-upload');
-      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-        dropArea.removeEventListener(eventName, this.preventDefaults, false);
-      });
-      ["dragenter", "dragover"].forEach((eventName) => {
-        dropArea.removeEventListener(
-          eventName,
-          () => dropArea.classList.add("highlighted"),
-          false
-        );
-      });
-      ["dragleave", "drop"].forEach((eventName) => {
-        dropArea.removeEventListener(
-          eventName,
-          () => dropArea.classList.remove("highlighted"),
-          false
-        );
-      });
-      dropArea.removeEventListener("drop", this.handleFileSelect, false);
-    }
+    this.handleDropAreaRemove();
   },
   methods: {
+    // Tooltip toggle method
     handleTooltip: function (ind) {
-      this.tooltipState[ind] = !this.tooltipState[ind];
+      this.tooltipStates[ind] = !this.tooltipStates[ind];
+    },
+    // Page rendering methods
+    handleDropAreaInit: function () {
+      if (!this.disabled) {
+        // Select area for drag and drop
+        let dropArea = document.getElementById("file-upload-area");
+        // Prevent defaults on target events
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          dropArea.addEventListener(eventName, this.preventDefaults, false);
+        });
+        // Highlight during drag and drop process
+        ["dragenter", "dragover"].forEach((eventName) => {
+          dropArea.addEventListener(
+            eventName,
+            () => dropArea.classList.add("highlighted"),
+            false
+          );
+        });
+        ["dragleave", "drop"].forEach((eventName) => {
+          dropArea.addEventListener(
+            eventName,
+            () => dropArea.classList.remove("highlighted"),
+            false
+          );
+        });
+        // Handle the drop action
+        dropArea.addEventListener("drop", this.handleFileSelect, false);
+      }
+    },
+    handleDropAreaRemove: function () {
+      if (!this.disabled) {
+        let dropArea = document.getElementById("file-upload-area");
+        ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+          dropArea.removeEventListener(eventName, this.preventDefaults, false);
+        });
+        ["dragenter", "dragover"].forEach((eventName) => {
+          dropArea.removeEventListener(
+            eventName,
+            () => dropArea.classList.add("highlighted"),
+            false
+          );
+        });
+        ["dragleave", "drop"].forEach((eventName) => {
+          dropArea.removeEventListener(
+            eventName,
+            () => dropArea.classList.remove("highlighted"),
+            false
+          );
+        });
+        dropArea.removeEventListener("drop", this.handleFileSelect, false);
+      }
+    },
+    // Icon handling method
+    handleIconStyling: function () {
+      if (this.disabled)
+        document.getElementsByClassName("media-icon").forEach((icon) => {
+          icon.classList.remove("pointer");
+        });
+      else
+        document.getElementsByClassName("media-icon").forEach((icon) => {
+          icon.classList.add("pointer");
+        });
     },
     // File select methods
     handleFileSelect: function (e) {
@@ -175,125 +188,127 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#media-icons {
-  // Flexbox for layout
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  // Centering + spacing
-  margin: 5rem auto;
-  // Sizing
-  width: 80%;
-
-  .media-icon {
-    // Flexbox for centering
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    i {
-      // Spacing
-      margin-bottom: 1rem;
-      // Icon styling
-      color: grey;
-      font-size: 5rem;
-    }
-
-    p {
-      // Typography
-      font-size: $body-font-size;
-      font-weight: bold;
-    }
-  }
-}
-
 #file-upload {
-  // Sizing
-  width: 90%;
-  // Box styling
-  border: 1px dashed gray;
-  // Centering + spacing
-  margin: 5rem auto 0 auto;
-  // Flexbox for layout
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  // Typography
-  font-size: $subheader-font-size;
-  color: lightgrey;
-  // Container spacing
-  padding: 6rem 0;
-
-  span {
-    // Spacing
-    margin: 3rem 0;
-  }
-
-  label {
-    // Container spacing
-    padding: 0.5rem 1rem;
-    // Typography
-    font-family: $alt-font;
-    font-weight: bold;
-    // Clickable
-    cursor: pointer;
-    // Button styling
-    background: $accent-teal;
-    color: white;
-    border-radius: 5px;
-
-    input[type="file"] {
-      // Hide default button
-      display: none;
-    }
-  }
-}
-
-.highlighted {
-  // Color background fror drag hover
-  background: lighten(lightgrey, 10);
-}
-
-ul {
-  // Sizing
-  width: 90%;
-  // Centering + spacing
-  margin: 0 auto;
-  // Remove bullet points
-  list-style: none;
-
-  li {
-    // Container spacing
-    padding: 2rem;
-    // Style container
-    background: lighten(lightgrey, 10);
-    border: 2px solid lightgrey;
+  #media-icons {
     // Flexbox for layout
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // Spacing
-    margin-top: 2rem;
+    // Centering + spacing
+    margin: 5rem auto;
+    // Sizing
+    width: 80%;
 
-    p {
-      // Typography
-      font-size: $subheader-font-size;
-      font-family: $alt-font;
-      font-weight: normal;
+    .media-icon {
+      // Flexbox for centering
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      i {
+        // Spacing
+        margin-bottom: 1rem;
+        // Icon styling
+        color: grey;
+        font-size: 5rem;
+      }
+
+      p {
+        // Typography
+        font-size: $body-font-size;
+        font-weight: bold;
+      }
+    }
+  }
+
+  #file-upload-area {
+    // Sizing
+    width: 90%;
+    // Box styling
+    border: 1px dashed gray;
+    // Centering + spacing
+    margin: 5rem auto 0 auto;
+    // Flexbox for layout
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // Typography
+    font-size: $subheader-font-size;
+    color: lightgrey;
+    // Container spacing
+    padding: 6rem 0;
+
+    span {
+      // Spacing
+      margin: 3rem 0;
     }
 
-    .fa-times {
-      // Icon sizing
-      font-size: 2rem;
+    label {
+      // Container spacing
+      padding: 0.5rem 1rem;
+      // Typography
+      font-family: $alt-font;
+      font-weight: bold;
       // Clickable
       cursor: pointer;
+      // Button styling
+      background: $accent-teal;
+      color: white;
+      border-radius: 5px;
+
+      input[type="file"] {
+        // Hide default button
+        display: none;
+      }
+    }
+  }
+
+  .highlighted {
+    // Color background fror drag hover
+    background: lighten(lightgrey, 10);
+  }
+
+  ul {
+    // Sizing
+    width: 90%;
+    // Centering + spacing
+    margin: 0 auto;
+    // Remove bullet points
+    list-style: none;
+
+    li {
+      // Container spacing
+      padding: 2rem;
+      // Style container
+      background: lighten(lightgrey, 10);
+      border: 2px solid lightgrey;
+      // Flexbox for layout
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // Spacing
+      margin-top: 2rem;
+
+      p {
+        // Typography
+        font-size: $subheader-font-size;
+        font-family: $alt-font;
+        font-weight: normal;
+      }
+
+      .fa-times {
+        // Icon sizing
+        font-size: 2rem;
+        // Clickable
+        cursor: pointer;
+      }
     }
   }
 }
 
 // Handle sticky hover
 @media (hover: hover) {
-  #file-upload > label {
+  #file-upload > #file-upload-area > label {
     &:hover {
       // Animate
       background: $accent-dark-teal;

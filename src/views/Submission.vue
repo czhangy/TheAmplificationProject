@@ -17,18 +17,21 @@
       <PersonalDetails
         :submissionData="submissionData.personalData"
         :disabled="curPage === 4"
+        :fileType="submissionData.fileData.fileType"
       />
     </div>
     <div class="page" v-if="curPage === 2 || curPage === 4">
       <ContributionBasics
         :submissionData="submissionData.imageData"
         :disabled="curPage === 4"
+        :fileType="submissionData.fileData.fileType"
       />
     </div>
     <div class="page" v-if="curPage === 3 || curPage === 4">
       <ContributionDetails
         :submissionData="submissionData.contributionData"
         :disabled="curPage === 4"
+        :fileType="submissionData.fileData.fileType"
       />
     </div>
     <div id="checkboxes" v-if="curPage === 4">
@@ -99,32 +102,40 @@ export default {
         },
         personalData: {
           email: null,
-          contributorFirstNames: [],
-          contributorLastNames: [],
-          creatorFirstNames: [],
-          creatorLastNames: [],
-          statements: null,
+          creator: {
+            firstNames: [],
+            lastNames: [],
+            bio: null,
+            website: null,
+            facebook: null,
+            twitter: null,
+            insta: null,
+          },
+          contributor: {
+            firstNames: [],
+            lastNames: [],
+            bio: null,
+            website: null,
+            facebook: null,
+            twitter: null,
+            insta: null,
+          },
         },
         imageData: {
           title: null,
-          set: null,
-          date: null,
+          completionYear: null,
           language: null,
           city: null,
           country: null,
-          exhibitCities: [],
-          exhibitCountries: [],
-          exhibitVenues: [],
-          exhibitStartDates: [],
-          exhibitEndDates: [],
           location: null,
         },
         contributionData: {
           description: null,
-          tags: [],
-          medium: null,
-          format: "",
+          size: null,
+          mediums: null,
+          duration: null,
           rights: null,
+          tags: [],
         },
       },
     };
@@ -133,6 +144,7 @@ export default {
     handleUnfinished: function () {
       alert("This feature needs to be implemented still");
     },
+    // File type select functions
     handleTypeSelect: function (type) {
       // Disable select on summary page
       if (this.curPage !== 4) {
@@ -147,6 +159,7 @@ export default {
         arr[i].style.color =
           i === this.submissionData.fileData.fileType ? "#298A7E" : "grey";
     },
+    // Page navigation functions
     handleBarClick: function (i) {
       // Handle page scroll
       this.curPage = i;
@@ -186,7 +199,7 @@ export default {
 
   .page {
     // Spacing + centering
-    margin: 3rem auto 0 auto;
+    margin: 48px auto 0 auto;
     // Sizing
     width: 80%;
 
@@ -197,7 +210,7 @@ export default {
       color: $accent-teal;
       font-size: $subheader-font-size;
       // Spacing
-      margin-left: 0.6rem;
+      margin-left: 10px;
       // Positioning for tooltips
       position: relative;
     }
@@ -207,7 +220,7 @@ export default {
       display: flex;
       align-items: center;
       // Sizing
-      max-width: 40rem;
+      max-width: 640px;
 
       p {
         // Typography
@@ -220,7 +233,7 @@ export default {
         color: red;
         font-size: 0.7rem;
         // Spacing
-        margin-left: 0.3rem;
+        margin-left: 0.6rem;
         margin-bottom: 1rem;
       }
     }
@@ -230,10 +243,10 @@ export default {
       display: flex;
       align-items: center;
       // Spacing
-      margin-top: 1rem;
-      margin-bottom: 3rem;
+      margin-top: 20px;
+      margin-bottom: 48px;
       // Sizing
-      width: 25rem;
+      width: 400px;
 
       input,
       textarea,
@@ -272,7 +285,7 @@ export default {
 
     .grouped-field {
       // Spacing
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
     }
 
     .add-container {
@@ -293,7 +306,7 @@ export default {
           // Icon sizing
           font-size: 1.5rem;
           // Spacing
-          margin-right: 0.7rem;
+          margin-right: 12px;
         }
 
         p {
@@ -310,7 +323,7 @@ export default {
       color: red;
       font-size: $subheader-font-size;
       // Spacing
-      margin-left: 0.6rem;
+      margin-left: 10px;
     }
   }
 

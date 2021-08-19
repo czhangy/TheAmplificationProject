@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="contribution-details">
     <div class="section-header">
-      <p>Image description</p>
+      <p>Describe the work</p>
     </div>
     <div class="section-field textarea-field">
       <textarea
@@ -10,11 +10,60 @@
         :disabled="disabled"
       />
       <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
-        ><Tooltip :open="tooltipState[0]"
+        ><Tooltip :open="tooltipStates[0]" :message="tooltipMessages[0]"
       /></i>
     </div>
     <div class="section-header">
-      <p>Keywords/Tags that describe, identify, or interpret the image</p>
+      <p>Copyright</p>
+    </div>
+    <div class="section-field textarea-field">
+      <textarea
+        placeholder="Type here..."
+        v-model="submissionData.rights"
+        :disabled="disabled"
+      />
+    </div>
+    <div class="section-header" v-if="fileType === 1">
+      <p>Size of work</p>
+    </div>
+    <div class="section-field" v-if="fileType === 1">
+      <input
+        placeholder="H x W x D"
+        v-model="submissionData.size"
+        :disabled="disabled"
+      />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(1)"
+        ><Tooltip :open="tooltipStates[1]" :message="tooltipMessages[1]"
+      /></i>
+    </div>
+    <div class="section-header" v-if="fileType === 1">
+      <p>Mediums</p>
+    </div>
+    <div class="section-field" v-if="fileType === 1">
+      <input
+        placeholder="Enter medium type"
+        v-model="submissionData.mediums"
+        :disabled="disabled"
+      />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(2)"
+        ><Tooltip :open="tooltipStates[2]" :message="tooltipMessages[2]"
+      /></i>
+    </div>
+    <div class="section-header" v-if="fileType === 2 || fileType === 3">
+      <p>Duration of the work</p>
+    </div>
+    <div class="section-field" v-if="fileType === 2 || fileType === 3">
+      <input
+        placeholder="Enter duration"
+        v-model="submissionData.duration"
+        :disabled="disabled"
+      />
+      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(3)"
+        ><Tooltip :open="tooltipStates[3]" :message="tooltipMessages[3]"
+      /></i>
+    </div>
+    <div class="section-header">
+      <p>Tags or keywords</p>
     </div>
     <div class="section-field grouped-field" v-for="i in numTags" :key="i">
       <input
@@ -25,8 +74,8 @@
       <i
         class="fas fa-info-circle"
         v-if="i === 1 && !disabled"
-        @click="handleTooltip(1)"
-        ><Tooltip :open="tooltipState[1]"
+        @click="handleTooltip(4)"
+        ><Tooltip :open="tooltipStates[4]" :message="tooltipMessages[4]"
       /></i>
       <i
         class="fas fa-times-circle"
@@ -44,50 +93,6 @@
         <p>Add another tag</p>
       </div>
     </div>
-    <div class="section-header" id="medium-header">
-      <p>Medium of original work</p>
-    </div>
-    <div class="section-field">
-      <input
-        placeholder="Enter medium type"
-        v-model="submissionData.medium"
-        :disabled="disabled"
-      />
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(2)"
-        ><Tooltip :open="tooltipState[2]"
-      /></i>
-    </div>
-    <div class="section-header">
-      <p>File format</p>
-    </div>
-    <div class="section-field">
-      <select
-        v-model="submissionData.format"
-        @change="handleDropdownStyling"
-        :disabled="disabled"
-      >
-        <option disabled value="">Select file format</option>
-        <option>JPG</option>
-        <option>PNG</option>
-        <option>JPEG</option>
-      </select>
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(3)"
-        ><Tooltip :open="tooltipState[3]"
-      /></i>
-    </div>
-    <div class="section-header">
-      <p>Rights</p>
-    </div>
-    <div class="section-field textarea-field">
-      <textarea
-        placeholder="Type here..."
-        v-model="submissionData.rights"
-        :disabled="disabled"
-      />
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(4)"
-        ><Tooltip :open="tooltipState[4]"
-      /></i>
-    </div>
   </div>
 </template>
 
@@ -102,8 +107,17 @@ export default {
   },
   data() {
     return {
+      // Data variables
       numTags: 1,
-      tooltipState: [false, false, false, false, false],
+      // Tooltip variables
+      tooltipStates: [false, false, false, false, false],
+      tooltipMessages: [
+        "Anything you would like to mention about the work – subject, theme, comments about and interpretation of it, how/why you created it, etc.",
+        "Outer size of the paper, canvas, or other material that is the base of an artwork",
+        "Oil on linen, mixed media, wood, acrylic, etc.",
+        "Hours, minutes, seconds",
+        "One to three words that describe, interpret, or provide details about the work",
+      ],
     };
   },
   props: {
@@ -115,16 +129,23 @@ export default {
       type: Boolean,
       default: false,
     },
+    fileType: {
+      type: Number,
+      required: true,
+    },
   },
   methods: {
+    // Tooltip toggle function
     handleTooltip: function (ind) {
-      this.tooltipState[ind] = !this.tooltipState[ind];
+      this.tooltipStates[ind] = !this.tooltipStates[ind];
     },
+    // Data handling function
     handleNumTags: function (inc, ind) {
       this.numTags += inc;
       // Update remaining fields accordingly
       if (inc === -1) this.submissionData.tags.splice(ind, 1);
     },
+    // Styling function
     handleDropdownStyling: function () {
       document.getElementsByTagName("select")[0].style.color = "black";
     },
@@ -133,24 +154,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-input,
-select {
-  // Sizing
-  width: 50%;
-}
-
-select {
-  // Typography
-  color: grey;
-
-  option {
-    // Typography
-    color: black;
+#contribution-details {
+  input,
+  select {
+    // Sizing
+    width: 50%;
   }
-}
 
-#medium-header {
-  // Spacing
-  margin-top: 3rem;
+  select {
+    // Typography
+    color: grey;
+
+    option {
+      // Typography
+      color: black;
+    }
+  }
+
+  #medium-header {
+    // Spacing
+    margin-top: 48px;
+  }
 }
 </style>
