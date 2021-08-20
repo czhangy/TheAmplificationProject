@@ -8,22 +8,7 @@ The most up-to-date version of The Amplification Project site is currently deplo
 
 
 
-## Tools Used
-<img src="https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D" /> <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" />  <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" />
+## How to Run
 
-
-
-## Project Status
-
-This project is currently under development. Designs are still being finalized by a supervisor, and certain pages require touching up. Backend integration with the Omeka CMS is also in the works.
-
-
-
-#### To Do:
-
-- [ ] Implement location selection on submission form
-- [ ] Implement form validation on submission form
-- [ ] Debug and finalize submission form
-- [ ] Code the "Browse the Archive" pages
-- [ ] Implement custom donation amounts
+Go into frontend and run "npm run build" then go into the mail folder and run "flask run"
 
