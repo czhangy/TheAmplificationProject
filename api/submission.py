@@ -148,7 +148,7 @@ def upload_text(data):
 
     payload = b+type+b+file+file_contents+b+title+b+authors+b+contributor+b+statement+b+description+b+date+b+country+b+type2+b+collection+b+language+b+rights+b+keywords+b+email+b+lat+b+long+end
 
-    r = requests.post(url, headers=headers, data=payload)
+    #r = requests.post(url, headers=headers, data=payload)
   except:
     return False
 
