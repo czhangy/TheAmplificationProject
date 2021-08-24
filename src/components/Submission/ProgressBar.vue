@@ -24,8 +24,8 @@ export default {
       default: 0,
     },
     onClick: {
-        type: Function,
-        required: true,
+      type: Function,
+      required: true,
     },
   },
   mounted() {
@@ -61,7 +61,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   // Spacing
-  margin: 3rem auto 6rem auto;
+  margin: 48px auto 96px auto;
   width: 80%;
 
   .page {
@@ -82,18 +82,44 @@ export default {
       // Shaping
       border-radius: 50%;
       // Sizing
-      height: 4rem;
-      width: 4rem;
+      height: 64px;
+      width: 64px;
       // Typography
       font-family: $alt-font;
       font-size: $subheader-font-size;
       // Spacing
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
     }
 
     p {
       // Typography
       font-family: $alt-font;
+    }
+  }
+}
+
+// Smaller layouts
+@media screen and (max-width: 1439px) {
+  #bar {
+    // Respace
+    margin-bottom: 48px;
+
+    .page > p {
+      // Hide text
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #bar {
+    // Respace
+    margin-bottom: 24px;
+    
+    .page > .page-circle {
+      // Resize
+      width: 48px;
+      height: 48px;
     }
   }
 }

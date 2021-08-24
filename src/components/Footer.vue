@@ -195,7 +195,7 @@ export default {
 
 // Mobile layout
 @media screen and (max-width: 1300px) {
-  #footer > footer-mailing-list {
+  #footer > .footer-mailing-list {
     margin: 0 2rem;
     .mailing-list-fields {
       flex-direction: column;

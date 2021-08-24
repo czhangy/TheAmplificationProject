@@ -182,7 +182,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     // Centering + spacing
-    margin: 5rem auto;
+    margin: calc(clamp(2.5rem, 1.500rem + 4.000vw, 5rem)) auto;
     // Sizing
     width: 80%;
 
@@ -194,10 +194,10 @@ export default {
 
       i {
         // Spacing
-        margin-bottom: 1rem;
+        margin-bottom: 16px;
         // Icon styling
         color: grey;
-        font-size: 5rem;
+        font-size: calc(clamp(3rem, 2.200rem + 3.200vw, 5rem));
       }
 
       p {
@@ -214,7 +214,7 @@ export default {
     // Box styling
     border: 1px dashed gray;
     // Centering + spacing
-    margin: 5rem auto 0 auto;
+    margin: calc(clamp(2.5rem, 1.500rem + 4.000vw, 5rem)) auto 0 auto;
     // Flexbox for layout
     display: flex;
     flex-direction: column;
@@ -223,16 +223,16 @@ export default {
     font-size: $subheader-font-size;
     color: lightgrey;
     // Container spacing
-    padding: 6rem 0;
+    padding: 96px 0;
 
     span {
       // Spacing
-      margin: 3rem 0;
+      margin: 48px 0;
     }
 
     label {
       // Container spacing
-      padding: 0.5rem 1rem;
+      padding: 8px 16px;
       // Typography
       font-family: $alt-font;
       font-weight: bold;
@@ -300,6 +300,14 @@ export default {
       // Animate
       background: $accent-dark-teal;
     }
+  }
+}
+
+// Smaller layouts
+@media screen and (max-width: 767px) {
+  #file-upload > #media-icons {
+    // Resize
+    width: 100%;
   }
 }
 </style>

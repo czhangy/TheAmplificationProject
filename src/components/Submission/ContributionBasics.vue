@@ -48,6 +48,7 @@
           v-model="submissionData.country"
           :disabled="disabled"
         />
+        <button @click="handleLocationSearch">Find</button>
       </div>
       <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
         ><Tooltip :open="tooltipStates[0]" :message="tooltipMessages[0]"
@@ -61,8 +62,9 @@
 // Import external stylesheets
 import "leaflet/dist/leaflet.css";
 
-// Import global components
+// Import global libraries
 import L from "leaflet";
+import axios from "axios";
 
 // Import local components
 import Tooltip from "@/components/Submission/Tooltip";
@@ -103,8 +105,36 @@ export default {
       this.tooltipStates[ind] = !this.tooltipStates[ind];
     },
     // Map functions
-    handleLocationSearch: function () {
-      alert("This feature has not been implemented yet");
+    handleLocationSearch: async function () {
+      axios
+        // Query LocationStack API for forward geocoding
+        .get(
+          `http://api.positionstack.com/v1/forward?access_key=${
+            process.env.VUE_APP_POSITIONSTACK_ACCESS_TOKEN
+          }&query=${
+            this.submissionData.city + " " + this.submissionData.country
+          }`
+        )
+        .then((res) => {
+          // Fix icon
+          const defaultIcon = new L.icon({
+            iconUrl: require("leaflet/dist/images/marker-icon.png"),
+            iconSize: [16, 24],
+            iconAnchor: [10, 25],
+            popupAnchor: [0, -2],
+          });
+          // Clear existing marker
+          if (this.marker !== null) this.map.removeLayer(this.marker);
+          // Add marker to clicked location
+          this.marker = L.marker(
+            [res.data.data[0].latitude, res.data.data[0].longitude],
+            {
+              icon: defaultIcon,
+            }
+          ).addTo(this.map);
+          // Pan to location
+          this.map.flyTo([res.data.data[0].latitude, res.data.data[0].longitude])
+        });
     },
     handleLeafletSetup: function () {
       let self = this;
@@ -140,6 +170,8 @@ export default {
       this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
         icon: defaultIcon,
       }).addTo(this.map);
+      // Save location
+      this.submissionData.location = [e.latlng.lat, e.latlng.lng];
     },
   },
   mounted() {
@@ -155,6 +187,18 @@ export default {
     // Spacing
     justify-content: space-between;
     margin-bottom: 24px;
+    // Sizing
+    width: max(40%, 350px);
+
+    input {
+      // Spacing
+      margin-right: 16px;
+    }
+
+    button {
+      // Button styling
+      padding: 10px 16px;
+    }
   }
 
   #map-container {

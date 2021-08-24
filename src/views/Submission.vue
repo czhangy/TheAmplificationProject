@@ -22,7 +22,7 @@
     </div>
     <div class="page" v-if="curPage === 2 || curPage === 4">
       <ContributionBasics
-        :submissionData="submissionData.imageData"
+        :submissionData="submissionData.contributionData"
         :disabled="curPage === 4"
         :fileType="submissionData.fileData.fileType"
       />
@@ -121,15 +121,13 @@ export default {
             insta: null,
           },
         },
-        imageData: {
+        contributionData: {
           title: null,
           completionYear: null,
           language: null,
           city: null,
           country: null,
           location: null,
-        },
-        contributionData: {
           description: null,
           size: null,
           mediums: null,
@@ -181,6 +179,10 @@ export default {
 .submission {
   // Sizing
   width: 100%;
+  // Flexbox for centering
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
   button {
     // Button styling
@@ -231,10 +233,10 @@ export default {
       .fa-asterisk {
         // Icon styling
         color: red;
-        font-size: 0.7rem;
+        font-size: calc(clamp(0.4rem, 0.28rem + 0.48vw, 0.7rem));
         // Spacing
-        margin-left: 0.6rem;
-        margin-bottom: 1rem;
+        margin-left: 4px;
+        margin-bottom: 16px;
       }
     }
 
@@ -246,7 +248,7 @@ export default {
       margin-top: 20px;
       margin-bottom: 48px;
       // Sizing
-      width: 400px;
+      width: min(400px, 100%);
 
       input,
       textarea,
@@ -304,7 +306,7 @@ export default {
 
         .fa-plus-circle {
           // Icon sizing
-          font-size: 1.5rem;
+          font-size: $subheader-font-size;
           // Spacing
           margin-right: 12px;
         }
@@ -312,6 +314,7 @@ export default {
         p {
           // Typography
           font-family: $alt-font;
+          font-size: $body-font-size;
         }
       }
     }
@@ -328,8 +331,7 @@ export default {
   }
 
   #checkboxes {
-    width: 500px;
-    // Sizing
+    // Centering
     margin: 0 auto;
     // Spacing
     margin-top: 32px;
@@ -395,6 +397,23 @@ export default {
     &:hover {
       // Animate
       background: $accent-dark-teal;
+    }
+  }
+}
+
+// Smaller layouts
+@media screen and (max-width: 767px) {
+  .submission {
+    .fa-info-circle {
+      // Hide tooltips
+      display: none;
+    }
+
+    .page {
+      .textarea-field {
+        // Resize
+        width: 100%;
+      }
     }
   }
 }
