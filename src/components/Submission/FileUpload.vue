@@ -81,12 +81,14 @@ export default {
   mounted() {
     // Handle pointer cursor on icons
     this.handleIconStyling();
-    // Set up drag and drop
-    this.handleDropAreaInit();
+    if (this.submissionData.files.length === 0)
+      // Set up drag and drop
+      this.handleDropAreaInit();
   },
   beforeUnmount() {
-    // Clean up drag and drop
-    this.handleDropAreaRemove();
+    if (this.submissionData.files.length === 0)
+      // Clean up drag and drop
+      this.handleDropAreaRemove();
   },
   methods: {
     // Tooltip toggle method
@@ -168,6 +170,7 @@ export default {
       e.stopPropagation();
     },
     handleFileRemove: function (ind) {
+      // Remove from submission data
       this.submissionData.files.splice(ind, 1);
     },
   },
@@ -182,7 +185,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     // Centering + spacing
-    margin: calc(clamp(2.5rem, 1.500rem + 4.000vw, 5rem)) auto;
+    margin: calc(clamp(2.5rem, 1.5rem + 4vw, 5rem)) auto;
     // Sizing
     width: 80%;
 
@@ -197,7 +200,7 @@ export default {
         margin-bottom: 16px;
         // Icon styling
         color: grey;
-        font-size: calc(clamp(3rem, 2.200rem + 3.200vw, 5rem));
+        font-size: calc(clamp(3rem, 2.2rem + 3.2vw, 5rem));
       }
 
       p {
@@ -214,7 +217,7 @@ export default {
     // Box styling
     border: 1px dashed gray;
     // Centering + spacing
-    margin: calc(clamp(2.5rem, 1.500rem + 4.000vw, 5rem)) auto 0 auto;
+    margin: calc(clamp(2.5rem, 1.5rem + 4vw, 5rem)) auto 0 auto;
     // Flexbox for layout
     display: flex;
     flex-direction: column;

@@ -53,12 +53,13 @@
         >
       </div>
     </div>
+    <div id="submit-error" v-if="error">Please fill in all required fields!</div>
     <div id="nav-buttons">
       <button v-if="curPage > 0" @click="handleNavClick(-1)">Back</button>
       <button v-if="curPage < pages.length - 1" @click="handleNavClick(1)">
         Next
       </button>
-      <button v-else @click="handleUnfinished">Submit</button>
+      <button v-else @click="handleSubmit">Submit</button>
     </div>
   </div>
 </template>
@@ -82,6 +83,7 @@ export default {
   },
   data() {
     return {
+      // Page labels
       pages: [
         "File Upload",
         "Personal Details",
@@ -89,57 +91,62 @@ export default {
         "Contribution Details",
         "Review & Submit",
       ],
+      // Page state
       curPage: 0,
+      error: false,
+      testing: false,
+      // Checkboxes on review page
       checkboxes: {
         publish: false,
         private: false,
         agreement: false,
       },
+      // Form data
       submissionData: {
         fileData: {
           files: [],
           fileType: null,
         },
         personalData: {
-          email: null,
+          email: "",
           creator: {
             firstNames: [],
             lastNames: [],
-            bio: null,
-            website: null,
-            facebook: null,
-            twitter: null,
-            insta: null,
+            bio: "",
+            website: "",
+            facebook: "",
+            twitter: "",
+            insta: "",
           },
           contributor: {
             firstNames: [],
             lastNames: [],
-            bio: null,
-            website: null,
-            facebook: null,
-            twitter: null,
-            insta: null,
+            bio: "",
+            website: "",
+            facebook: "",
+            twitter: "",
+            insta: "",
           },
         },
         contributionData: {
-          title: null,
-          completionYear: null,
-          language: null,
-          city: null,
-          country: null,
+          title: "",
+          completionYear: "",
+          language: "",
+          city: "",
+          country: "",
           location: null,
-          description: null,
-          size: null,
-          mediums: null,
-          duration: null,
-          rights: null,
+          description: "",
+          size: "",
+          mediums: "",
+          duration: "",
+          rights: "",
           tags: [],
         },
       },
     };
   },
   methods: {
-    handleUnfinished: function () {
+    handleSubmit: function () {
       alert("This feature needs to be implemented still");
     },
     // File type select functions
@@ -164,8 +171,34 @@ export default {
       window.scrollTo(0, 0);
     },
     handleNavClick: function (inc) {
+      // Check and set error
+      if (!this.testing && inc === 1 && !this.handleFormValidation()) {
+        this.error = true;
+        return;
+      }
+      this.error = false;
       this.curPage += inc;
       window.scrollTo(0, 0);
+    },
+    handleFormValidation: function () {
+      // Validate file upload page
+      if (this.curPage === 0) {
+        let obj = this.submissionData.fileData;
+        return obj.files.length > 0 && obj.fileType !== null;
+        // Validate personal info page
+      } else if (this.curPage === 1) {
+        let obj = this.submissionData.personalData;
+        return obj.email !== "" && obj.creator.firstNames.length > 0;
+      } else if (this.curPage === 2) {
+        let obj = this.submissionData.contributionData;
+        return (
+          obj.title !== "" && obj.completionYear !== "" && obj.location !== null
+        );
+      } else if (this.curPage === 3) {
+        let obj = this.submissionData.contributionData;
+        return obj.rights !== "" && obj.tags.length > 0;
+      } else
+        console.log("An invalid page was accessed in handleFormValidation()");
     },
   },
   updated() {
@@ -370,6 +403,16 @@ export default {
     }
   }
 
+  #submit-error {
+    // Typography
+    color: red;
+    font-size: 20px;
+    // Spacing
+    margin-top: 36px;
+    // Centering
+    text-align: center;
+  }
+
   #nav-buttons {
     // Flexbox for centering
     display: flex;
@@ -377,7 +420,7 @@ export default {
 
     button {
       // Spacing
-      margin: 3rem;
+      margin: 48px;
       // Button styling
       padding: 0.625rem 2rem;
       // Typography

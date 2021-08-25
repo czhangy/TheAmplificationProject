@@ -48,7 +48,7 @@
           v-model="submissionData.country"
           :disabled="disabled"
         />
-        <button @click="handleLocationSearch">Find</button>
+        <button @click="handleLocationSearch" v-if="!disabled">Find</button>
       </div>
       <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
         ><Tooltip :open="tooltipStates[0]" :message="tooltipMessages[0]"
@@ -116,30 +116,23 @@ export default {
           }`
         )
         .then((res) => {
-          // Fix icon
-          const defaultIcon = new L.icon({
-            iconUrl: require("leaflet/dist/images/marker-icon.png"),
-            iconSize: [16, 24],
-            iconAnchor: [10, 25],
-            popupAnchor: [0, -2],
-          });
-          // Clear existing marker
-          if (this.marker !== null) this.map.removeLayer(this.marker);
-          // Add marker to clicked location
-          this.marker = L.marker(
-            [res.data.data[0].latitude, res.data.data[0].longitude],
-            {
-              icon: defaultIcon,
-            }
-          ).addTo(this.map);
+          let coords = [res.data.data[0].latitude, res.data.data[0].longitude];
+          // Set marker to location
+          this.handleSetMarker(coords[0], coords[1]);
           // Pan to location
-          this.map.flyTo([res.data.data[0].latitude, res.data.data[0].longitude])
+          this.map.flyTo(coords);
+          // Set location
+          this.submissionData.location = coords;
         });
     },
     handleLeafletSetup: function () {
       let self = this;
+      let center =
+        this.submissionData.location === null
+          ? this.center
+          : this.submissionData.location;
       // Set map object
-      this.map = L.map("map-container").setView(this.center, 13);
+      this.map = L.map("map-container").setView(center, 13);
       // Leaflet initialization
       L.tileLayer(
         "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -151,12 +144,44 @@ export default {
           accessToken: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN,
         }
       ).addTo(this.map);
-      // Add click handler
-      this.map.addEventListener("click", function (e) {
-        self.handleMarker(e);
-      });
+      this.handleMapState();
     },
-    handleMarker: function (e) {
+    handleMapState: function () {
+      // Add marker onto map if location exists already
+      if (this.submissionData.location !== null)
+        this.handleSetMarker(
+          this.submissionData.location[0],
+          this.submissionData.location[1]
+        );
+      // Disable interactivity on review page
+      if (this.disabled) {
+        this.map.dragging.disable();
+        this.map.zoomControl.disable();
+        this.map.scrollWheelZoom.disable();
+      }
+      // Add click handler
+      else
+        this.map.addEventListener("click", function (e) {
+          self.handleMarkerClick(e);
+        });
+    },
+    // Marker functions
+    handleSetMarker: function (lat, long) {
+      // Fix icon
+      const defaultIcon = new L.icon({
+        iconUrl: require("leaflet/dist/images/marker-icon.png"),
+        iconSize: [16, 24],
+        iconAnchor: [10, 25],
+        popupAnchor: [0, -2],
+      });
+      // Remove existing marker
+      if (this.marker !== null) this.map.removeLayer(this.marker);
+      // Set marker
+      this.marker = L.marker([lat, long], {
+        icon: defaultIcon,
+      }).addTo(this.map);
+    },
+    handleMarkerClick: function (e) {
       // Fix icon
       const defaultIcon = new L.icon({
         iconUrl: require("leaflet/dist/images/marker-icon.png"),
