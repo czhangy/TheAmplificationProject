@@ -106,6 +106,8 @@ export default {
     },
     // Map functions
     handleLocationSearch: async function () {
+      alert("This feature is under development!");
+      return;
       axios
         // Query LocationStack API for forward geocoding
         .get(
@@ -147,6 +149,8 @@ export default {
       this.handleMapState();
     },
     handleMapState: function () {
+      // Get reference to self
+      const self = this;
       // Add marker onto map if location exists already
       if (this.submissionData.location !== null)
         this.handleSetMarker(
@@ -180,23 +184,12 @@ export default {
       this.marker = L.marker([lat, long], {
         icon: defaultIcon,
       }).addTo(this.map);
+      // Save location
+      this.submissionData.location = [lat, long];
     },
     handleMarkerClick: function (e) {
-      // Fix icon
-      const defaultIcon = new L.icon({
-        iconUrl: require("leaflet/dist/images/marker-icon.png"),
-        iconSize: [16, 24],
-        iconAnchor: [10, 25],
-        popupAnchor: [0, -2],
-      });
-      // Clear existing marker
-      if (this.marker !== null) this.map.removeLayer(this.marker);
-      // Add marker to clicked location
-      this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
-        icon: defaultIcon,
-      }).addTo(this.map);
-      // Save location
-      this.submissionData.location = [e.latlng.lat, e.latlng.lng];
+      // Pass event to handler
+      this.handleSetMarker(e.latlng.lat, e.latlng.lng);
     },
   },
   mounted() {
