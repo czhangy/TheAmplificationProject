@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="support-banner">
+  <div id="support">
+    <div id="support-banner">
       <h1>Donate to the Amplification Project</h1>
       <p>
         All gifts to The Amplification Project are meaningful, no matter how big
@@ -13,14 +13,16 @@
         <br />
         <br />
         <span>
-          The Amplification Project is in affiliation with <a href="https://saveourplanet.org/" target="_blank">Social and
-          Environmental Entrepreneurs (SEE)</a>, a non-profit public charity exempt
-          from federal income tax under Section 501(c)(3) of the Internal
-          Revenue Code. Donations to The Amplification Project are
-          tax-deductible through SEE (EIN #95-4116679).
+          The Amplification Project is in affiliation with
+          <a href="https://saveourplanet.org/" target="_blank"
+            >Social and Environmental Entrepreneurs (SEE)</a
+          >, a non-profit public charity exempt from federal income tax under
+          Section 501(c)(3) of the Internal Revenue Code. Donations to The
+          Amplification Project are tax-deductible through SEE (EIN
+          #95-4116679).
         </span>
       </p>
-      <div class="support-nav">
+      <div id="support-nav">
         <button id="donate-online-button" @click="setOnlinePage">
           Donate Online
         </button>
@@ -29,9 +31,9 @@
         </button>
       </div>
     </div>
-    <div class="support-content">
-      <div class="support-form">
-        <div class="online-form" v-if="!altPage">
+    <div id="support-content">
+      <div id="support-form">
+        <form v-if="!altPage" @submit.prevent="handleSubmit">
           <p>
             <span>Make a Donation:</span>
             <br />
@@ -52,14 +54,14 @@
             <span class="asterisk">*</span>
           </p>
           <div class="dono-buttons">
-            <button class="dono-button" @click="handleButton(2)">$5</button>
-            <button class="dono-button" @click="handleButton(3)">$10</button>
-            <button class="dono-button" @click="handleButton(4)">$25</button>
-            <button class="dono-button" @click="handleButton(5)">$100</button>
-            <button class="dono-button" @click="handleButton(6)">Custom</button>
+            <button @click="handleButton(2)">$5</button>
+            <button @click="handleButton(3)">$10</button>
+            <button @click="handleButton(4)">$25</button>
+            <button @click="handleButton(5)">$100</button>
+            <input type="number" placeholder="Custom" v-model="res.donoAmnt" />
           </div>
           <p><span>Please tell us about yourself:</span></p>
-          <div class="personal-info">
+          <div id="personal-info">
             <div class="personal-info-field">
               <div class="personal-info-label">
                 <p>First Name: <span class="asterisk">*</span></p>
@@ -79,12 +81,8 @@
               <input v-model="res.email" />
             </div>
           </div>
-          <div class="button-container">
-            <button class="continue-button" @click="handleContinue">
-              Continue
-            </button>
-          </div>
-        </div>
+          <input type="submit" value="Continue" />
+        </form>
         <div v-else>
           <p>
             Please make checks payable to Social and Environmental Entrepreneurs
@@ -119,14 +117,15 @@ export default {
       altPage: false,
       res: {
         donoFreq: null,
-        donoAmnt: null,
-        firstName: null,
-        lastName: null,
-        email: null,
+        donoAmnt: "",
+        firstName: "",
+        lastName: "",
+        email: "",
       },
     };
   },
   methods: {
+    // Navigation functions
     setOnlinePage: function () {
       this.altPage = false;
       // Set underline
@@ -143,10 +142,12 @@ export default {
       document.getElementById("donate-check-button").style.borderBottom =
         "5px solid white";
     },
+    // Custom dono function
     openCustomAmountModal: function () {
       alert("This feature is being implemented still");
     },
-    handleButton(i) {
+    // Button styling function
+    handleButton: function (i) {
       let arr = document.getElementsByClassName("dono-button");
       if (i < 2) {
         for (let j = 0; j < 2; j++) {
@@ -166,7 +167,8 @@ export default {
         this.res.donoAmnt = true;
       }
     },
-    handleContinue() {
+    // Form submission function
+    handleSubmit() {
       console.log(this.res);
     },
   },
@@ -174,193 +176,228 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.support-banner {
-  // Typography
-  color: white;
-  // Background
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../assets/img/Support/support1.png");
-  background-size: cover;
-  // Flexbox for layout
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  // Spacing
-  padding: calc(clamp(2.5rem, 1.5rem + 4vw, 5rem))
-    calc(clamp(2rem, -1.2rem + 12.8vw, 10rem));
-
-  h1 {
-    // Centering
-    text-align: center;
+#support {
+  #support-banner {
     // Typography
-    font-size: calc(clamp(2rem, 1.2rem + 3.2vw, 4rem));
+    color: white;
+    // Background
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("../assets/img/Support/support1.png");
+    background-size: cover;
+    // Flexbox for layout
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     // Spacing
-    margin-bottom: 3rem;
-  }
+    padding: calc(clamp(2.5rem, 1.5rem + 4vw, 5rem))
+      calc(clamp(2rem, -1.2rem + 12.8vw, 10rem));
 
-  p {
-    // Typography
-    font-family: $alt-font;
-    font-size: calc(clamp(1rem, 0.8rem + 0.8vw, 1.5rem));
-    // Spacing
-    margin-bottom: calc(clamp(3rem, 1.8rem + 4.8vw, 6rem));
-
-    span {
+    h1 {
+      // Centering
+      text-align: center;
       // Typography
-      font-size: calc(clamp(0.9rem, 0.760rem + 0.560vw, 1.25rem));
+      font-size: calc(clamp(2rem, 1.2rem + 3.2vw, 4rem));
+      // Spacing
+      margin-bottom: 3rem;
+    }
 
-      a {
-        // Remove default a tag styling
+    p {
+      // Typography
+      font-family: $alt-font;
+      font-size: calc(clamp(1rem, 0.8rem + 0.8vw, 1.5rem));
+      // Spacing
+      margin-bottom: calc(clamp(3rem, 1.8rem + 4.8vw, 6rem));
+
+      span {
+        // Typography
+        font-size: calc(clamp(0.9rem, 0.76rem + 0.56vw, 1.25rem));
+
+        a {
+          // Remove default a tag styling
+          color: white;
+        }
+      }
+    }
+
+    #support-nav {
+      // Flexbox for layout
+      display: flex;
+      justify-content: space-evenly;
+
+      #donate-online-button {
+        // Default state of page
+        border-bottom: 5px solid white;
+      }
+
+      button {
+        // Remove default button styling
+        border: none;
+        background: transparent;
+        // Clickable
+        cursor: pointer;
+        // Typography
         color: white;
+        font-size: calc(clamp(1.3rem, 1.02rem + 1.12vw, 2rem));
+        font-family: $main-font;
+        // Spacing the underline
+        padding-bottom: 16px;
       }
     }
   }
 
-  .support-nav {
-    // Flexbox for layout
+  #support-content {
+    // Flexbox for alignment
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    // Spacing
+    padding: 80px 0;
 
-    #donate-online-button {
-      // Default state of page
-      border-bottom: 5px solid white;
-    }
-
-    button {
-      // Remove default button styling
-      border: none;
-      background: transparent;
-      // Clickable
-      cursor: pointer;
-      // Typography
-      color: white;
-      font-size: calc(clamp(1.3rem, 1.02rem + 1.12vw, 2rem));
-      font-family: $main-font;
-      // Spacing the underline
-      padding-bottom: 1rem;
-    }
-  }
-}
-
-.support-content {
-  // Flexbox for alignment
-  display: flex;
-  justify-content: center;
-  // Spacing
-  padding: 5rem 0;
-
-  .support-form {
-    // Typography
-    font-family: $alt-font;
-    font-size: 1.2rem;
-    // Make border box
-    border: 1px solid $accent-teal;
-    // Size border box
-    padding: 3rem clamp(2rem, -1.2rem + 12.8vw, 5rem);
-
-    span {
-      // Bold selected lines
-      font-weight: $bold;
-    }
-
-    .asterisk {
-      // Asterisk color
-      color: darken(red, 10);
-    }
-
-    button {
+    #support-form {
       // Typography
       font-family: $alt-font;
       font-size: 1.2rem;
-      // Button sizing
-      width: 17.5%;
-      padding: 1rem 0;
-      // Clickable
-      cursor: pointer;
-      // Remove default button styling
-      background: transparent;
-      // Shape button
-      border-radius: 10px;
-      border: 1px solid black;
-    }
+      // Make border box
+      border: 1px solid $accent-teal;
+      // Size border box
+      padding: 3rem clamp(2rem, -1.2rem + 12.8vw, 5rem);
 
-    .dono-buttons {
-      // Flexbox for layout
-      display: flex;
-      justify-content: space-between;
-      // Spacing
-      margin-top: 1rem;
-      margin-bottom: 3rem;
-
-      .freq-buttons {
-        // Sizing
-        width: 45%;
+      span {
+        // Bold selected lines
+        font-weight: $bold;
       }
-    }
 
-    .personal-info {
-      // Flexbox for layout
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      // Spacing
-      margin-top: 1rem;
+      .asterisk {
+        // Asterisk color
+        color: darken(red, 10);
+      }
 
-      .personal-info-field {
-        // Sizing
-        width: max(300px, 45%);
-        margin-bottom: 2rem;
+      .dono-buttons {
+        // Flexbox for layout
+        display: flex;
+        justify-content: space-between;
+        // Spacing
+        margin-top: 1rem;
+        margin-bottom: 3rem;
 
-        .personal-info-label {
-          // Flexbox for layout
-          display: flex;
-        }
-
+        button,
         input {
           // Typography
           font-family: $alt-font;
           font-size: 1.2rem;
-          // Spacing
-          margin-top: 0.5rem;
-          padding: 0.5rem;
-          // Border styling
-          border: none;
-          border-bottom: 1px solid grey;
-          // Sizing
-          width: 100%;
+          // Button sizing
+          width: 17.5%;
+          padding: 1rem 0;
+          // Remove default button styling
+          background: transparent;
+          // Shape button
+          border-radius: 10px;
+          border: 1px solid black;
+          // Centering
+          text-align: center;
+          // Hide arrows
+          -moz-appearance: textfield;
+        }
 
-          &:focus {
-            // Highlight bar
-            border-bottom: 2px solid $accent-teal;
+        button {
+          // Clickable
+          cursor: pointer;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          // Hide arrows
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        .freq-buttons {
+          // Sizing
+          width: 45%;
+        }
+      }
+
+      #personal-info {
+        // Flexbox for layout
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        // Spacing
+        margin-top: 1rem;
+
+        .personal-info-field {
+          // Sizing
+          width: max(300px, 45%);
+          margin-bottom: 2rem;
+
+          .personal-info-label {
+            // Flexbox for layout
+            display: flex;
+          }
+
+          input {
+            // Typography
+            font-family: $alt-font;
+            font-size: 1.2rem;
+            // Spacing
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            // Border styling
+            border: none;
+            border-bottom: 1px solid grey;
+            // Sizing
+            width: 100%;
+
+            &:focus {
+              // Highlight bar
+              border-bottom: 2px solid $accent-teal;
+            }
           }
         }
       }
-    }
-    .button-container {
-      // Flexbox for alignment
-      display: flex;
-      justify-content: center;
 
-      .continue-button {
+      input[type="submit"] {
         // Button styling
         background: $accent-teal;
-        color: white;
         border: none;
-        // Sizing
-        width: 200px;
+        padding: 16px 32px;
+        border-radius: 5px;
+        // Typography
+        font-family: $alt-font;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        // Clickable
+        cursor: pointer;
+        // Centering
+        margin: 0 auto;
+        display: block;
       }
     }
   }
 }
 
-// Media queries
 // Sticky hover
 @media (hover: hover) {
   button {
-    // Set animation
+    // Smooth animation
     transition: transform 0.2s ease;
+
     &:hover {
+      // Animate
       transform: scale(1.05);
+    }
+  }
+
+  #support {
+    #support-content {
+      #support-form {
+        input[type="submit"] {
+          &:hover {
+            // Animate
+            background: $accent-light-teal;
+          }
+        }
+      }
     }
   }
 }

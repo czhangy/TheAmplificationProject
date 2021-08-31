@@ -1,12 +1,18 @@
 <template>
-  <div id="bar">
-    <div class="page" v-for="(page, i) in pages" :key="i">
-      <div class="page-circle" @click="handleCircleClick(i)">
-        {{ i + 1 }}
+  <div id="circle-progress-bar">
+    <div class="step" v-for="(label, i) in labels" :key="i">
+      <div>
+        <div v-if="maxPage < i" class="bubble default-bubble">
+          {{ i + 1 }}
+          <label>{{ label }}</label>
+        </div>
+        <div v-else class="bubble active-bubble" @click="onClick(i)">
+          {{ i + 1 }}
+          <label class="active-label">{{ label }}</label>
+        </div>
       </div>
-      <p>
-        {{ page }}
-      </p>
+      <hr v-if="i !== labels.length - 1 && maxPage <= i" />
+      <hr class="active-bar" v-else-if="i !== labels.length - 1" />
     </div>
   </div>
 </template>
@@ -15,11 +21,15 @@
 export default {
   name: "ProgressBar",
   props: {
-    pages: {
+    labels: {
       type: Array,
       default: [],
     },
-    active: {
+    curPage: {
+      type: Number,
+      default: 0,
+    },
+    maxPage: {
       type: Number,
       default: 0,
     },
@@ -29,20 +39,20 @@ export default {
     },
   },
   mounted() {
-    // Set styling for each bubble
-    let arr = document.getElementsByClassName("page-circle");
-    for (let i = 0; i < this.pages.length; i++) {
-      if (i > this.active) return;
-      else if (i === this.active) {
-        arr[i].style.background = "#298A7E";
-        arr[i].style.color = "white";
-      } else {
-        arr[i].style.background = "lighten(lightgrey, 10)";
-        arr[i].style.color = "#333";
-        arr[i].style.cursor = "pointer";
-        arr[i].style.border = "3px solid #298A7E";
-      }
-    }
+    // // Set styling for each bubble
+    // let arr = document.getElementsByClassName("page-circle");
+    // for (let i = 0; i < this.pages.length; i++) {
+    //   if (i > this.active) return;
+    //   else if (i === this.active) {
+    //     arr[i].style.background = "#298A7E";
+    //     arr[i].style.color = "white";
+    //   } else {
+    //     arr[i].style.background = "lighten(lightgrey, 10)";
+    //     arr[i].style.color = "#333";
+    //     arr[i].style.cursor = "pointer";
+    //     arr[i].style.border = "3px solid #298A7E";
+    //   }
+    // }
   },
   methods: {
     handleCircleClick(i) {
@@ -55,71 +65,116 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#bar {
-  // Flexbox for layout
+#circle-progress-bar {
+  // Centering
+  margin: 0 auto;
+  // Flexbox for layout + centering
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   // Spacing
-  margin: 48px auto 96px auto;
-  width: 80%;
+  margin: 60px 0;
+  // Variable
+  --default: #8f8f8f;
 
-  .page {
-    // Flexbox for centering
+  .step {
+    // Centering
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    // Spacing
-    margin: 0;
 
-    .page-circle {
-      // Background
-      background: lighten(lightgrey, 10);
-      // Flexbox for centering
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      // Shaping
-      border-radius: 50%;
+    .bubble {
       // Sizing
       height: 64px;
       width: 64px;
+      // Shaping
+      border-radius: 50%;
+      // Centering
+      line-height: 64px;
+      text-align: center;
       // Typography
       font-family: $alt-font;
-      font-size: $subheader-font-size;
+      font-size: 2rem;
       // Spacing
-      margin-bottom: 16px;
+      margin: 0 6px;
+      // Positioning
+      position: relative;
+
+      label {
+        // Typography
+        font-size: 18px;
+        color: var(--default);
+        white-space: nowrap;
+        // Positioning
+        position: absolute;
+        top: 64px;
+        left: calc(-50% - 24px);
+        width: 175px;
+        // Centering
+        text-align: center;
+      }
+
+      .active-label {
+        // Typography
+        color: $accent-teal;
+      }
     }
 
-    p {
+    .default-bubble {
+      // Bubble styling
+      border: 1px solid var(--default);
       // Typography
-      font-family: $alt-font;
+      color: var(--default);
+    }
+
+    .active-bubble {
+      // Bubble styling
+      background: $accent-teal;
+      // Typography
+      color: white;
+      // Clickable
+      cursor: pointer;
+    }
+
+    hr {
+      // Bar styling
+      background: var(--default);
+      // Sizing
+      height: 2px;
+      width: 10vw;
+      border: none;
+    }
+
+    .active-bar {
+      // Bar styling
+      background: $accent-teal;
     }
   }
 }
 
-// Smaller layouts
-@media screen and (max-width: 1439px) {
-  #bar {
-    // Respace
-    margin-bottom: 48px;
-
-    .page > p {
-      // Hide text
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 767px) {
-  #bar {
-    // Respace
+@media screen and (max-width: 1023px) {
+  #circle-progress-bar {
+    // Respace to account for hidden text
     margin-bottom: 24px;
-    
-    .page > .page-circle {
-      // Resize
-      width: 48px;
-      height: 48px;
+
+    .step {
+      .bubble {
+        // Resize
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        // Resize font
+        font-size: 1.2rem;
+
+        label {
+          // Hide text on smaller layouts
+          display: none;
+        }
+      }
+
+      hr {
+        // Resize
+        width: 5vw;
+      }
     }
   }
 }

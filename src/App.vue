@@ -5,8 +5,10 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+// Import nav components
+import Navbar from "@/components/nav/Navbar";
+import Footer from "@/components/nav/Footer";
+
 export default {
   name: "App",
   components: {
@@ -42,5 +44,24 @@ html {
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 7px;
+    position: relative;
+
+    &-track {
+      cursor: pointer;
+    }
+
+    &-thumb {
+      background: #aaa;
+      border-radius: 12px;
+
+      &:hover {
+        background: #999;
+      }
+    }
+  }
 }
 </style>

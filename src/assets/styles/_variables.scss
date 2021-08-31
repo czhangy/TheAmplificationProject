@@ -16,7 +16,7 @@ $accent-grey: #9D9D9D;
 $accent-light-grey: #E9ECEB;
 $accent-teal: #298A7E;
 $accent-dark-teal: #3A7F77;
-$accent-light-teal: #8ABBAC;
+$accent-light-teal: lighten(#298A7E, 5);
 // Overlay
 $emph-content: 9;
 $navbar-content: 99;

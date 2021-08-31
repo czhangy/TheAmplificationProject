@@ -128,7 +128,6 @@ export default {
         });
     },
     handleLeafletSetup: function () {
-      let self = this;
       let center =
         this.submissionData.location === null
           ? this.center

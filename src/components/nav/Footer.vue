@@ -1,14 +1,14 @@
 <template>
   <div id="footer">
-    <div class="footer-text">
+    <div id="footer-text">
       Powered by <a href="https://omeka.org/" target="_blank">Omeka</a> | Site
       Hosted by
       <a href="https://reclaimhosting.com/" target="_blank">Reclaim Hosting</a>
       | 2019 - 2021
     </div>
-    <div class="footer-mailing-list">
+    <div id="footer-mailing-list">
       <p>Join Our Mailing List!</p>
-      <div class="mailing-list-fields">
+      <div id="mailing-list-fields">
         <label for="name">Name:</label>
         <input v-model="name" id="name" />
         <label for="email">Email:</label>
@@ -16,7 +16,7 @@
       </div>
       <button @click="handleSubscribe">Subscribe!</button>
     </div>
-    <div class="footer-socials">
+    <div id="footer-socials">
       <a
         class="fa fa-twitter"
         href="https://twitter.com/AmplifiProject"
@@ -73,7 +73,7 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  .footer-text {
+  #footer-text {
     // Typography
     font-family: $alt-font;
     color: $font-color;
@@ -96,7 +96,7 @@ export default {
     }
   }
 
-  .footer-mailing-list {
+  #footer-mailing-list {
     // Typography
     font-family: $alt-font;
     color: $font-color;
@@ -107,7 +107,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
 
-    .mailing-list-fields {
+    #mailing-list-fields {
       // Flexbox for layout
       display: flex;
       align-items: center;
@@ -141,7 +141,7 @@ export default {
     }
   }
 
-  .footer-socials {
+  #footer-socials {
     // Icon centering
     text-align: center;
     // Icon sizing
@@ -168,26 +168,22 @@ export default {
   }
 }
 
-// Media queries
 // Sticky hover
 @media (hover: hover) {
   #footer {
-    .footer-mailing-list {
-      button {
-        transition: transform 0.2s ease;
-        &:hover {
-          background: $accent-teal;
-          color: $accent-light-grey;
-          transform: scale(1.05);
-        }
+    #footer-mailing-list > button {
+      &:hover {
+        // Animate
+        background: $accent-teal;
+        color: $accent-light-grey;
       }
     }
-    .footer-socials {
-      .fa {
-        &:hover {
-          background: $accent-teal;
-          color: $accent-light-grey;
-        }
+
+    #footer-socials > .fa {
+      &:hover {
+        // Animate
+        background: $accent-teal;
+        color: $accent-light-grey;
       }
     }
   }
@@ -195,33 +191,44 @@ export default {
 
 // Mobile layout
 @media screen and (max-width: 1300px) {
-  #footer > .footer-mailing-list {
+  #footer > #footer-mailing-list {
+    // Respace
     margin: 0 2rem;
-    .mailing-list-fields {
+
+    #mailing-list-fields {
+      // Column layout
       flex-direction: column;
       align-items: flex-start;
+
       label {
+        // Remove spacing
         margin: 0;
       }
     }
+
     button {
-      margin-top: 1rem;
+      // Respace
+      margin-top: 16px;
     }
   }
 }
 
 @media screen and (max-width: 900px) {
   #footer {
+    // Column layout
     flex-direction: column;
     height: auto;
-    padding: 3rem 1rem;
+    padding: 48px 16px;
 
-    .footer-text {
+    #footer-text {
+      // Realign
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
     }
-    .footer-mailing-list {
-      margin-bottom: 2rem;
+
+    #footer-mailing-list {
+      // Respace
+      margin-bottom: 32px;
     }
   }
 }

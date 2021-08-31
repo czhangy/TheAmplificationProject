@@ -1,10 +1,10 @@
 <template>
   <div class="submission">
     <ProgressBar
-      :pages="pages"
-      :active="curPage"
-      :onClick="handleBarClick"
-      :key="curPage"
+      :labels="pages"
+      :curPage="curPage"
+      :maxPage="maxPage"
+      :onClick="handleBubbleNav"
     />
     <div class="page" v-if="curPage === 0 || curPage === 4">
       <FileUpload
@@ -55,8 +55,8 @@
     </div>
     <div id="submit-error" v-if="error">Please fill in all required fields!</div>
     <div id="nav-buttons">
-      <button v-if="curPage > 0" @click="handleNavClick(-1)">Back</button>
-      <button v-if="curPage < pages.length - 1" @click="handleNavClick(1)">
+      <button v-if="curPage > 0" @click="handleButtonNav(-1)">Back</button>
+      <button v-if="curPage < pages.length - 1" @click="handleButtonNav(1)">
         Next
       </button>
       <button v-else @click="handleSubmit">Submit</button>
@@ -93,6 +93,7 @@ export default {
       ],
       // Page state
       curPage: 0,
+      maxPage: 0,
       error: false,
       testing: false,
       // Checkboxes on review page
@@ -140,6 +141,7 @@ export default {
           mediums: "",
           duration: "",
           rights: "",
+          collection: "",
           tags: [],
         },
       },
@@ -165,20 +167,21 @@ export default {
           i === this.submissionData.fileData.fileType ? "#298A7E" : "grey";
     },
     // Page navigation functions
-    handleBarClick: function (i) {
-      // Handle page scroll
-      this.curPage = i;
-      window.scrollTo(0, 0);
-    },
-    handleNavClick: function (inc) {
-      // Check and set error
-      if (!this.testing && inc === 1 && !this.handleFormValidation()) {
+    handleButtonNav: function (inc) {
+      // Show error message if form incomplete
+      if (inc === 1 && !this.handleFormValidation()) {
         this.error = true;
         return;
       }
+      // Remove error
       this.error = false;
+      // Move to next page
       this.curPage += inc;
-      window.scrollTo(0, 0);
+      this.maxPage = Math.max(this.maxPage, this.curPage);
+    },
+    handleBubbleNav: function (page) {
+      // Set curPage to clicked page
+      this.curPage = page;
     },
     handleFormValidation: function () {
       // Validate file upload page
@@ -407,6 +410,7 @@ export default {
     // Typography
     color: red;
     font-size: 20px;
+    font-weight: bold;
     // Spacing
     margin-top: 36px;
     // Centering

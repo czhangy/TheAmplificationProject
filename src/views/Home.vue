@@ -64,7 +64,7 @@
 
 <script>
 // Import global components
-import HoverPanel from "@/components/HoverPanel";
+import HoverPanel from "@/components/global/HoverPanel";
 
 export default {
   name: "Home",

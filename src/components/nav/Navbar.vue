@@ -1,29 +1,27 @@
 <template>
-  <div class="navbar">
-    <router-link to="/" class="navbar-brand">
+  <div id="navbar">
+    <router-link to="/" id="navbar-brand">
       <img
         src="@/assets/logo.png"
         alt="Amplification Project Logo"
-        class="navbar-logo"
+        id="navbar-logo"
       />
-      <div class="navbar-text">
-        <h1 class="navbar-text-header">
-          the <span> amplification </span> project
-        </h1>
-        <h2 class="navbar-text-caption">
+      <div id="navbar-text">
+        <h1>the <span> amplification </span> project</h1>
+        <h2>
           Digital Archive for Forced Migration
           <br />
           Contemporary Art & Action
         </h2>
       </div>
     </router-link>
-    <div class="navbar-links">
+    <div id="navbar-links">
       <div v-if="windowWidth > 900">
         <router-link to="/login" class="navbar-auth"> login </router-link>
         |
         <router-link to="/signup" class="navbar-auth"> sign up </router-link>
       </div>
-      <div class="navbar-hamburger" @click="openNavMenu">
+      <div id="navbar-hamburger" @click="openNavMenu">
         <span v-for="i in 3" :key="i" />
       </div>
     </div>
@@ -32,7 +30,9 @@
 </template>
 
 <script>
-import Menu from "@/components/Menu";
+// Import nav components
+import Menu from "@/components/nav/Menu";
+
 export default {
   name: "Navbar",
   components: {
@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.navbar {
+#navbar {
   // Sizing
   height: $navbar-height;
   width: 100%;
@@ -86,7 +86,7 @@ export default {
   // Border
   box-shadow: 0 0 5px $box-shadow;
 
-  .navbar-brand {
+  #navbar-brand {
     // Flexbox for alignment
     display: flex;
     justify-content: center;
@@ -95,15 +95,15 @@ export default {
     text-decoration: none;
     color: $font-color;
 
-    .navbar-logo {
+    #navbar-logo {
       // Sizing
-      height: clamp(3rem, 1.800rem + 4.800vw, 6rem);
+      height: clamp(3rem, 1.8rem + 4.8vw, 6rem);
       // Spacing
       margin-right: 1rem;
     }
 
-    .navbar-text {
-      .navbar-text-header {
+    #navbar-text {
+      h1 {
         // Typography
         text-transform: uppercase;
         font-size: clamp(1.25rem, 1rem + 1vw, 1.875rem);
@@ -114,7 +114,7 @@ export default {
         }
       }
 
-      .navbar-text-caption {
+      h2 {
         // Typography
         font-family: $alt-font;
         font-weight: $normal;
@@ -124,7 +124,7 @@ export default {
     }
   }
 
-  .navbar-links {
+  #navbar-links {
     // Typography
     font-family: $alt-font;
     text-transform: uppercase;
@@ -141,16 +141,16 @@ export default {
       color: $font-color;
       text-decoration: none;
       // Spacing
-      margin: 1rem;
+      margin: 16px;
     }
 
-    .navbar-hamburger {
+    #navbar-hamburger {
       // Flexbox for layout
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       // Spacing
-      margin: 0 1rem;
+      margin: 0 16px;
       // Clickable
       cursor: pointer;
 
@@ -159,28 +159,24 @@ export default {
         background: $accent-grey;
         // Sizing
         height: 3px;
-        width: 1.875rem;
+        width: 30px;
         // Bar styling
         border-radius: 1px;
         // Create hamburger icon
         margin: 0.2rem 0;
-        // Handle transition
+        // Smooth animation
         transition: margin 0.3s ease;
       }
     }
   }
 }
 
-// Media queries
 // Handle sticky hover
 @media (hover: hover) {
-  .navbar {
-    .navbar-links {
-      .navbar-hamburger {
-          &:hover span {
-            margin: 0.3rem 0;
-          }
-      }
+  #navbar > #navbar-links > #navbar-hamburger {
+    &:hover span {
+      // Animate
+      margin: 0.3rem 0;
     }
   }
 }

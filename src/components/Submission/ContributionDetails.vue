@@ -53,6 +53,18 @@
       /></i>
     </div>
     <div class="section-header">
+      <p>
+        Is this item part of a collection? If so, put collection title here:
+      </p>
+    </div>
+    <div class="section-field">
+      <input
+        placeholder="Enter collection name"
+        v-model="submissionData.collection"
+        :disabled="disabled"
+      />
+    </div>
+    <div class="section-header">
       <p>Copyright</p>
       <i class="fas fa-asterisk"></i>
     </div>
