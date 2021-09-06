@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 // Import global components
 import HoverPanel from "@/components/global/HoverPanel";
 

@@ -78,7 +78,6 @@ export default {
   }
 }
 
-// Media queries
 // Sticky hover
 @media (hover: hover) {
   .hover-panel {

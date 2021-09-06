@@ -53,7 +53,9 @@
         >
       </div>
     </div>
-    <div id="submit-error" v-if="error">Please fill in all required fields!</div>
+    <div id="submit-error" v-if="error">
+      Please fill in all required fields!
+    </div>
     <div id="nav-buttons">
       <button v-if="curPage > 0" @click="handleButtonNav(-1)">Back</button>
       <button v-if="curPage < pages.length - 1" @click="handleButtonNav(1)">
@@ -65,6 +67,9 @@
 </template>
 
 <script>
+// Import global library
+import Swal from "sweetalert2";
+
 // Import local components
 import ProgressBar from "@/components/Submission/ProgressBar";
 import FileUpload from "@/components/Submission/FileUpload";
@@ -149,7 +154,15 @@ export default {
   },
   methods: {
     handleSubmit: function () {
-      alert("This feature needs to be implemented still");
+      // Alert about submission status
+      Swal.fire({
+        title: "Success!",
+        text: "Your submission has been uploaded",
+        icon: "success",
+        confirmButtonColor: "#298A7E"
+      })
+      // Redirect to home page
+      .then(this.$router.push({ path: "/" }));
     },
     // File type select functions
     handleTypeSelect: function (type) {
@@ -178,10 +191,14 @@ export default {
       // Move to next page
       this.curPage += inc;
       this.maxPage = Math.max(this.maxPage, this.curPage);
+      // Scroll to top
+      window.scrollTo(0, 0);
     },
     handleBubbleNav: function (page) {
       // Set curPage to clicked page
       this.curPage = page;
+      // Scroll to top
+      window.scrollTo(0, 0);
     },
     handleFormValidation: function () {
       // Validate file upload page

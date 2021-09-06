@@ -222,6 +222,8 @@ export default {
     // Sizing
     height: 50vh;
     width: 100%;
+    // Place below content
+    z-index: 0;
   }
 }
 

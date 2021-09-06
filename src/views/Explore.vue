@@ -82,6 +82,8 @@ export default {
         if (i === this.curPage) arr[i].classList.add("active");
         else arr[i].classList.remove("active");
       }
+      // Scroll to top
+      window.scrollTo(0, 0);
     },
   },
   mounted() {
@@ -116,6 +118,7 @@ export default {
       color: black;
       font-family: $main-font;
       font-size: 1.5rem;
+      font-weight: bold;
     }
 
     .active {
@@ -178,6 +181,7 @@ export default {
       label {
         // Typography
         font-size: 1.25rem;
+        font-weight: bold;
         // Spacing
         margin-right: 24px;
       }
@@ -195,6 +199,12 @@ export default {
       #filter-dropdown {
         // Typography
         font-family: $main-font;
+        font-weight: bold;
+
+        option {
+          // Typography
+          font-weight: bold;
+        }
       }
 
       #sort-dropdown {

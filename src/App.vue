@@ -28,7 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #333;
   background: #fffefe;
-  height: 100vh;
+  height: auto;
   width: 100vw;
   position: relative;
 }
@@ -41,9 +41,8 @@ export default {
 }
 
 html {
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  height: auto;
+  overflow-y: auto;
 
   // Custom scrollbar
   &::-webkit-scrollbar {
@@ -63,5 +62,13 @@ html {
       }
     }
   }
+}
+
+body {
+  // Fix scrollTo
+  height: auto;
+  overflow-x: hidden;
+  // Set font
+  font-family: Inter;
 }
 </style>

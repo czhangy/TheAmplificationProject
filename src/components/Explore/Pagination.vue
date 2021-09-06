@@ -1,14 +1,9 @@
 <template>
   <div class="pagination">
     <button @click="onClick(curPage - 1)">&lt;</button>
-    <button id="lower-limit" class="hide" @click="onClick(0)">{{ 1 }}</button>
-    <p id="leading-break" class="hide">···</p>
     <button v-for="(page, i) in bounds" :key="i" @click="onClick(page - 1)">
-      {{ page }}
-    </button>
-    <p id="trailing-break">···</p>
-    <button id="upper-limit" @click="onClick(maxPage - 1)">
-      {{ maxPage }}
+      <p v-if="handleStyling(i)" class="active">{{ page }}</p>
+      <p v-else>{{ page }}</p>
     </button>
     <button @click="onClick(curPage + 1)">></button>
   </div>
@@ -35,39 +30,33 @@ export default {
   },
   methods: {
     // Pagination display function
-    handleDisplay: function (page) {
+    handleBounds: function (page) {
       // Set page
       this.curPage = page;
       // Reset bounds
       this.bounds = [];
-      // Full pagination should be visible
-      if (this.maxPage <= 5) {
-        // Set bounds
-        for (let i = 0; i < this.maxPage; i++)
+      // Full range of bounds is within valid pages
+      if (this.curPage + 5 <= this.maxPage)
+        for (let i = 0; i < 5; i++)
           this.bounds.push(this.curPage + i + 1);
-        // Hide trailing elements
-        document
-          .querySelectorAll("#trailing-break")
-          .forEach((el) => el.classList.add("hide"));
-        document
-          .querySelectorAll("#upper-limit")
-          .forEach((el) => el.classList.add("hide"));
-      } else for (let i = 0; i < 3; i++) this.bounds.push(this.curPage + i + 1);
+      // Show last 5 pages
+      else
+        for (let i = 4; i >= 0; i--)
+          this.bounds.push(this.maxPage - i);
     },
     // Nav styling function
-    handleNavStyling: function () {
-      let arr = document.getElementsByTagName("button");
-      for (let i = 1; i < arr.length - 1; i++) {
-        if (i - 1 === this.curPage) {
-          arr[i].classList.add("active");
-          console.log(i);
-        }
-      }
+    handleStyling: function (i) {
+      // Default display --> first page is active
+      if (this.curPage + 5 <= this.maxPage)
+        return i === 0;
+      // Last 5 pages display
+      else
+        return i === (5 - (this.maxPage - this.curPage));
     },
   },
-  mounted() {
+  created() {
     // Init styling + display
-    this.handleDisplay(0);
+    this.handleBounds(0);
   },
 };
 </script>
