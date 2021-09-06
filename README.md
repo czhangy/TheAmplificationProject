@@ -21,9 +21,6 @@ This project is currently under development. Designs are still being finalized b
 
 #### To Do:
 
-- [ ] Implement location selection on submission form
-- [ ] Implement form validation on submission form
-- [ ] Debug and finalize submission form
 - [ ] Code the "Browse the Archive" pages
-- [ ] Implement custom donation amounts
+- [ ] Fix location search in submissions
 
