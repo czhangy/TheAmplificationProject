@@ -78,6 +78,11 @@ export default {
       default: 1,
     },
   },
+  data() {
+    return {
+      fileContents: "",
+    };
+  },
   mounted() {
     // Handle pointer cursor on icons
     this.handleIconStyling();

@@ -150,6 +150,7 @@ export default {
           tags: [],
         },
       },
+      fileContents: "",
     };
   },
   methods: {
