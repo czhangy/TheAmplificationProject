@@ -113,7 +113,6 @@ export default {
         fileData: {
           files: [],
           fileType: null,
-          fileContents: "",
         },
         personalData: {
           email: "",
@@ -152,6 +151,7 @@ export default {
           tags: [],
         },
       },
+      fileContents: "",
     };
   },
   methods: {
@@ -183,7 +183,7 @@ export default {
     },
     handleFileSelect: function (contents) {
       // Pass file contents from FileUpload
-      this.submissionData.fileData.fileContents = contents;
+      this.fileContents = contents;
     },
     // Page navigation functions
     handleButtonNav: function (inc) {
