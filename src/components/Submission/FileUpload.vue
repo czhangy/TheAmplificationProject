@@ -69,6 +69,10 @@ export default {
       type: Function,
       required: true,
     },
+    onUpload: {
+      type: Function,
+      required: true,
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -77,11 +81,6 @@ export default {
       type: Number,
       default: 1,
     },
-  },
-  data() {
-    return {
-      fileContents: "",
-    };
   },
   mounted() {
     // Handle pointer cursor on icons

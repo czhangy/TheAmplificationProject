@@ -10,6 +10,7 @@
       <FileUpload
         :submissionData="submissionData.fileData"
         :onClick="handleTypeSelect"
+        :onUpload="handleFileSelect"
         :disabled="curPage === 4"
       />
     </div>
@@ -112,6 +113,7 @@ export default {
         fileData: {
           files: [],
           fileType: null,
+          fileContents: "",
         },
         personalData: {
           email: "",
@@ -150,7 +152,6 @@ export default {
           tags: [],
         },
       },
-      fileContents: "",
     };
   },
   methods: {
@@ -179,6 +180,10 @@ export default {
       for (let i = 0; i < arr.length; i++)
         arr[i].style.color =
           i === this.submissionData.fileData.fileType ? "#298A7E" : "grey";
+    },
+    handleFileSelect: function (contents) {
+      // Pass file contents from FileUpload
+      this.submissionData.fileData.fileContents = contents;
     },
     // Page navigation functions
     handleButtonNav: function (inc) {
