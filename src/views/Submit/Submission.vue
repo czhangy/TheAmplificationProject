@@ -72,11 +72,11 @@
 import Swal from "sweetalert2";
 
 // Import local components
-import ProgressBar from "@/components/Submission/ProgressBar";
-import FileUpload from "@/components/Submission/FileUpload";
-import PersonalDetails from "@/components/Submission/PersonalDetails";
-import ContributionBasics from "@/components/Submission/ContributionBasics";
-import ContributionDetails from "@/components/Submission/ContributionDetails";
+import ProgressBar from "./components/ProgressBar";
+import FileUpload from "./components/FileUpload";
+import PersonalDetails from "./components/PersonalDetails";
+import ContributionBasics from "./components/ContributionBasics";
+import ContributionDetails from "./components/ContributionDetails";
 
 export default {
   name: "Submission",
@@ -161,10 +161,10 @@ export default {
         title: "Success!",
         text: "Your submission has been uploaded",
         icon: "success",
-        confirmButtonColor: "#298A7E"
+        confirmButtonColor: "#298A7E",
       })
-      // Redirect to home page
-      .then(this.$router.push({ path: "/" }));
+        // Redirect to home page
+        .then(this.$router.push({ path: "/" }));
     },
     // File type select functions
     handleTypeSelect: function (type) {
@@ -222,7 +222,9 @@ export default {
         );
       } else if (this.curPage === 3) {
         let obj = this.submissionData.contributionData;
-        return obj.rights !== "" && obj.tags.length > 0;
+        return (
+          obj.description !== "" && obj.rights !== "" && obj.tags.length > 0
+        );
       } else
         console.log("An invalid page was accessed in handleFormValidation()");
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div id="about">
     <div class="about-container">
       <div class="about-text">
         <h1>About</h1>
@@ -105,7 +105,9 @@
           src="@/assets/img/About/about3.png"
           alt="Mandela Project Venice: We Are Humanity by Lilli Muller, 2019"
         />
-        <p><em>Mandela Project Venice: We Are Humanity</em> by Lilli Muller, 2019</p>
+        <p>
+          <em>Mandela Project Venice: We Are Humanity</em> by Lilli Muller, 2019
+        </p>
       </div>
     </div>
     <div class="about-gap">
@@ -164,15 +166,12 @@
           Founding Member
         </p>
       </div>
-      <div class="about-headshot-card">
-        <img src="@/assets/img/About/about10.png" alt="Nick Schwieterman" />
-        <p>
-          <span>Nick Schwieterman </span>
-          <br />
-          <br />
-          PhD student in information studies
-        </p>
-      </div>
+      <p id="special-thanks">
+        The Collective Advisory Group gives special thanks to Nick Schwieterman,
+        students in UCLA's DH199: Designing the User-Centered Art Archive course
+        (2020, 2021), Charles Zhang, Menachem Kornreich, Anne Gilliland, and
+        James Lowry.
+      </p>
     </div>
   </div>
 </template>
@@ -207,7 +206,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.about {
+#about {
   // Flexbox for layout
   display: flex;
   flex-direction: column;
@@ -372,6 +371,7 @@ export default {
       font-size: calc(clamp(0.8rem, 0.42rem + 1.52vw, 1.75rem));
     }
   }
+
   .about-headshots {
     // Flexbox for layout
     display: flex;
@@ -408,13 +408,24 @@ export default {
         font-weight: $normal;
       }
     }
+
+    #special-thanks {
+      // Sizing
+      width: 70%;
+      // Centering
+      margin: 0 auto;
+      text-align: center;
+      // Typography
+      font-family: $alt-font;
+      // Spacing
+      margin-bottom: 32px;
+    }
   }
 }
 
-// Media queries
 // Sticky hover
 @media (hover: hover) {
-  .about {
+  #about {
     .about-container {
       .about-text {
         .about-mission-nav {
@@ -432,9 +443,10 @@ export default {
 }
 // Mobile layout
 @media screen and (max-width: $mobile) {
-  .about {
+  #about {
     // Spacing
     margin: 2rem 0;
+
     .about-container {
       .about-text {
         // Reduce spacing

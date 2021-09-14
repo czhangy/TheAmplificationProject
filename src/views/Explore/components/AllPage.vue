@@ -1,6 +1,6 @@
 <template>
-  <div id="artists-page">
-    <div id="artists-page-header">
+  <div id="all-page">
+    <div id="all-page-header">
       <p>Showing 103 items</p>
       <Pagination
         ref="header-pagination"
@@ -8,11 +8,14 @@
         :onClick="handlePagination"
       />
     </div>
-    <div id="artists-page-content">
-      <div class="content-container" v-for="i in 12" :key="i">
-        <div class="content-overlay">
-          <p>NAME, ARTIST</p>
-        </div>
+    <div id="all-page-content">
+      <div
+        class="content-container"
+        v-for="i in 12"
+        :key="i"
+        @click="onClick(test)"
+      >
+        <HoverPanel header="Lorem ipsum" />
       </div>
     </div>
     <Pagination
@@ -25,12 +28,16 @@
 </template>
 
 <script>
+// Import global components
+import HoverPanel from "@/components/global/HoverPanel.vue";
+
 // Import local components
 import Pagination from "./Pagination.vue";
 
 export default {
-  name: "ArtistsPage",
+  name: "AllPage",
   components: {
+    HoverPanel,
     Pagination,
   },
   props: {
@@ -46,12 +53,32 @@ export default {
       type: String,
       required: true,
     },
+    onClick: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
       curPage: 0,
       maxPage: 10,
       contents: [],
+      test: {
+        name: "Piece Name",
+        artist: "Artist Name",
+        desc: "Suspendisse augue erat, venenatis ut ante ornare, pretium rutrum magna. Donec accumsan erat felis, non egestas nibh mattis convallis. Curabitur dolor orci, lobortis sed pretium et, porta id velit. Pellentesque vehicula sem leo. Maecenas cursus, est eu laoreet",
+        format: "Text",
+        contributor: "N/A",
+        medium: "Pencil on paper",
+        size: "40 x 40 in.",
+        year: "2019",
+        rights: "Rights reserved",
+        location: {
+          lat: 34,
+          lng: -118,
+        },
+        tags: ["Tag 1", "Tag 2", "Tag 3", "Tag 4", "Tag 5", "Tag 6"],
+      },
     };
   },
   methods: {
@@ -71,14 +98,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#artists-page {
+#all-page {
   // Spacing
   margin-top: 48px;
   margin-bottom: 64px;
   // Positioning
   position: relative;
 
-  #artists-page-header {
+  #all-page-header {
     // Flexbox for layout
     display: flex;
     justify-content: space-between;
@@ -91,7 +118,7 @@ export default {
     }
   }
 
-  #artists-page-content {
+  #all-page-content {
     // Sizing
     width: 100%;
     // Spacing
@@ -106,28 +133,9 @@ export default {
       width: 100%;
       height: 40vh;
       background: red;
-      // Positioning for children
-      position: relative;
-      // Clickable
-      cursor: pointer;
-
-      .content-overlay {
-        // Positioning
-        position: absolute;
-        bottom: 0;
-        // Overlay effect
-        background: rgba(0, 0, 0, 0.6);
-        // Typography
-        color: white;
-        font-size: 1.5rem;
-        font-weight: bold;
-        // Sizing
-        width: 100%;
-        // Spacing
-        padding: 24px 15px;
-      }
     }
   }
+
   #footer-nav {
     // Positioning
     position: absolute;

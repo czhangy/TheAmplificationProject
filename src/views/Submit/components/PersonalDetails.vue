@@ -191,7 +191,7 @@
 
 <script>
 // Import local components
-import Tooltip from "@/components/Submission/Tooltip";
+import Tooltip from "./Tooltip";
 
 export default {
   name: "PersonalDetails",

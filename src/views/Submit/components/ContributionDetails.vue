@@ -2,6 +2,7 @@
   <div id="contribution-details">
     <div class="section-header">
       <p>Describe the work</p>
+      <i class="fas fa-asterisk"></i>
     </div>
     <div class="section-field textarea-field">
       <textarea
@@ -115,7 +116,7 @@
 
 <script>
 // Import local components
-import Tooltip from "@/components/Submission/Tooltip";
+import Tooltip from "./Tooltip";
 
 export default {
   name: "ContributionDetails",

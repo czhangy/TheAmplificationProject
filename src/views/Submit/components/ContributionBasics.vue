@@ -67,7 +67,7 @@ import L from "leaflet";
 import axios from "axios";
 
 // Import local components
-import Tooltip from "@/components/Submission/Tooltip";
+import Tooltip from "./Tooltip";
 
 export default {
   name: "ContributionBasics",
@@ -159,7 +159,7 @@ export default {
       // Disable interactivity on review page
       if (this.disabled) {
         this.map.dragging.disable();
-        this.map.zoomControl.disable();
+        this.map.zoomControl.remove();
         this.map.scrollWheelZoom.disable();
       }
       // Add click handler

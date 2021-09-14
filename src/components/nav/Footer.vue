@@ -24,14 +24,14 @@
         aria-hidden="true"
       ></a>
       <a
+        class="fa fa-facebook-f"
         href="https://www.facebook.com/TheAmplificationProject/"
         target="_blank"
-        class="fa fa-facebook-f"
       ></a>
       <a
+        class="fa fa-instagram"
         href="https://www.instagram.com/theamplificationproject/"
         target="_blank"
-        class="fa fa-instagram"
       ></a>
     </div>
   </div>

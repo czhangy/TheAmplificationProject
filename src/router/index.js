@@ -24,17 +24,17 @@ const routes = [
   {
     path: "/explore",
     name: "Explore",
-    component: () => import("@/views/Explore.vue"),
+    component: () => import("@/views/Explore/Explore.vue"),
   },
   {
     path: "/submit",
     name: "Submit",
-    component: () => import("@/views/Submit.vue"),
+    component: () => import("@/views/Submit/Submit.vue"),
   },
   {
     path: "/submission",
     name: "Submission",
-    component: () => import("@/views/Submission.vue"),
+    component: () => import("@/views/Submit/Submission.vue"),
   },
   {
     path: "/support",
@@ -49,12 +49,12 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("@/views/Login.vue"),
+    component: () => import("@/views/User/Login.vue"),
   },
   {
     path: "/signup",
     name: "Sign Up",
-    component: () => import("@/views/SignUp.vue"),
+    component: () => import("@/views/User/SignUp.vue"),
   },
 ];
 
