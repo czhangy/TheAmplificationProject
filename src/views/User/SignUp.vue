@@ -1,34 +1,45 @@
 <template>
-  <div class="signup">
-    <h2>Sign Up</h2>
-    <div class="signup-form">
-      <div class="form-field-row">
-        <div class="form-field">
-          <label>Username</label>
-          <input v-model="username" />
+  <div id="sign-up">
+    <p id="sign-up-header">Sign Up</p>
+    <form id="sign-up-form" @submit.prevent="handleSignUp">
+      <div class="form-row">
+        <div class="form-entry">
+          <label for="sign-up-username">Username</label>
+          <input id="sign-up-username" class="form-field" v-model="username" />
         </div>
-        <div class="form-field">
-          <label>Email</label>
-          <input v-model="email" />
-        </div>
-      </div>
-      <div class="form-field-row">
-        <div class="form-field">
-          <label>Password</label>
-          <input type="password" v-model="password" />
-        </div>
-        <div class="form-field">
-          <label>Confirm Password</label>
-          <input type="password" v-model="confirmPassword" />
+        <div class="form-entry">
+          <label for="sign-up-email">Email</label>
+          <input id="sign-up-email" class="form-field" v-model="email" />
         </div>
       </div>
-      <div class="form-field-row">
-        <div class="captcha"></div>
-        <button @click="handleRegister">Register</button>
+      <div class="form-row">
+        <div class="form-entry">
+          <label for="sign-up-password">Password</label>
+          <input
+            id="sign-up-password"
+            class="form-field"
+            type="password"
+            v-model="password"
+          />
+        </div>
+        <div class="form-entry">
+          <label for="sign-up-confirm-password">Confirm Password</label>
+          <input
+            id="sign-up-confirm-password"
+            class="form-field"
+            type="password"
+            v-model="confirmPassword"
+          />
+        </div>
       </div>
-    </div>
-    <p>
-      Already have an account? <router-link to="/login">Log In</router-link>
+      <div class="form-row">
+        <div id="captcha"></div>
+        <input id="sign-up-button" type="submit" value="Sign Up" />
+      </div>
+    </form>
+    <p id="login-redirect">
+      Already have an account?
+      <router-link id="login-link" to="/login">Log In</router-link>
     </p>
   </div>
 </template>
@@ -45,9 +56,9 @@ export default {
     };
   },
   methods: {
-    handleRegister: function () {
+    handleSignUp: function () {
       alert(
-        `The handleLogin() function in Login.vue must still be implemented, but here's the data stored in the component for testing:\n
+        `The handleSignUp() function in Login.vue must still be implemented, but here's the data stored in the component for testing:\n
         username = "${this.username}"
         email = "${this.email}"
         password = "${this.password}"
@@ -63,7 +74,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.signup {
+#sign-up {
   // Sizing
   width: 100%;
   // Flexbox for centering
@@ -73,15 +84,17 @@ export default {
   // Spacing
   padding: 1rem;
 
-  h2 {
+  #sign-up-header {
     // Typography
     text-align: center;
     font-size: $header-font-size;
+    font-family: $main-font;
+    font-weight: bold;
     // Spacing
     margin-top: $title-margin;
   }
 
-  .signup-form {
+  #sign-up-form {
     // Sizing
     width: max(50vw, 300px);
     // Spacing
@@ -92,7 +105,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    .form-field-row {
+    .form-row {
       // Flexbox for layout
       display: flex;
       justify-content: space-between;
@@ -100,7 +113,7 @@ export default {
       // Sizing
       width: 100%;
 
-      .form-field {
+      .form-entry {
         // Sizing
         width: 40%;
 
@@ -112,7 +125,7 @@ export default {
           text-align: left;
         }
 
-        input {
+        .form-field {
           // Sizing
           width: 100%;
           // Typography
@@ -129,39 +142,37 @@ export default {
         }
       }
 
-      .captcha {
+      #captcha {
         height: 5rem;
         width: 40%;
         background: grey;
       }
 
-      button {
+      #sign-up-button {
         // Remove default styling
         border: none;
         // Button styling
         background: $accent-teal;
         padding: 0.6rem 1.5rem;
-        border-radius: 10px;
+        border-radius: 5px;
         // Typography
         font-family: $main-font;
         font-size: $body-font-size;
         color: white;
-        // Shadow
-        box-shadow: 0 2px 4px $box-shadow;
         // Clickable
         cursor: pointer;
       }
     }
   }
 
-  p {
+  #login-redirect {
     // Spacing
-    margin: 3rem 0;
+    margin: 48px 0;
     // Typography
     font-size: $body-font-size;
     font-family: $alt-font;
 
-    a {
+    #login-link {
       // Clear default styling
       text-decoration: none;
       // Typography
@@ -171,34 +182,39 @@ export default {
 }
 
 // Smaller layout
-@media screen and (max-width: 1024px) {
-  .signup {
-    .signup-form {
-      .form-field-row {
-        flex-direction: column;
-        .form-field {
-          width: 80%;
-        }
-        .captcha {
-          margin-bottom: 2rem;
-          width: 80%;
-        }
-      }
+@media screen and (max-width: 1023px) {
+  #sign-up > #sign-up-form > .form-row {
+    // Column layout
+    flex-direction: column;
+
+    .form-entry {
+      // Resize
+      width: 80%;
+    }
+
+    #captcha {
+      // Respace
+      margin-bottom: 2rem;
+      // Resize
+      width: 80%;
     }
   }
 }
 
 // Sticky hover
 @media (hover: hover) {
-  .signup {
-    .signup-form {
-      .form-field-row {
-        button {
-          transition: transform 0.2s ease;
-          &:hover {
-            transform: scale(1.05);
-          }
-        }
+  #sign-up {
+    #sign-up-form > .form-row > #sign-up-button {
+      &:hover {
+        // Animate
+        background: $accent-light-teal;
+      }
+    }
+
+    #login-redirect > #login-link {
+      &:hover {
+        // Animate
+        color: $accent-light-teal;
       }
     }
   }

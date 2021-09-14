@@ -1,11 +1,16 @@
 <template>
   <div class="pagination">
-    <button @click="onClick(curPage - 1)">&lt;</button>
-    <button v-for="(page, i) in bounds" :key="i" @click="onClick(page - 1)">
+    <button class="pagination-nav" @click="onClick(curPage - 1)">&lt;</button>
+    <button
+      class="pagination-nav"
+      v-for="(page, i) in bounds"
+      :key="i"
+      @click="onClick(page - 1)"
+    >
       <p v-if="handleStyling(i)" class="active">{{ page }}</p>
       <p v-else>{{ page }}</p>
     </button>
-    <button @click="onClick(curPage + 1)">></button>
+    <button class="pagination-nav" @click="onClick(curPage + 1)">></button>
   </div>
 </template>
 
@@ -37,21 +42,16 @@ export default {
       this.bounds = [];
       // Full range of bounds is within valid pages
       if (this.curPage + 5 <= this.maxPage)
-        for (let i = 0; i < 5; i++)
-          this.bounds.push(this.curPage + i + 1);
+        for (let i = 0; i < 5; i++) this.bounds.push(this.curPage + i + 1);
       // Show last 5 pages
-      else
-        for (let i = 4; i >= 0; i--)
-          this.bounds.push(this.maxPage - i);
+      else for (let i = 4; i >= 0; i--) this.bounds.push(this.maxPage - i);
     },
     // Nav styling function
     handleStyling: function (i) {
       // Default display --> first page is active
-      if (this.curPage + 5 <= this.maxPage)
-        return i === 0;
+      if (this.curPage + 5 <= this.maxPage) return i === 0;
       // Last 5 pages display
-      else
-        return i === (5 - (this.maxPage - this.curPage));
+      else return i === 5 - (this.maxPage - this.curPage);
     },
   },
   created() {
@@ -67,7 +67,7 @@ export default {
   display: flex;
   align-items: center;
 
-  button {
+  .pagination-nav {
     // Remove default styling
     background: none;
     border: none;

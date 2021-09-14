@@ -1,16 +1,16 @@
 <template>
   <Artist v-if="artist" :artist="artist" :onBack="handleResetIDs" />
   <Piece v-else-if="piece" :piece="piece" :onBack="handleResetIDs" />
-  <div v-else id="explore">
+  <div id="explore" v-else>
     <div id="explore-nav">
       <button class="nav-button" @click="handlePageNav(0)">ALL</button>
-      <button class="nav-button" @click="handlePageNav(1)">ARTIST</button>
-      <button class="nav-button" @click="handlePageNav(2)">COLLECTION</button>
+      <button class="nav-button" @click="handlePageNav(1)">ARTISTS</button>
+      <button class="nav-button" @click="handlePageNav(2)">COLLECTIONS</button>
       <button class="nav-button" @click="handlePageNav(3)">MAP</button>
     </div>
     <div id="explore-search">
       <i class="fas fa-search"></i>
-      <input placeholder="Search..." v-model="query" />
+      <input id="explore-search-bar" placeholder="Search..." v-model="query" />
     </div>
     <div id="explore-filters" v-if="curPage !== 3">
       <div class="filter-field">
@@ -145,7 +145,7 @@ export default {
     justify-content: center;
     align-items: flex-start;
 
-    button {
+    .nav-button {
       // Remove default styling
       background: none;
       border: none;
@@ -190,7 +190,7 @@ export default {
       font-size: 1.5rem;
     }
 
-    input {
+    #explore-search-bar {
       // Typography
       font-size: 1.25rem;
       font-family: $alt-font;

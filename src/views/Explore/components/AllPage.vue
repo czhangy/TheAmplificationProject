@@ -1,7 +1,7 @@
 <template>
   <div id="all-page">
     <div id="all-page-header">
-      <p>Showing 103 items</p>
+      <p id="all-page-count">Showing 103 items</p>
       <Pagination
         ref="header-pagination"
         :maxPage="maxPage"
@@ -111,7 +111,7 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-    p {
+    #all-page-count {
       // Typography
       font-size: 1.5rem;
       font-weight: bold;
