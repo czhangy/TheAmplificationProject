@@ -20,8 +20,10 @@ export default {
 
 
 <style lang="scss">
+// Import fonts
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&display=swap");
+
 #app {
   font-family: Inter, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

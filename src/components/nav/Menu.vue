@@ -2,29 +2,29 @@
   <div id="menu-overlay" @click="closeMenu">
     <div id="menu">
       <div id="menu-header">
-        <i class="fas fa-times" @click="closeMenu"></i>
-        <div v-if="windowWidth < 900">
-          <router-link to="/login" class="menu-auth"> login </router-link>
+        <i id="menu-close-button" class="fas fa-times" @click="closeMenu" />
+        <div id="menu-user-nav">
+          <router-link to="/login" class="menu-user-link"> login </router-link>
           |
-          <router-link to="/signup" class="menu-auth"> sign up </router-link>
+          <router-link to="/signup" class="menu-user-link"> sign up </router-link>
         </div>
       </div>
-      <span class="menu-separator"></span>
-      <router-link to="/about" class="menu-link"> About </router-link>
-      <span class="menu-separator"></span>
-      <router-link to="/news" class="menu-link"> News </router-link>
-      <span class="menu-separator"></span>
-      <router-link to="/events" class="menu-link"> Events </router-link>
-      <span class="menu-separator"></span>
-      <router-link to="/submit" class="menu-link">
+      <hr class="menu-separator" />
+      <router-link class="menu-link" to="/about"> About </router-link>
+      <hr class="menu-separator" />
+      <router-link class="menu-link" to="/news"> News </router-link>
+      <hr class="menu-separator" />
+      <router-link class="menu-link" to="/events"> Events </router-link>
+      <hr class="menu-separator" />
+      <router-link class="menu-link" to="/submit">
         Submit to the Archive
       </router-link>
-      <span class="menu-separator"></span>
-      <router-link to="/explore" class="menu-link">
+      <hr class="menu-separator" />
+      <router-link class="menu-link" to="/explore">
         Explore the Archive
       </router-link>
-      <span class="menu-separator"></span>
-      <router-link to="/support" class="menu-link"> Support Us </router-link>
+      <hr class="menu-separator" />
+      <router-link class="menu-link" to="/support"> Support Us </router-link>
     </div>
   </div>
 </template>
@@ -35,8 +35,7 @@ export default {
   methods: {
     openMenu: function () {
       document.getElementById("menu-overlay").style.top = 0;
-      document.getElementById("menu").style.boxShadow =
-        "0 0 10px #404040";
+      document.getElementById("menu").style.boxShadow = "0 0 10px #404040";
       this.disableScroll();
     },
     closeMenu: function () {
@@ -46,12 +45,11 @@ export default {
     },
     initMenu: function () {
       this.windowWidth = window.innerWidth;
-      if (this.windowWidth < 900) {
+      if (this.windowWidth < 1024) {
         document.getElementById("menu").style.width = "100%";
         document.getElementById("menu").style.right = "0";
       } else {
-        document.getElementById("menu").style.width =
-          "calc(max(30%, 400px))";
+        document.getElementById("menu").style.width = "calc(max(30%, 400px))";
         document.getElementById("menu").style.right = "6rem";
       }
     },
@@ -104,11 +102,11 @@ export default {
     // Position relative to overlay
     position: absolute;
     top: 0;
-    right: 6rem;
+    right: 96px;
     // Color menu
     background: white;
     // Spacing
-    padding: 1rem;
+    padding: 16px;
     // Flexbox for layout
     display: flex;
     flex-direction: column;
@@ -124,27 +122,33 @@ export default {
       justify-content: space-between;
       align-items: center;
       // Spacing
-      margin-bottom: 2rem;
-      padding: 0 1rem;
+      margin-bottom: 32px;
+      padding: 0 16px;
       // Sizing
       width: 100%;
 
-      i {
+      #menu-close-button {
         // Icon styling
-        font-size: 3rem;
+        font-size: 2rem;
         color: black;
         // Clickable
         cursor: pointer;
       }
 
-      .menu-auth {
-        // Typography
-        text-transform: uppercase;
-        // Remove effects of router link
-        text-decoration: none;
-        color: $font-color;
-        // Clickable
-        cursor: pointer;
+      #menu-user-nav {
+        // Hide on default display
+        display: none;
+
+        .menu-user-link {
+          // Typography
+          text-transform: uppercase;
+          font-size: 1rem;
+          // Remove effects of router link
+          text-decoration: none;
+          color: $font-color;
+          // Clickable
+          cursor: pointer;
+        }
       }
     }
 
@@ -152,7 +156,7 @@ export default {
       // Typography
       font-size: $subheader-font-size;
       font-weight: bold;
-      padding: 2rem;
+      padding: 32px;
       // Remove effects of router link
       color: $font-color;
       text-decoration: none;
@@ -166,6 +170,8 @@ export default {
       width: 100%;
       // Bar styling
       background: lightgrey;
+      // Remove default styling
+      border: none;
     }
   }
 }
@@ -175,6 +181,21 @@ export default {
   #menu-overlay > #menu > .menu-link {
     &:hover {
       background: lighten(lightgrey, 10);
+    }
+  }
+}
+
+// Smaller layouts
+@media screen and (max-width: 1023px) {
+  #menu-overlay > #menu > #menu-header {
+    #menu-close-button {
+      // Resize
+      font-size: 1.8rem;
+    }
+
+    #menu-user-nav {
+      // Show
+      display: block;
     }
   }
 }

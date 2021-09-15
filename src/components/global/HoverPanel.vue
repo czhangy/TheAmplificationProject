@@ -1,9 +1,9 @@
 <template>
   <div class="hover-panel">
     <div class="hover-panel-overlay">
-      <h6 class="hover-panel-header">
+      <p class="hover-panel-header">
         {{ header }}
-      </h6>
+      </p>
       <p class="hover-panel-subheader">
         {{ subheader }}
       </p>
@@ -50,7 +50,7 @@ export default {
     // Overlay effect
     background: rgba(0, 0, 0, 0.6);
     // Spacing
-    padding: 1rem;
+    padding: 16px;
     // Set hidden
     visibility: hidden;
     color: white;
@@ -58,6 +58,7 @@ export default {
     .hover-panel-header {
       // Typography
       font-size: $header-font-size;
+      font-weight: bold;
     }
 
     .hover-panel-subheader {
@@ -82,6 +83,7 @@ export default {
 @media (hover: hover) {
   .hover-panel {
     &:hover .hover-panel-overlay {
+      // Show
       visibility: visible;
     }
   }

@@ -1,28 +1,32 @@
 <template>
   <div id="navbar">
-    <router-link to="/" id="navbar-brand">
+    <router-link id="navbar-brand" to="/">
       <img
+        id="navbar-logo"
         src="@/assets/logo.png"
         alt="Amplification Project Logo"
-        id="navbar-logo"
       />
       <div id="navbar-text">
-        <h1>the <span> amplification </span> project</h1>
-        <h2>
+        <h1 id="navbar-title">
+          THE <span id="navbar-title-highlight"> AMPLIFICATION </span> PROJECT
+        </h1>
+        <em id="navbar-subtitle">
           Digital Archive for Forced Migration
           <br />
           Contemporary Art & Action
-        </h2>
+        </em>
       </div>
     </router-link>
     <div id="navbar-links">
-      <div v-if="windowWidth > 900">
-        <router-link to="/login" class="navbar-auth"> login </router-link>
+      <div id="navbar-user-nav">
+        <router-link class="navbar-user-link" to="/login"> LOGIN </router-link>
         |
-        <router-link to="/signup" class="navbar-auth"> sign up </router-link>
+        <router-link class="navbar-user-link" to="/signup">
+          SIGN UP
+        </router-link>
       </div>
       <div id="navbar-hamburger" @click="openNavMenu">
-        <span v-for="i in 3" :key="i" />
+        <hr class="navbar-hamburger-line" v-for="i in 3" :key="i" />
       </div>
     </div>
     <Menu ref="menu" />
@@ -99,27 +103,25 @@ export default {
       // Sizing
       height: clamp(3rem, 1.8rem + 4.8vw, 6rem);
       // Spacing
-      margin-right: 1rem;
+      margin-right: 16px;
     }
 
     #navbar-text {
-      h1 {
+      #navbar-title {
         // Typography
-        text-transform: uppercase;
         font-size: clamp(1.25rem, 1rem + 1vw, 1.875rem);
+        font-weight: bold;
 
-        span {
+        #navbar-title-highlight {
           // Typography
           color: $accent-teal;
         }
       }
 
-      h2 {
+      #navbar-subtitle {
         // Typography
         font-family: $alt-font;
-        font-weight: $normal;
         font-size: clamp(0.85rem, 0.69rem + 0.64vw, 1.25rem);
-        font-style: italic;
       }
     }
   }
@@ -127,7 +129,6 @@ export default {
   #navbar-links {
     // Typography
     font-family: $alt-font;
-    text-transform: uppercase;
     font-size: $caption-font-size;
     // Sizing
     height: 100%;
@@ -136,12 +137,14 @@ export default {
     justify-content: center;
     align-items: center;
 
-    .navbar-auth {
-      // Remove effects of router link
-      color: $font-color;
-      text-decoration: none;
-      // Spacing
-      margin: 16px;
+    #navbar-user-nav {
+      .navbar-user-link {
+        // Remove effects of router link
+        color: $font-color;
+        text-decoration: none;
+        // Spacing
+        margin: 16px;
+      }
     }
 
     #navbar-hamburger {
@@ -154,18 +157,16 @@ export default {
       // Clickable
       cursor: pointer;
 
-      span {
+      .navbar-hamburger-line {
         // Color styling
         background: $accent-grey;
         // Sizing
         height: 3px;
         width: 30px;
-        // Bar styling
-        border-radius: 1px;
-        // Create hamburger icon
+        // Spacing
         margin: 0.2rem 0;
-        // Smooth animation
-        transition: margin 0.3s ease;
+        // Remove default styling
+        border: none;
       }
     }
   }
@@ -174,10 +175,23 @@ export default {
 // Handle sticky hover
 @media (hover: hover) {
   #navbar > #navbar-links > #navbar-hamburger {
-    &:hover span {
+    &:hover .navbar-hamburger-line {
       // Animate
       margin: 0.3rem 0;
     }
+
+    .navbar-hamburger-line {
+      // Smooth animation
+      transition: margin 0.3s ease;
+    }
+  }
+}
+
+// Smaller layouts
+@media screen and (max-width: 1023px) {
+  #navbar > #navbar-links > #navbar-user-nav {
+    // Hide on small displays
+    display: none;
   }
 }
 </style>

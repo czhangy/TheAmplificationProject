@@ -6,16 +6,16 @@
       <a href="https://reclaimhosting.com/" target="_blank">Reclaim Hosting</a>
       | 2019 - 2021
     </div>
-    <div id="footer-mailing-list">
+    <form id="footer-mailing-list" @submit.prevent="handleSubscribe">
       <p>Join Our Mailing List!</p>
       <div id="mailing-list-fields">
-        <label for="name">Name:</label>
-        <input v-model="name" id="name" />
-        <label for="email">Email:</label>
-        <input v-model="email" id="email" />
+        <label for="footer-name">Name:</label>
+        <input id="footer-name" class="mailing-list-field" v-model="name" />
+        <label for="email-name">Email:</label>
+        <input id="email-name" class="mailing-list-field" v-model="email" />
       </div>
-      <button @click="handleSubscribe">Subscribe!</button>
-    </div>
+      <input id="subscribe-button" type="submit" value="Subscribe!">
+    </form>
     <div id="footer-socials">
       <a
         class="fa fa-twitter"
@@ -103,6 +103,7 @@ export default {
     font-size: $caption-font-size;
     // Spacing
     line-height: 2;
+    // Flexbox for centering
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -112,7 +113,7 @@ export default {
       display: flex;
       align-items: center;
 
-      input {
+      .mailing-list-field {
         // Typography
         font-family: $alt-font;
         color: $font-color;
@@ -121,17 +122,17 @@ export default {
 
       label {
         // Spacing
-        margin: 0 0.5rem;
+        margin: 0 8px;
       }
     }
 
-    button {
+    #subscribe-button {
       // Typography
       font-family: $alt-font;
       font-size: 1rem;
       color: $accent-teal;
       // Spacing
-      margin-top: 0.5rem;
+      margin-top: 8px;
       // Button sizing
       border-radius: 20px;
       border: 1px solid $accent-teal;
@@ -149,16 +150,16 @@ export default {
 
     .fa {
       // Icon centering
-      line-height: 2.5rem;
+      line-height: 40px;
       // Icon sizing
-      height: 2.5rem;
-      width: 2.5rem;
+      height: 40px;
+      width: 40px;
       // Color icon
       color: $accent-teal;
       // Clickable
       cursor: pointer;
       // Spacing
-      margin: 0.5rem 1rem;
+      margin: 8px 16px;
       // Border
       border: 1px solid $accent-teal;
       border-radius: 100%;
@@ -171,7 +172,7 @@ export default {
 // Sticky hover
 @media (hover: hover) {
   #footer {
-    #footer-mailing-list > button {
+    #footer-mailing-list > #subscribe-button {
       &:hover {
         // Animate
         background: $accent-teal;
@@ -190,10 +191,12 @@ export default {
 }
 
 // Mobile layout
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1439px) {
   #footer > #footer-mailing-list {
     // Respace
-    margin: 0 2rem;
+    margin: 0 32px;
+    // Center
+    align-items: center;
 
     #mailing-list-fields {
       // Column layout
@@ -206,14 +209,14 @@ export default {
       }
     }
 
-    button {
+    #subscribe-button {
       // Respace
       margin-top: 16px;
     }
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1023px) {
   #footer {
     // Column layout
     flex-direction: column;

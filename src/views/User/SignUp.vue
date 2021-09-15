@@ -120,6 +120,7 @@ export default {
         label {
           // Typography
           font-size: $subheader-font-size;
+          font-weight: bold;
           // Align left
           width: 100%;
           text-align: left;
