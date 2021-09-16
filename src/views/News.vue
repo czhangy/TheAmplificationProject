@@ -1,28 +1,35 @@
 <template>
-  <div class="news">
-    <h2 class="news-header">News</h2>
-    <div class="search-bar">
-      <i class="fa fa-search" aria-hidden="true" @click="handleSearch"></i>
-      <input id="search-field" v-model="query" placeholder="Search..." />
+  <div id="news">
+    <p id="news-header">News</p>
+    <div id="news-search">
+      <i
+        id="news-search-icon"
+        class="fa fa-search"
+        aria-hidden="true"
+        @click="handleSearch"
+      ></i>
+      <input id="news-search-bar" v-model="query" placeholder="Search..." />
     </div>
-    <div class="articles">
-      <div class="main-article">
+    <div id="news-articles">
+      <div id="main-article">
         <img src="@/assets/img/News/news1.png" />
-        <div class="caption">
-          <p>{{ articles[0].timestamp }}</p>
-          <h5>{{ articles[0].title }}</h5>
+        <div class="article-caption">
+          <p class="caption-timestamp">{{ articles[0].timestamp }}</p>
+          <p class="caption-title">{{ articles[0].title }}</p>
         </div>
       </div>
-      <div class="reg-articles">
+      <div id="reg-articles-container">
         <div
           class="reg-article"
-          v-for="article in articles.slice(1)"
-          :key="article"
+          v-for="(article, i) in articles.slice(1)"
+          :key="i"
         ></div>
       </div>
     </div>
-    <div class="links">
-      <button @click="handleRedirect">More Articles →</button>
+    <div id="news-nav">
+      <button id="more-articles-button" @click="handleMore">
+        More Articles →
+      </button>
     </div>
   </div>
 </template>
@@ -49,6 +56,17 @@ export default {
     };
   },
   methods: {
+    // Search functions
+    handleSearchSetup: function () {
+      // Get reference to self
+      const self = this;
+      // Check for enter presses
+      document
+        .getElementById("news-search-bar")
+        .addEventListener("keydown", function (e) {
+          if (e.code === "Enter") self.handleSearch();
+        });
+    },
     handleSearch: function () {
       alert(
         `The handleSearch() function in News.vue must still be implemented, but here's the data stored in the component for testing:\n
@@ -56,47 +74,49 @@ export default {
       );
       this.query = "";
     },
-    handleRedirect: function () {
+    handleSearchCleanUp: function () {
+      const self = this;
+      document
+        .getElementById("search-field")
+        .removeEventListener("keydown", function (e) {
+          if (e.code == "Enter") self.handleSearch();
+        });
+    },
+    // Nav function
+    handleMore: function () {
       alert(
         "The handleRedirect() function in News.vue must still be implemented, along with the page that should be redirected to."
       );
     },
   },
   mounted() {
-    const self = this;
-    document
-      .getElementById("search-field")
-      .addEventListener("keydown", function (e) {
-        if (e.code == "Enter") self.handleSearch();
-      });
+    // Set up search bar
+    this.handleSearchSetup();
   },
   beforeUnmount() {
-    const self = this;
-    document
-      .getElementById("search-field")
-      .removeEventListener("keydown", function (e) {
-        if (e.code == "Enter") self.handleSearch();
-      });
+    // Clean up
+    this.handleSearchCleanUp();
   },
 };
 </script>
 
 <style scoped lang="scss">
-.news {
+#news {
   // Container
   background: $bg-color;
   // Spacing
   padding: 0 calc(clamp(3rem, -9rem + 21.333vw, 15rem));
 
-  .news-header {
+  #news-header {
     // Typography
     text-align: center;
     font-size: $header-font-size;
+    font-weight: bold;
     // Spacing
     margin-top: $title-margin;
   }
 
-  .search-bar {
+  #news-search {
     // Flexbox for layout
     display: flex;
     justify-content: center;
@@ -104,7 +124,7 @@ export default {
     // Spacing
     margin: 2rem 0;
 
-    .fa-search {
+    #news-search-icon {
       // Color
       color: $accent-teal;
       // Sizing
@@ -113,20 +133,20 @@ export default {
       cursor: pointer;
     }
 
-    input {
+    #news-search-bar {
       // Sizing
       width: 90%;
       // Typography
       font-family: $alt-font;
       font-size: calc(clamp(1rem, 0.8rem + 0.8vw, 1.5rem));
       // Inner spacing
-      padding: 0.2rem 0.5rem;
+      padding: 8px 16px;
       // Outer spacing
-      margin-left: 1rem;
+      margin-left: 16px;
     }
   }
 
-  .articles {
+  #news-articles {
     // Flexbox for layout
     display: flex;
     justify-content: center;
@@ -138,15 +158,17 @@ export default {
       width: 100%;
     }
 
-    .main-article {
+    #main-article {
       // Sizing
       height: calc(clamp(21rem, 9.8rem + 44.8vw, 35rem));
       width: calc(clamp(18rem, 8.4rem + 38.4vw, 30rem));
       // Positioning for caption
       position: relative;
+      // Clickable
+      cursor: pointer;
     }
 
-    .reg-articles {
+    #reg-articles-container {
       // Grid for layout
       display: grid;
       grid-gap: 1rem;
@@ -159,10 +181,12 @@ export default {
       .reg-article {
         height: 17rem;
         background: red;
+        // Clickable
+        cursor: pointer;
       }
     }
 
-    .caption {
+    .article-caption {
       // Overlay effect
       background: rgba(0, 0, 0, 0.6);
       position: absolute;
@@ -175,38 +199,28 @@ export default {
       // Spacing
       padding: 1rem;
 
-      p {
+      .caption-timestamp {
         // Typography
         font-family: $alt-font;
       }
 
-      h5,
-      h6 {
+      .caption-title {
         // Typography
         text-transform: uppercase;
-      }
-
-      h5 {
-        // Typography
         font-size: $header-font-size;
-      }
-
-      h6 {
-        // Typography
-        font-size: $subheader-font-size;
       }
     }
   }
 
-  .links {
+  #news-nav {
     // Flexbox for layout
     display: flex;
     justify-content: flex-end;
     // Spacing
-    margin-top: 2rem;
-    margin-bottom: 5rem;
+    margin-top: 32px;
+    margin-bottom: 80px;
 
-    button {
+    #more-articles-button {
       // Remove button styling
       border: none;
       background: none;
@@ -220,32 +234,50 @@ export default {
   }
 }
 
-// Media queries
 // Mobile layout
 @media screen and (max-width: 900px) {
-  .news {
-    .articles {
-      flex-direction: column;
-      align-items: center;
-      max-height: none;
-      .reg-articles {
-        margin-left: 0;
-        margin-top: 2rem;
-        grid-template-columns: 1fr;
-        width: calc(clamp(18rem, 8.4rem + 38.4vw, 30rem));
-      }
+  #news > #news-articles {
+    // Column layout
+    flex-direction: column;
+    align-items: center;
+    max-height: none;
+
+    #reg-articles-container {
+      // Column layout
+      margin-left: 0;
+      margin-top: 2rem;
+      grid-template-columns: 1fr;
+      width: calc(clamp(18rem, 8.4rem + 38.4vw, 30rem));
     }
   }
 }
 
 // Sticky hover
 @media (hover: hover) {
-  .main-article,
-  .reg-article {
-    transition: transform 0.2s ease;
-    cursor: pointer;
-    &:hover {
-      transform: scale(1.05);
+  #news {
+    #news-search > #news-search-icon {
+      &:hover {
+        // Animate
+        color: $accent-light-teal;
+      }
+    }
+    
+    #news-articles > #main-article,
+    #reg-articles-container > .reg-article {
+      // Smooth animation
+      transition: transform 0.2s ease;
+
+      &:hover {
+        // Animate
+        transform: scale(1.02);
+      }
+    }
+
+    #news-nav > #more-articles-button {
+      &:hover {
+        // Animate
+        color: $accent-light-teal;
+      }
     }
   }
 }
