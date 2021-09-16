@@ -255,13 +255,11 @@ export default {
 // Sticky hover
 @media (hover: hover) {
   #news {
-    #news-search > #news-search-icon {
-      &:hover {
-        // Animate
-        color: $accent-light-teal;
-      }
+    #news-search > #news-search-icon:hover {
+      // Animate
+      color: $accent-light-teal;
     }
-    
+
     #news-articles > #main-article,
     #reg-articles-container > .reg-article {
       // Smooth animation
@@ -273,11 +271,9 @@ export default {
       }
     }
 
-    #news-nav > #more-articles-button {
-      &:hover {
-        // Animate
-        color: $accent-light-teal;
-      }
+    #news-nav > #more-articles-button:hover {
+      // Animate
+      color: $accent-light-teal;
     }
   }
 }

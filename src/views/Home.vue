@@ -1,60 +1,68 @@
 <template>
   <div id="home">
     <div id="home-carousel">
-      <div class="home-carousel-slides">
-        <img src="@/assets/img/Home/home1.png" />
-        <img src="@/assets/img/Home/home7.png" />
+      <div id="home-carousel-slides">
+        <img class="home-carousel-slide" src="@/assets/img/Home/home1.png" />
+        <img class="home-carousel-slide" src="@/assets/img/Home/home7.png" />
       </div>
-      <div class="home-carousel-nav" :style="{ left: '0' }">
-        <i class="fas fa-chevron-left" @click="handleIndex(-1)"></i>
+      <div
+        id="home-carousel-left"
+        class="home-carousel-nav"
+        @click="handleCarouselNav(-1)"
+      >
+        <i class="home-carousel-arrow fas fa-chevron-left" />
       </div>
-      <div class="home-carousel-nav" :style="{ right: '0' }">
-        <i class="fas fa-chevron-right" @click="handleIndex(1)"></i>
+      <div
+        id="home-carousel-right"
+        class="home-carousel-nav"
+        @click="handleCarouselNav(1)"
+      >
+        <i class="home-carousel-arrow fas fa-chevron-right" />
       </div>
-      <div class="home-archive-buttons">
-        <router-link to="/explore" class="home-archive-button">
+      <div id="home-nav">
+        <router-link to="/explore" class="home-nav-button">
           Explore the Archive
         </router-link>
-        <router-link to="/submit" class="home-archive-button">
+        <router-link to="/submit" class="home-nav-button">
           Submit to the Archive
         </router-link>
       </div>
     </div>
     <div id="home-featured">
-      <h3 class="home-featured-header">featured</h3>
-      <div class="home-featured-content">
-        <div class="home-featured-left">
+      <p id="home-featured-header">FEATURED</p>
+      <div id="home-featured-content">
+        <div id="home-featured-left" class="home-featured-entry">
           <HoverPanel
             header="Endless Sorrow"
             subheader="David Greenfield (USA), 1981"
           />
         </div>
-        <div class="home-featured-mid-top">
+        <div id="home-featured-mid-top" class="home-featured-entry">
           <HoverPanel
             header="Endless Sorrow"
             subheader="David Greenfield (USA), 1981"
           />
         </div>
-        <div class="home-featured-mid-bottom-left">
+        <div id="home-featured-mid-bottom-left" class="home-featured-entry">
           <HoverPanel
             header="I Will Bury My Love Around You 2"
             subheader="Thamur Mejri (Tunisia), 2018"
           />
         </div>
-        <div class="home-featured-mid-bottom-right">
+        <div id="home-featured-mid-bottom-right" class="home-featured-entry">
           <HoverPanel
             header="Refuge 5"
             subheader="Basel Uraiqat (Jordan), 2018"
           />
         </div>
-        <div class="home-featured-right">
-          <div class="home-featured-right-caption">
-            <p class="home-featured-right-subheader">
+        <div id="home-featured-right" class="home-featured-entry">
+          <div id="home-featured-right-caption">
+            <p id="home-featured-right-subheader">
               March 1, 2021-March 31, 2021
             </p>
-            <h6 class="home-featured-right-header">
+            <p id="home-featured-right-header">
               ARTIST IN RESIDENCE: QAIS AL-SINDY
-            </h6>
+            </p>
           </div>
         </div>
       </div>
@@ -63,8 +71,6 @@
 </template>
 
 <script>
-import Swal from "sweetalert2";
-
 // Import global components
 import HoverPanel from "@/components/global/HoverPanel";
 
@@ -78,14 +84,9 @@ export default {
       index: 0,
     };
   },
-  mounted() {
-    window.addEventListener("resize", this.handleSlides);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.handleSlides);
-  },
   methods: {
-    handleIndex(inc) {
+    // Carousel functions
+    handleCarouselNav(inc) {
       // Edge cases
       if (inc !== 1 && inc !== -1)
         console.log("changeSlides() in Home.vue is being used incorrectly");
@@ -98,10 +99,16 @@ export default {
       this.handleSlides();
     },
     handleSlides() {
-      document.getElementsByClassName(
-        "home-carousel-slides"
-      )[0].style.marginLeft = -this.index * 0.8 * window.innerWidth + "px";
+      // Slide
+      document.getElementById("home-carousel-slides").style.marginLeft =
+        -this.index * 0.8 * window.innerWidth + "px";
     },
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleSlides);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.handleSlides);
   },
 };
 </script>
@@ -120,12 +127,12 @@ export default {
     // Positioning for nav buttons
     position: relative;
     // Spacing
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin-top: 48px;
+    margin-bottom: 16px;
     // Hide excess slides
     overflow-x: hidden;
 
-    .home-carousel-slides {
+    #home-carousel-slides {
       // Sizing
       width: 100%;
       height: 100%;
@@ -134,7 +141,7 @@ export default {
       // Transition slides
       transition: margin-left 0.5s ease;
 
-      img {
+      .home-carousel-slide {
         // Preserve aspect ratio
         object-fit: cover;
         // Force cover
@@ -152,39 +159,48 @@ export default {
       background: black;
       opacity: 0.5;
       // Inner spacing
-      padding: 0 1.5rem;
+      padding: 0 24px;
       // Flexbox for centering
       display: flex;
       align-items: center;
+      // Clickable
+      cursor: pointer;
 
-      .fas {
+      .home-carousel-arrow {
         // Icon styling
         color: white;
         font-size: 2rem;
-        // Clickable
-        cursor: pointer;
       }
     }
 
-    .home-archive-buttons {
+    #home-carousel-left {
+      // Positioning
+      left: 0;
+    }
+
+    #home-carousel-right {
+      // Positioning
+      right: 0;
+    }
+
+    #home-nav {
       // Sizing
       width: 100%;
       // Positioning for overlay
       position: absolute;
-      right: 5rem;
+      right: 80px;
       bottom: 0;
       // Flexbox for layout
       display: flex;
       justify-content: flex-end;
       align-items: center;
 
-      .home-archive-button {
+      .home-nav-button {
         // Button styling
         background: $accent-dark-teal;
-        opacity: 0.85;
-        padding: 0.625rem 0.2rem;
+        padding: 10px 4px;
         border-radius: 10px;
-        width: 15rem;
+        width: 240px;
         // Typography
         font-family: $alt-font;
         font-weight: $bold;
@@ -196,7 +212,7 @@ export default {
         // Smooth hover animation
         transition: all 0.2s ease;
         // Spacing
-        margin: 1rem 0.5rem;
+        margin: 16px 8px;
       }
     }
   }
@@ -210,28 +226,34 @@ export default {
     justify-content: center;
     align-items: center;
     // Spacing
-    margin-top: 4rem;
+    margin-top: 64px;
 
-    .home-featured-header {
+    #home-featured-header {
       // Typography
-      text-transform: uppercase;
       font-size: $subheader-font-size;
+      font-weight: bold;
     }
 
-    .home-featured-content {
+    #home-featured-content {
       // Grid for layout
       display: grid;
-      grid-gap: 1rem;
+      grid-gap: 16px;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(2, 1fr);
       // Sizing
       width: calc(min(100%, 1400px));
-      height: 40rem;
+      height: 640px;
       // Spacing
-      padding: 1rem 4rem;
-      margin-bottom: 2rem;
+      padding: 16px 64px;
+      margin-bottom: 32px;
 
-      .home-featured-left {
+      .home-featured-entry {
+        // Image aspect ratio
+        background-size: cover;
+        background-repeat: none;
+      }
+
+      #home-featured-left {
         // Grid positioning
         grid-row-start: 1;
         grid-row-end: 3;
@@ -243,7 +265,7 @@ export default {
         background-image: url("../assets/img/Home/home6.png");
       }
 
-      .home-featured-mid-top {
+      #home-featured-mid-top {
         // Grid positioning
         grid-row-start: 1;
         grid-row-end: 2;
@@ -251,11 +273,9 @@ export default {
         grid-column-end: 4;
         // Image
         background-image: url("../assets/img/Home/home3.png");
-        background-repeat: none;
-        background-size: cover;
       }
 
-      .home-featured-mid-bottom-left {
+      #home-featured-mid-bottom-left {
         // Grid positioning
         grid-row-start: 2;
         grid-row-end: 3;
@@ -263,11 +283,9 @@ export default {
         grid-column-end: 3;
         // Image
         background-image: url("../assets/img/Home/home4.png");
-        background-repeat: none;
-        background-size: cover;
       }
 
-      .home-featured-mid-bottom-right {
+      #home-featured-mid-bottom-right {
         // Grid positioning
         grid-row-start: 2;
         grid-row-end: 3;
@@ -275,23 +293,19 @@ export default {
         grid-column-end: 4;
         // Image
         background-image: url("../assets/img/Home/home5.png");
-        background-repeat: none;
-        background-size: cover;
       }
 
-      .home-featured-right {
+      #home-featured-right {
         // Grid positioning
         grid-column-start: 4;
         grid-row-start: 1;
         grid-row-end: 3;
         // Image
         background-image: url("../assets/img/Home/home6.png");
-        background-size: cover;
-        background-repeat: none;
         // Positioning for children
         position: relative;
 
-        .home-featured-right-caption {
+        #home-featured-right-caption {
           // Position in container
           position: absolute;
           bottom: 0;
@@ -304,14 +318,15 @@ export default {
           // Typography
           color: white;
 
-          .home-featured-right-header {
+          #home-featured-right-header {
             // Typography
             text-transform: uppercase;
             font-size: $subheader-font-size;
+            font-weight: bold;
             letter-spacing: 1px;
           }
 
-          .home-featured-right-subheader {
+          #home-featured-right-subheader {
             // Typography
             font-family: $alt-font;
             font-size: $caption-font-size;
@@ -322,59 +337,58 @@ export default {
   }
 }
 
-// Media queries
 // Sticky hover
 @media (hover: hover) {
-  #home > #home-carousel > .home-archive-buttons > .home-archive-button {
-    &:hover {
+  #home > #home-carousel {
+    .home-carousel-nav:hover {
+      // Animate
+      opacity: 0.7;
+    }
+
+    #home-nav > .home-nav-button:hover {
+      // Animate
       background: $accent-light-teal;
-      opacity: 1;
-      transform: scale(1.05);
     }
   }
 }
 
 // Mobile layout
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1023px) {
   #home {
     #home-carousel {
       .home-carousel-nav {
+        // Hide nav
         display: none;
       }
 
-      .home-archive-buttons {
+      #home-nav {
+        // Column layout
         flex-direction: column;
         left: 50%;
         margin-left: -50%;
 
-        .home-archive-button {
-          width: 12rem;
+        .home-nav-button {
+          // Resize
+          width: 192px;
         }
       }
     }
 
-    #home-featured > .home-featured-content {
+    #home-featured > #home-featured-content {
+      // Simpler layout
       display: flex;
       justify-content: center;
 
-      .home-featured-left {
+      .home-featured-entry {
+        // Hide
         display: none;
       }
 
-      .home-featured-mid-top {
-        display: none;
-      }
-
-      .home-featured-mid-bottom-left {
-        display: none;
-      }
-
-      .home-featured-mid-bottom-right {
-        display: none;
-      }
-
-      .home-featured-right {
+      #home-featured-right {
+        // Resize
         width: 100%;
+        // Show
+        display: block;
       }
     }
   }

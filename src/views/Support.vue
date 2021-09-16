@@ -44,16 +44,10 @@
           <span class="asterisk">*</span>
         </p>
         <div class="dono-buttons">
-          <button
-            class="freq-buttons dono-button"
-            @click="handleDonoButton(0)"
-          >
+          <button class="freq-buttons dono-button" @click="handleDonoButton(0)">
             Monthly
           </button>
-          <button
-            class="freq-buttons dono-button"
-            @click="handleDonoButton(1)"
-          >
+          <button class="freq-buttons dono-button" @click="handleDonoButton(1)">
             One-Time
           </button>
         </div>
@@ -62,18 +56,10 @@
           <span class="asterisk">*</span>
         </p>
         <div class="dono-buttons">
-          <button class="dono-button" @click="handleDonoButton(2)">
-            $5
-          </button>
-          <button class="dono-button" @click="handleDonoButton(3)">
-            $10
-          </button>
-          <button class="dono-button" @click="handleDonoButton(4)">
-            $25
-          </button>
-          <button class="dono-button" @click="handleDonoButton(5)">
-            $100
-          </button>
+          <button class="dono-button" @click="handleDonoButton(2)">$5</button>
+          <button class="dono-button" @click="handleDonoButton(3)">$10</button>
+          <button class="dono-button" @click="handleDonoButton(4)">$25</button>
+          <button class="dono-button" @click="handleDonoButton(5)">$100</button>
           <input
             class="dono-button"
             type="number"
@@ -414,11 +400,9 @@ export default {
       }
     }
 
-    #dono-submit-button {
-      &:hover {
-        // Animate
-        background: $accent-light-teal;
-      }
+    #dono-submit-button:hover {
+      // Animate
+      background: $accent-light-teal;
     }
   }
 }
