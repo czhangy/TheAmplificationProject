@@ -1,5 +1,5 @@
 <template>
-  <div class="events">Events</div>
+  <div id="events">Events</div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.events {
+#events {
   color: white;
   background: black;
   height: 100vh;
