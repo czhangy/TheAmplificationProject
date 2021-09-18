@@ -1,6 +1,6 @@
 <template>
   <div class="tooltip" v-if="open">
-    <div class="tooltip-arrow"></div>
+    <div class="tooltip-arrow" />
     <div class="tooltip-body">
       <p class="tooltip-content">{{ message }}</p>
     </div>
@@ -31,7 +31,7 @@ export default {
   // Positioning
   position: absolute;
   top: 50%;
-  left: 2rem;
+  left: 32px;
   transform: translate(0, -50%);
 
   .tooltip-arrow {
@@ -43,13 +43,13 @@ export default {
 
   .tooltip-body {
     // Sizing
-    width: 15rem;
+    width: 240px;
     // Color styling
     background: lighten(lightgrey, 10);
     // Container shaping
     border-radius: 5px;
     // Inner spacing
-    padding: 1rem;
+    padding: 16px;
 
     .tooltip-content {
       // Typography

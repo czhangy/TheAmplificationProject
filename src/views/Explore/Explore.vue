@@ -1,6 +1,7 @@
 <template>
-  <Artist v-if="artist" :artist="artist" :onBack="handleResetIDs" />
-  <Piece v-else-if="piece" :piece="piece" :onBack="handleResetIDs" />
+  <Piece v-if="piece" :piece="piece" :onBack="handleResetIDs" />
+  <Artist v-else-if="artist" :artist="artist" :onBack="handleResetIDs" />
+  <Collection v-else-if="collection" :collection="collection" :onBack="handleResetIDs" />
   <div id="explore" v-else>
     <div id="explore-nav">
       <button class="nav-button" @click="handlePageNav(0)">ALL</button>
@@ -49,33 +50,45 @@
       :onClick="handleArtistID"
       v-if="curPage === 1"
     />
+    <CollectionsPage
+      :filter="filter"
+      :sortBy="sortBy"
+      :query="query"
+      :onClick="handleCollectionID"
+      v-if="curPage === 2"
+    />
     <MapPage :query="query" v-if="curPage === 3" />
   </div>
 </template>
 
 <script>
 // Import pages
-import Artist from "./Artist.vue";
 import Piece from "./Piece.vue";
+import Artist from "./Artist.vue";
+import Collection from "./Collection.vue";
 
 // Import local components
 import AllPage from "./components/AllPage.vue";
 import ArtistsPage from "./components/ArtistsPage.vue";
+import CollectionsPage from "./components/CollectionsPage.vue";
 import MapPage from "./components/MapPage.vue";
 
 export default {
   name: "Explore",
   components: {
-    Artist,
     Piece,
+    Artist,
+    Collection,
     AllPage,
     ArtistsPage,
+    CollectionsPage,
     MapPage,
   },
   data() {
     return {
       piece: null,
       artist: null,
+      collection: null,
       curPage: 0,
       filter: "",
       sortBy: "YEAR DESCENDING",
@@ -106,18 +119,27 @@ export default {
     // Set IDs
     handleArtistID: function (obj) {
       this.piece = null;
+      this.collection = null;
       this.artist = obj;
       window.scrollTo(0, 0);
     },
     handlePieceID: function (obj) {
       this.artist = null;
+      this.collection = null;
       this.piece = obj;
+      window.scrollTo(0, 0);
+    },
+    handleCollectionID: function (obj) {
+      this.artist = null;
+      this.piece = null;
+      this.collection = obj;
       window.scrollTo(0, 0);
     },
     // Remove IDs
     handleResetIDs: function () {
       this.artist = null;
       this.piece = null;
+      this.collection = null;
       window.scrollTo(0, 0);
     },
   },

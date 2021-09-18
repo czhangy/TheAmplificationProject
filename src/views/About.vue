@@ -395,6 +395,7 @@ export default {
         // Typography
         font-size: calc(clamp(1.5rem, 1.3rem + 0.8vw, 2rem));
         font-family: $main-font;
+        font-weight: bold;
       }
 
       p {

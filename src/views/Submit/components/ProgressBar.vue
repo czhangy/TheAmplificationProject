@@ -1,17 +1,17 @@
 <template>
-  <div id="circle-progress-bar">
+  <div id="progress-bar">
     <div class="step" v-for="(label, i) in labels" :key="i">
-      <div>
-        <div v-if="maxPage < i" class="bubble default-bubble">
+      <div class="container">
+        <div class="bubble default-bubble" v-if="maxPage < i">
           {{ i + 1 }}
-          <label>{{ label }}</label>
+          <label class="label">{{ label }}</label>
         </div>
-        <div v-else class="bubble active-bubble" @click="onClick(i)">
+        <div class="bubble active-bubble" v-else @click="onClick(i)">
           {{ i + 1 }}
           <label class="active-label">{{ label }}</label>
         </div>
       </div>
-      <hr v-if="i !== labels.length - 1 && maxPage <= i" />
+      <hr class="bar" v-if="i !== labels.length - 1 && maxPage <= i" />
       <hr class="active-bar" v-else-if="i !== labels.length - 1" />
     </div>
   </div>
@@ -38,23 +38,8 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    // // Set styling for each bubble
-    // let arr = document.getElementsByClassName("page-circle");
-    // for (let i = 0; i < this.pages.length; i++) {
-    //   if (i > this.active) return;
-    //   else if (i === this.active) {
-    //     arr[i].style.background = "#298A7E";
-    //     arr[i].style.color = "white";
-    //   } else {
-    //     arr[i].style.background = "lighten(lightgrey, 10)";
-    //     arr[i].style.color = "#333";
-    //     arr[i].style.cursor = "pointer";
-    //     arr[i].style.border = "3px solid #298A7E";
-    //   }
-    // }
-  },
   methods: {
+    // Nav function
     handleCircleClick(i) {
       // Don't let the user advance to future pages before completing current ones
       if (i > this.active) return;
@@ -65,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#circle-progress-bar {
+#progress-bar {
   // Centering
   margin: 0 auto;
   // Flexbox for layout + centering
@@ -151,8 +136,9 @@ export default {
   }
 }
 
+// Smaller layouts
 @media screen and (max-width: 1023px) {
-  #circle-progress-bar {
+  #progress-bar {
     // Respace to account for hidden text
     margin-bottom: 24px;
 

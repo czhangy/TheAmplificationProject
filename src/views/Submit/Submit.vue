@@ -1,13 +1,13 @@
 <template>
   <div id="submit">
-    <h2>Submit Your Work</h2>
+    <p id="submit-header">Submit Your Work</p>
     <p id="submit-instructions">
       Read the archive’s submission guide to learn more about our submission
       process, how to interact with materials, and other important information.
     </p>
-    <div id="accordion">
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+    <div id="submit-accordion">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>What does it mean to contribute to the archive?</p>
           <i
             class="fa fa-chevron-down"
@@ -29,8 +29,8 @@
           inclusive story of border crossing, asylum, refuge, and belonging.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>What kinds of things are accepted?</p>
           <i
             class="fa fa-chevron-down"
@@ -61,8 +61,8 @@
           group, or that may put individuals/communities at risk of any harm.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>How do I submit my item(s)? Do I need to create an account?</p>
           <i
             class="fa fa-chevron-down"
@@ -87,8 +87,8 @@
           contributed, viewed, and/or commented on.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>Who describes my item(s)?</p>
           <i
             class="fa fa-chevron-down"
@@ -112,8 +112,8 @@
           presented on the site.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>Who reviews the submission, and when should I expect approval?</p>
           <i
             class="fa fa-chevron-down"
@@ -136,8 +136,8 @@
           submission we will be in touch.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>What if I want my materials removed?</p>
           <i
             class="fa fa-chevron-down"
@@ -157,8 +157,8 @@
           remove your item(s).
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>
             What if someone has made my work available on your site without my
             permission?
@@ -184,8 +184,8 @@
           we will remove the material immediately.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>How do I comment on materials in the archive?</p>
           <i
             class="fa fa-chevron-down"
@@ -205,8 +205,8 @@
           our site) and follow the prompts to create an account.
         </p>
       </div>
-      <div class="accordion-entry">
-        <div class="accordion-panel">
+      <div class="submit-accordion-entry">
+        <div class="submit-accordion-panel">
           <p>
             Are there any rules and restrictions to contributing to the archive?
           </p>
@@ -274,17 +274,13 @@ export default {
   // Spacing
   padding: 16px calc(clamp(2rem, -3.143rem + 20.571vw, 20rem));
 
-  h2 {
+  #submit-header {
     // Typography
     text-align: center;
     font-size: $header-font-size;
+    font-weight: bold;
     // Spacing
     margin-top: $title-margin;
-  }
-
-  p {
-    // Typography
-    font-size: $subheader-font-size;
   }
 
   #submit-instructions {
@@ -292,6 +288,7 @@ export default {
     margin: 48px 0;
     // Typography
     font-weight: normal;
+    font-size: $subheader-font-size;
   }
 
   a {
@@ -301,7 +298,7 @@ export default {
     color: $accent-teal;
   }
 
-  #accordion {
+  #submit-accordion {
     // Container border
     border: 2px solid lightgrey;
     border-bottom: none;
@@ -316,11 +313,11 @@ export default {
       font-size: $body-font-size;
     }
 
-    .accordion-entry {
+    .submit-accordion-entry {
       // Border
       border-bottom: 2px solid lightgrey;
 
-      .accordion-panel {
+      .submit-accordion-panel {
         // Flexbox for layout
         display: flex;
         justify-content: space-between;
@@ -355,6 +352,8 @@ export default {
   #t-and-c-warning {
     // Spacing
     margin-top: 32px;
+    // Typography
+    font-size: $subheader-font-size;
   }
 
   #ready-to-submit {
