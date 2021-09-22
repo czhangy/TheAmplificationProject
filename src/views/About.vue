@@ -1,9 +1,9 @@
 <template>
   <div id="about">
-    <div class="about-container">
-      <div class="about-text">
-        <h1>About</h1>
-        <p>
+    <div id="about-grid">
+      <div class="about-grid-container about-text-container">
+        <p class="about-header">About</p>
+        <p class="about-text">
           The Amplification Project is a public, participatory community-led
           digital archive of art and activism inspired, influenced, or affected
           by forced displacement. We offer artists, activists, and other
@@ -13,115 +13,126 @@
           and refuge.
         </p>
         <br />
-        <p>
+        <p class="about-text">
           The Amplification Project was founded in 2019 by an international
           group of artists, archivists, activists, and curators (see Collective
           Advisory Group/Founding Members below).
         </p>
       </div>
-      <div class="about-img" v-if="windowWidth > 900">
+      <div class="about-grid-container about-img-container">
         <img
+          class="about-img"
           src="@/assets/img/About/about1.jpg"
           alt="Nothing is True, Everything is Possible by Abbas Yousif, 2018"
         />
-        <p>
+        <p class="about-img-caption">
           <em>Nothing is True, Everything is Possible</em> by Abbas Yousif,
           2018.
         </p>
       </div>
-    </div>
-    <div class="about-container">
-      <div class="about-img" v-if="windowWidth > 900">
+      <div class="about-grid-container about-img-container">
         <img
+          class="about-img"
           src="@/assets/img/About/about2.png"
           alt="Refuge 2 by Basel Uraiqat, 2018"
         />
-        <p><em>Refuge 2</em> by Basel Uraiqat, 2018</p>
+        <p class="about-img-caption">
+          <em>Refuge 2</em> by Basel Uraiqat, 2018
+        </p>
       </div>
-      <div class="about-text">
-        <div v-if="!altPanel || windowWidth < 900" class="about-mission-panel">
-          <div class="about-mission-nav">
-            <h3>Mission</h3>
-            <button @click="togglePanel" v-if="windowWidth > 900">
+      <div class="about-grid-container about-text-container">
+        <div class="about-mission-panel" v-if="!altPanel || windowWidth < 1023">
+          <div class="about-mission-header">
+            <p class="about-header">Mission</p>
+            <button class="about-mission-nav" @click="togglePanel">
               <i class="fas fa-arrow-right"></i>
             </button>
           </div>
-          <p>
+          <p class="about-text">
             The mission of The Amplification Project: Digital Archive for Forced
             Migration, Contemporary Art, and Action is to
-            <span
+            <strong
               >document, preserve, and raise the visibility of art and activism
-              inspired, influenced, or affected by forced migration.</span
+              inspired, influenced, or affected by forced migration.</strong
             >
           </p>
         </div>
-        <div v-if="altPanel || windowWidth < 900" class="about-mission-panel">
-          <div class="about-mission-nav">
-            <button @click="togglePanel" v-if="windowWidth > 900">
-              <i class="fas fa-arrow-left"></i>
+        <div class="about-mission-panel" v-if="altPanel || windowWidth < 1023">
+          <div class="about-mission-header">
+            <button class="about-mission-nav" @click="togglePanel">
+              <i class="fas fa-arrow-left" />
             </button>
-            <h3>We are committed to:</h3>
+            <p class="about-header">We are committed to:</p>
           </div>
-          <ul>
-            <li>
+          <ul id="about-mission-list">
+            <li class="about-mission-entry">
               preserving and providing a platform for new and existing art and
               activism related to experiences of conflict, forced displacement,
               asylum, and refuge
             </li>
-            <li>
+            <li class="about-mission-entry">
               disrupting public and political anti-refugee and xenophobic
               rhetoric
             </li>
-            <li>
+            <li class="about-mission-entry">
               challenging depersonalized and dehumanized media and political
               representations of asylum seekers and refugees
             </li>
-            <li>
+            <li class="about-mission-entry">
               mobilizing the archive to raise awareness about inequities and
               injustices imposed on refugees
             </li>
-            <li>building solidarities and community</li>
+            <li class="about-mission-entry">
+              building solidarities and community
+            </li>
           </ul>
         </div>
       </div>
-    </div>
-    <div class="about-container">
-      <div class="about-text">
-        <h3>Ways to participate</h3>
-        <p>
-          <span class="about-text-emph">Submit</span> your work to the archive
+      <div class="about-grid-container about-text-container">
+        <p class="about-header">Ways to participate</p>
+        <p class="about-text">
+          <strong class="about-text-emph">Submit</strong> your work to the
+          archive
           <br />
           <br />
-          <span class="about-text-emph">Comment</span> on work in the archive
+          <strong class="about-text-emph">Comment</strong> on work in the
+          archive
           <br />
           <br />
-          <span class="about-text-emph">Join</span> our Collective Advisory
+          <strong class="about-text-emph">Join</strong> our Collective Advisory
           Group and help manage the archive. For more information,
-          <span>contact us: theamplificationproject@gmail.com</span>
+          <strong>contact us: theamplificationproject@gmail.com</strong>
         </p>
       </div>
-      <div class="about-img" v-if="windowWidth > 900">
+      <div class="about-grid-container about-img-container">
         <img
+          class="about-img"
           src="@/assets/img/About/about3.png"
           alt="Mandela Project Venice: We Are Humanity by Lilli Muller, 2019"
         />
-        <p>
+        <p class="about-img-caption">
           <em>Mandela Project Venice: We Are Humanity</em> by Lilli Muller, 2019
         </p>
       </div>
     </div>
-    <div class="about-gap">
-      <span />
+    <div id="about-divider">
+      <span id="about-line" />
     </div>
-    <div class="about-banner">
-      <h2>Meet the Collective Advisory Group</h2>
-      <h5><em>The Exiled-1</em>, by Qais Al-Sindy, 2015</h5>
+    <div id="about-banner">
+      <p id="about-banner-header">Meet the Collective Advisory Group</p>
+      <p id="about-banner-caption">
+        <em>The Exiled-1</em>, by Qais Al-Sindy, 2015
+      </p>
     </div>
-    <div class="about-headshots">
+    <div id="about-headshots">
       <div class="about-headshot-card">
-        <img src="@/assets/img/About/about5.png" alt="Kathy Carbone" />
-        <p>
-          <span>Kathy Carbone</span>
+        <img
+          class="about-headshot"
+          src="@/assets/img/About/about5.png"
+          alt="Kathy Carbone"
+        />
+        <p class="about-headshot-caption">
+          <strong>Kathy Carbone</strong>
           <br />
           <br />
           Project Director, Archivist, Founding Member
@@ -129,38 +140,51 @@
       </div>
       <div class="about-headshot-card">
         <img
+          class="about-headshot"
           src="@/assets/img/About/about6.png"
           alt="Elizabeth Shoshany Anderson"
         />
-        <p>
-          <span>Elizabeth Shoshany Anderson</span>
+        <p class="about-headshot-caption">
+          <strong>Elizabeth Shoshany Anderson</strong>
           <br />
           <br />
           Founding Member
         </p>
       </div>
       <div class="about-headshot-card">
-        <img src="@/assets/img/About/about7.png" alt="Vukašin Nedeljković" />
-        <p>
-          <span>Vukašin Nedeljković</span>
+        <img
+          class="about-headshot"
+          src="@/assets/img/About/about7.png"
+          alt="Vukašin Nedeljković"
+        />
+        <p class="about-headshot-caption">
+          <strong>Vukašin Nedeljković</strong>
           <br />
           <br />
           Founding Member
         </p>
       </div>
       <div class="about-headshot-card">
-        <img src="@/assets/img/About/about8.png" alt="Pinar Öğrenci" />
-        <p>
-          <span>Pinar Öğrenci</span>
+        <img
+          class="about-headshot"
+          src="@/assets/img/About/about8.png"
+          alt="Pinar Öğrenci"
+        />
+        <p class="about-headshot-caption">
+          <strong>Pinar Öğrenci</strong>
           <br />
           <br />
           Founding Member
         </p>
       </div>
       <div class="about-headshot-card">
-        <img src="@/assets/img/About/about9.png" alt="Habibah (Biba) Sheikh" />
-        <p>
-          <span>Habibah (Biba) Sheikh </span>
+        <img
+          class="about-headshot"
+          src="@/assets/img/About/about9.png"
+          alt="Habibah (Biba) Sheikh"
+        />
+        <p class="about-headshot-caption">
+          <strong>Habibah (Biba) Sheikh </strong>
           <br />
           <br />
           Founding Member
@@ -186,21 +210,21 @@ export default {
     };
   },
   methods: {
-    togglePanel: function () {
+    // Mission nav function
+    handleTogglePanel: function () {
       this.altPanel = !this.altPanel;
     },
-  },
-  // Add resize checking
-  mounted() {
-    window.addEventListener("resize", () => {
+    // Event listener function
+    handleWindowResize: function () {
       this.windowWidth = window.innerWidth;
-    });
+    },
   },
-  // Clean up
+  // Event listener
+  mounted() {
+    window.addEventListener("resize", this.handleWindowResize);
+  },
   beforeUnmount() {
-    window.removeEventListener("resize", () => {
-      this.windowHeight = window.innerWidth;
-    });
+    window.removeEventListener("resize", this.handleWindowResize);
   },
 };
 </script>
@@ -211,38 +235,18 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .about-img {
-    // Positioning
-    position: relative;
-    // Sizing
-    width: 50%;
+  #about-grid {
+    // Grid for layout
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 
-    img {
+    .about-grid-container {
       // Sizing
-      height: 100%;
       width: 100%;
-      // Darken
-      filter: brightness(70%);
     }
 
-    p {
-      // Typography
-      color: white;
-      font-family: $alt-font;
-      // Positioning within container
-      position: absolute;
-      bottom: 0.5rem;
-      right: 1.5rem;
-    }
-  }
-
-  .about-container {
-    // Flexbox for layout
-    display: flex;
-
-    .about-text {
-      // Sizing
-      width: 50%;
+    .about-text-container {
       // Flexbox for layout
       display: flex;
       flex-direction: column;
@@ -250,47 +254,16 @@ export default {
       // Spacing
       padding: 2rem calc(clamp(2rem, -12.4rem + 25.6vw, 5rem));
 
-      .about-text-emph {
-        color: $accent-teal;
-      }
-
-      .about-mission-nav {
-        // Flexbox for layout
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-
-        button {
-          // Sizing
-          height: 3rem;
-          width: 3rem;
-          font-size: $subheader-font-size;
-          // Clickable
-          cursor: pointer;
-          box-shadow: 0 3px 5px $box-shadow;
-          // Button shape
-          border-radius: 50%;
-          // Remove default button styling
-          border: none;
-        }
-      }
-
-      h1,
-      h3 {
+      .about-header {
         // Typography
         font-size: calc(clamp(1.5rem, -0.3rem + 3.2vw, 2.5rem));
+        font-weight: bold;
         color: $accent-teal;
         // Spacing
-        margin-bottom: 3rem;
+        margin-bottom: 48px;
       }
 
-      h2 {
-        // Typography
-        font-size: calc(clamp(2rem, 1.4rem + 2.4vw, 3.5rem));
-        margin-bottom: 3rem;
-      }
-
-      p {
+      .about-text {
         // Typography
         font-family: $alt-font;
         font-size: calc(clamp(1rem, 0.1rem + 1.6vw, 1.2rem));
@@ -298,35 +271,90 @@ export default {
         line-height: 1.8;
       }
 
-      span {
+      .about-text-emph {
         // Typography
-        font-weight: $bold;
+        color: $accent-teal;
       }
 
-      ul {
-        // Spacing
-        margin-top: 1.5rem;
-        // Typography
-        font-family: $alt-font;
-        font-size: calc(clamp(1rem, 0.1rem + 1.6vw, 1.2rem));
+      .about-mission-panel {
+        // Display
+        display: block;
 
-        li {
-          // Spacing
-          margin-bottom: calc(clamp(1rem, -0.8rem + 3.2vw, 2rem));
-          line-height: 1.6;
+        .about-mission-header {
+          // Flexbox for layout
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+
+          .about-mission-nav {
+            // Sizing
+            height: 48px;
+            width: 48px;
+            font-size: $subheader-font-size;
+            // Clickable
+            cursor: pointer;
+            box-shadow: 0 3px 5px $box-shadow;
+            // Button shape
+            border-radius: 50%;
+            // Remove default button styling
+            border: none;
+          }
         }
+
+        #about-mission-list {
+          // Spacing
+          margin-top: 24px;
+          // Typography
+          font-family: $alt-font;
+          font-size: calc(clamp(1rem, 0.1rem + 1.6vw, 1.2rem));
+
+          .about-mission-entry {
+            // Spacing
+            margin-bottom: calc(clamp(1rem, -0.8rem + 3.2vw, 2rem));
+            line-height: 1.6;
+          }
+        }
+      }
+    }
+
+    .about-img-container {
+      // Display
+      display: block;
+      // Positioning for children
+      position: relative;
+      // Sizing
+      height: 1000px;
+
+      .about-img {
+        // Sizing
+        height: 100%;
+        width: 100%;
+        // Darken
+        filter: brightness(70%);
+        // Preserve aspect ratio
+        object-fit: cover;
+      }
+
+      .about-img-caption {
+        // Typography
+        color: white;
+        font-family: $alt-font;
+        // Positioning within container
+        position: absolute;
+        bottom: 8px;
+        right: 24px;
       }
     }
   }
 
-  .about-gap {
+  #about-divider {
     // Spacing
     padding: calc(clamp(3rem, 1rem + 8vw, 8rem)) 0;
     // Flexbox for alignment
     display: flex;
     justify-content: center;
 
-    span {
+    #about-line {
       // Color the separator
       background: grey;
       // Sizing
@@ -335,7 +363,7 @@ export default {
     }
   }
 
-  .about-banner {
+  #about-banner {
     // Background
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       url("../assets/img/About/about4.png");
@@ -351,19 +379,20 @@ export default {
     // Centering
     text-align: center;
 
-    h2 {
+    #about-banner-header {
       // Typography
       font-size: calc(clamp(2rem, 1.2rem + 3.2vw, 4rem));
+      font-weight: bold;
       color: white;
     }
 
-    h5 {
+    #about-banner-caption {
       // Positioning
       position: absolute;
-      right: 1.5rem;
+      right: 24px;
       bottom: 0;
       // Spacing
-      margin-bottom: 1rem;
+      margin-bottom: 16px;
       // Typography
       font-family: $alt-font;
       font-weight: $normal;
@@ -372,14 +401,14 @@ export default {
     }
   }
 
-  .about-headshots {
+  #about-headshots {
     // Flexbox for layout
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
     // Spacing
-    margin-top: 4rem;
-    padding: 0 1rem;
+    margin-top: 64px;
+    padding: 0 16px;
 
     .about-headshot-card {
       // Flexbox for reasons
@@ -389,16 +418,9 @@ export default {
       // Sizing
       width: 550px;
       // Spacing
-      margin-bottom: 4rem;
+      margin-bottom: 64px;
 
-      span {
-        // Typography
-        font-size: calc(clamp(1.5rem, 1.3rem + 0.8vw, 2rem));
-        font-family: $main-font;
-        font-weight: bold;
-      }
-
-      p {
+      .about-headshot-caption {
         // Centering
         text-align: center;
         // Spacing
@@ -407,6 +429,12 @@ export default {
         font-size: calc(clamp(1rem, 0.8rem + 0.8vw, 1.5rem));
         font-family: $alt-font;
         font-weight: $normal;
+
+        strong {
+          // Typography
+          font-size: calc(clamp(1.5rem, 1.3rem + 0.8vw, 2rem));
+          font-family: $main-font;
+        }
       }
     }
 
@@ -426,44 +454,61 @@ export default {
 
 // Sticky hover
 @media (hover: hover) {
-  #about {
-    .about-container {
-      .about-text {
-        .about-mission-nav {
-          button {
-            &:hover {
-              // Animate
-              transition: transform 0.2s ease;
-              transform: scale(1.1);
-            }
-          }
-        }
-      }
+  #about
+    > #about-grid
+    > .about-grid-container
+    > .about-mission-panel
+    > .about-mission-header
+    > .about-mission-nav {
+    // Smooth animation
+    transition: transform 0.2s ease;
+
+    &:hover {
+      // Animate
+      transform: scale(1.1);
     }
   }
 }
-// Mobile layout
-@media screen and (max-width: $mobile) {
-  #about {
-    // Spacing
-    margin: 2rem 0;
 
-    .about-container {
-      .about-text {
-        // Reduce spacing
+// Smaller layout
+@media screen and (max-width: 1023px) {
+  #about {
+    // Respace
+    margin: 32px 0;
+
+    #about-grid {
+      // Column layout
+      grid-template-rows: auto;
+      grid-template-columns: 1fr;
+
+      .about-text-container {
+        // Reduce inner spacing
         padding: 0 2rem;
-        // Sizing
-        width: 100%;
+        // Add spacing
+        margin: 2rem 0;
 
         .about-mission-panel {
-          margin: 2rem 0;
+          &:first-child {
+            // Add spacing
+            margin-bottom: 64px;
+          }
 
-          ul {
+          .about-mission-header > .about-mission-nav {
+            // Hide on small displays
+            display: none;
+          }
+
+          #about-mission-list {
             // Spacing
             margin: 0;
-            padding: 0 2rem;
+            padding: 0 32px;
           }
         }
+      }
+
+      .about-img-container {
+        // Hide on small displays
+        display: none;
       }
     }
   }

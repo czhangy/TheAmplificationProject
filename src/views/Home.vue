@@ -209,8 +209,6 @@ export default {
         text-align: center;
         // Remove effects of router link
         text-decoration: none;
-        // Smooth hover animation
-        transition: all 0.2s ease;
         // Spacing
         margin: 16px 8px;
       }

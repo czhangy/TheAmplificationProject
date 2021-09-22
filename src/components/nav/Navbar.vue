@@ -48,23 +48,6 @@ export default {
       this.$refs.menu.openMenu();
     },
   },
-  data() {
-    return {
-      windowWidth: window.innerWidth,
-    };
-  },
-  // Add resize checking
-  mounted() {
-    window.addEventListener("resize", () => {
-      this.windowWidth = window.innerWidth;
-    });
-  },
-  // Clean up
-  beforeUnmount() {
-    window.removeEventListener("resize", () => {
-      this.windowHeight = window.innerWidth;
-    });
-  },
 };
 </script>
 

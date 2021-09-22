@@ -55,7 +55,9 @@ const routes = [
     path: "/signup",
     name: "Sign Up",
     component: () => import("@/views/User/SignUp.vue"),
-  },{
+  },
+  // Catch-all for 404 pages
+  {
     path: "/:pathMatch(.*)*",
     name: "Page Not Found",
     component: () => import("@/views/PageNotFound.vue"),
@@ -65,6 +67,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  // Scroll to top of page on redirect
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition;
     else return { left: 0, top: 0 };
