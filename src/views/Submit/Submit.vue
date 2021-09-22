@@ -8,15 +8,17 @@
     <div id="submit-accordion">
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>What does it mean to contribute to the archive?</p>
+          <p class="panel-header">
+            What does it mean to contribute to the archive?
+          </p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[0]"
             @click="handleAccordionClick(0)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(0)"
@@ -31,15 +33,15 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>What kinds of things are accepted?</p>
+          <p class="panel-header">What kinds of things are accepted?</p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[1]"
             @click="handleAccordionClick(1)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(1)"
@@ -63,15 +65,17 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>How do I submit my item(s)? Do I need to create an account?</p>
+          <p class="panel-header">
+            How do I submit my item(s)? Do I need to create an account?
+          </p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[2]"
             @click="handleAccordionClick(2)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(2)"
@@ -89,15 +93,15 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>Who describes my item(s)?</p>
+          <p class="panel-header">Who describes my item(s)?</p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[3]"
             @click="handleAccordionClick(3)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(3)"
@@ -114,15 +118,17 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>Who reviews the submission, and when should I expect approval?</p>
+          <p class="panel-header">
+            Who reviews the submission, and when should I expect approval?
+          </p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[4]"
             @click="handleAccordionClick(4)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(4)"
@@ -138,15 +144,15 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>What if I want my materials removed?</p>
+          <p class="panel-header">What if I want my materials removed?</p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[5]"
             @click="handleAccordionClick(5)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(5)"
@@ -159,18 +165,18 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>
+          <p class="panel-header">
             What if someone has made my work available on your site without my
             permission?
           </p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[6]"
             @click="handleAccordionClick(6)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(6)"
@@ -186,15 +192,17 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>How do I comment on materials in the archive?</p>
+          <p class="panel-header">
+            How do I comment on materials in the archive?
+          </p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[7]"
             @click="handleAccordionClick(7)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(7)"
@@ -207,17 +215,17 @@
       </div>
       <div class="submit-accordion-entry">
         <div class="submit-accordion-panel">
-          <p>
+          <p class="panel-header">
             Are there any rules and restrictions to contributing to the archive?
           </p>
           <i
-            class="fa fa-chevron-down"
+            class="panel-arrow fa fa-chevron-down"
             aria-hidden="true"
             v-if="!accordionOpen[8]"
             @click="handleAccordionClick(8)"
           ></i>
           <i
-            class="fa fa-chevron-up"
+            class="panel-arrow fa fa-chevron-up"
             aria-hidden="true"
             v-else
             @click="handleAccordionClick(8)"
@@ -250,13 +258,20 @@ export default {
       accordionOpen: [],
     };
   },
-  mounted() {
-    for (let i = 0; i < 9; i++) this.accordionOpen[i] = false;
-  },
   methods: {
+    // Accordion functions
     handleAccordionClick(i) {
+      // Toggle
       this.accordionOpen[i] = !this.accordionOpen[i];
     },
+    handleInitAccordion: function () {
+      // Set all accordion entries to closed
+      for (let i = 0; i < 9; i++) this.accordionOpen[i] = false;
+    },
+  },
+  mounted() {
+    // Initialize accordion state
+    this.handleInitAccordion();
   },
 };
 </script>
@@ -308,11 +323,6 @@ export default {
     // Sizing
     width: 100%;
 
-    p {
-      // Typography
-      font-size: $body-font-size;
-    }
-
     .submit-accordion-entry {
       // Border
       border-bottom: 2px solid lightgrey;
@@ -325,7 +335,12 @@ export default {
         // Spacing
         padding: 1rem 2rem;
 
-        i {
+        .panel-header {
+          // Typography
+          font-size: $body-font-size;
+        }
+
+        .panel-arrow {
           // Icon styling
           color: $accent-teal;
           font-size: 1.2rem;
@@ -339,6 +354,7 @@ export default {
       .panel-body {
         // Typography
         font-style: italic;
+        font-size: $body-font-size;
         // Border
         border-top: 2px solid lightgrey;
         // Background
@@ -373,10 +389,8 @@ export default {
 
 // Sticky hover
 @media (hover: hover) {
-  #submit > #ready-to-submit {
-    &:hover {
-      background: $accent-dark-teal;
-    }
+  #submit > #ready-to-submit:hover {
+    background: $accent-dark-teal;
   }
 }
 </style>
