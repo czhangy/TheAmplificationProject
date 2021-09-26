@@ -1,18 +1,11 @@
 <template>
   <div id="progress-bar">
-    <div class="step" v-for="(label, i) in labels" :key="i">
-      <div class="container">
-        <div class="bubble default-bubble" v-if="maxPage < i">
-          {{ i + 1 }}
-          <label class="label">{{ label }}</label>
-        </div>
-        <div class="bubble active-bubble" v-else @click="onClick(i)">
-          {{ i + 1 }}
-          <label class="active-label">{{ label }}</label>
-        </div>
+    <div class="bubble-container" v-for="(label, i) in labels" :key="i">
+      <div class="bubble" @click="onClick(i)">
+        {{ i + 1 }}
+        <label class="label">{{ label }}</label>
       </div>
-      <hr class="bar" v-if="i !== labels.length - 1 && maxPage <= i" />
-      <hr class="active-bar" v-else-if="i !== labels.length - 1" />
+      <hr class="line" v-if="i !== labels.length - 1" />
     </div>
   </div>
 </template>
@@ -39,12 +32,35 @@ export default {
     },
   },
   methods: {
-    // Nav function
-    handleCircleClick(i) {
-      // Don't let the user advance to future pages before completing current ones
-      if (i > this.active) return;
-      this.onClick(i);
+    // Styling function
+    handleStyling: function () {
+      let bubbles = document.getElementsByClassName("bubble");
+      let labels = document.getElementsByClassName("label");
+      let lines = document.getElementsByClassName("line");
+      // Style bubbles and labels
+      for (let i = 0; i < bubbles.length; i++) {
+        if (i > this.maxPage) {
+          bubbles[i].classList.remove("active");
+          labels[i].classList.remove("active");
+        } else {
+          bubbles[i].classList.add("active");
+          labels[i].classList.add("active");
+        }
+      }
+      // Style transition lines
+      for (let i = 0; i < lines.length; i++) {
+        if (i >= this.maxPage) lines[i].classList.remove("active");
+        else lines[i].classList.add("active");
+      }
     },
+  },
+  mounted() {
+    // Initialize styling
+    this.handleStyling();
+  },
+  updated() {
+    // Update styling on page nav
+    this.handleStyling();
   },
 };
 </script>
@@ -61,7 +77,7 @@ export default {
   // Variable
   --default: #8f8f8f;
 
-  .step {
+  .bubble-container {
     // Centering
     display: flex;
     justify-content: center;
@@ -79,12 +95,26 @@ export default {
       // Typography
       font-family: $alt-font;
       font-size: 2rem;
+      color: var(--default);
       // Spacing
       margin: 0 6px;
       // Positioning
       position: relative;
+      // Bubble styling
+      border: 1px solid var(--default);
 
-      label {
+      &.active {
+        // Bubble styling
+        background: $accent-teal;
+        // Typography
+        color: white;
+        // Clickable
+        cursor: pointer;
+        // Remove border
+        border: none;
+      }
+
+      .label {
         // Typography
         font-size: 18px;
         color: var(--default);
@@ -96,42 +126,26 @@ export default {
         width: 175px;
         // Centering
         text-align: center;
+
+        &.active {
+          // Typography
+          color: $accent-teal;
+        }
       }
-
-      .active-label {
-        // Typography
-        color: $accent-teal;
-      }
     }
 
-    .default-bubble {
-      // Bubble styling
-      border: 1px solid var(--default);
-      // Typography
-      color: var(--default);
-    }
-
-    .active-bubble {
-      // Bubble styling
-      background: $accent-teal;
-      // Typography
-      color: white;
-      // Clickable
-      cursor: pointer;
-    }
-
-    hr {
+    .line {
       // Bar styling
       background: var(--default);
       // Sizing
       height: 2px;
       width: 10vw;
       border: none;
-    }
 
-    .active-bar {
-      // Bar styling
-      background: $accent-teal;
+      &.active {
+        // Bar styling
+        background: $accent-teal;
+      }
     }
   }
 }
@@ -142,7 +156,30 @@ export default {
     // Respace to account for hidden text
     margin-bottom: 24px;
 
-    .step {
+    .bubble-container {
+      .bubble {
+        // Resize
+        height: 60px;
+        width: 60px;
+        line-height: 60px;
+        // Resize font
+        font-size: 1.4rem;
+
+        .label {
+          // Hide text on smaller layouts
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #progress-bar {
+    // Respace to account for hidden text
+    margin-bottom: 24px;
+
+    .bubble-container {
       .bubble {
         // Resize
         height: 40px;
@@ -150,14 +187,9 @@ export default {
         line-height: 40px;
         // Resize font
         font-size: 1.2rem;
-
-        label {
-          // Hide text on smaller layouts
-          display: none;
-        }
       }
 
-      hr {
+      .line {
         // Resize
         width: 5vw;
       }

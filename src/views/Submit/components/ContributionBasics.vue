@@ -1,60 +1,76 @@
 <template>
   <div id="contribution-basics">
     <div class="section-header">
-      <p>Title of work</p>
-      <i class="fas fa-asterisk"></i>
+      <label class="section-label" for="title-field">Title of work</label>
+      <i class="asterisk fas fa-asterisk" />
     </div>
-    <div class="section-field">
+    <div class="field-container">
       <input
+        id="title-field"
+        class="input-field"
         placeholder="Enter title"
         v-model="submissionData.title"
         :disabled="disabled"
       />
     </div>
     <div class="section-header">
-      <p>Year work completed</p>
-      <i class="fas fa-asterisk"></i>
+      <label class="section-label" for="year-field">Year work completed</label>
+      <i class="asterisk fas fa-asterisk" />
     </div>
-    <div class="section-field">
+    <div class="field-container">
       <input
+        id="year-field"
+        class="input-field"
         placeholder="YYYY"
         v-model="submissionData.completionYear"
         :disabled="disabled"
       />
     </div>
-    <div class="section-header" v-if="fileType === 0">
-      <p>Language of work</p>
+    <div class="section-header" v-if="isText">
+      <label class="section-label" for="language-field">Language of work</label>
     </div>
-    <div class="section-field" v-if="fileType === 0">
+    <div class="field-container" v-if="isText">
       <input
+        id="language-field"
+        class="input-field"
         placeholder="Enter language"
         v-model="submissionData.language"
         :disabled="disabled"
       />
     </div>
     <div class="section-header">
-      <p>City and country where you created the work</p>
-      <i class="fas fa-asterisk"></i>
+      <label class="section-label"
+        >City and country where you created the work</label
+      >
+      <i class="asterisk fas fa-asterisk" />
     </div>
-    <div class="section-field" id="location-field">
-      <div class="input-fields">
+    <!-- <div class="field-container grouped">
+      <div class="multi-input">
         <input
+          class="input-field"
           placeholder="Enter city"
           v-model="submissionData.city"
           :disabled="disabled"
         />
         <input
+          class="input-field"
           placeholder="Enter country"
           v-model="submissionData.country"
           :disabled="disabled"
         />
-        <button @click="handleLocationSearch" v-if="!disabled">Find</button>
+        <button
+          id="location-search-button"
+          @click="handleLocationSearch"
+          v-if="!disabled"
+        >
+          Find
+        </button>
       </div>
-      <i class="fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
+      <i class="tooltip-button fas fa-info-circle" v-if="!disabled" @click="handleTooltip(0)"
         ><Tooltip :open="tooltipStates[0]" :message="tooltipMessages[0]"
       /></i>
-    </div>
-    <div id="map-container"></div>
+    </div> -->
+    <div id="map-container" />
   </div>
 </template>
 
@@ -64,7 +80,7 @@ import "leaflet/dist/leaflet.css";
 
 // Import global libraries
 import L from "leaflet";
-import axios from "axios";
+// import axios from "axios";
 
 // Import local components
 import Tooltip from "./Tooltip";
@@ -108,24 +124,24 @@ export default {
     handleLocationSearch: async function () {
       alert("This feature is under development!");
       return;
-      axios
-        // Query LocationStack API for forward geocoding
-        .get(
-          `http://api.positionstack.com/v1/forward?access_key=${
-            process.env.VUE_APP_POSITIONSTACK_ACCESS_TOKEN
-          }&query=${
-            this.submissionData.city + " " + this.submissionData.country
-          }`
-        )
-        .then((res) => {
-          let coords = [res.data.data[0].latitude, res.data.data[0].longitude];
-          // Set marker to location
-          this.handleSetMarker(coords[0], coords[1]);
-          // Pan to location
-          this.map.flyTo(coords);
-          // Set location
-          this.submissionData.location = coords;
-        });
+      // axios
+      //   // Query LocationStack API for forward geocoding
+      //   .get(
+      //     `http://api.positionstack.com/v1/forward?access_key=${
+      //       process.env.VUE_APP_POSITIONSTACK_ACCESS_TOKEN
+      //     }&query=${
+      //       this.submissionData.city + " " + this.submissionData.country
+      //     }`
+      //   )
+      //   .then((res) => {
+      //     let coords = [res.data.data[0].latitude, res.data.data[0].longitude];
+      //     // Set marker to location
+      //     this.handleSetMarker(coords[0], coords[1]);
+      //     // Pan to location
+      //     this.map.flyTo(coords);
+      //     // Set location
+      //     this.submissionData.location = coords;
+      //   });
     },
     handleLeafletSetup: function () {
       let center =
@@ -191,6 +207,11 @@ export default {
       this.handleSetMarker(e.latlng.lat, e.latlng.lng);
     },
   },
+  computed: {
+    isText() {
+      return this.fileType === 0;
+    },
+  },
   mounted() {
     // Set up map
     this.handleLeafletSetup();
@@ -200,21 +221,103 @@ export default {
 
 <style lang="scss" scoped>
 #contribution-basics {
-  #location-field {
-    // Spacing
-    justify-content: space-between;
-    margin-bottom: 24px;
-    // Sizing
-    width: max(40%, 350px);
+  // Spacing + centering
+  margin: 48px auto 0 auto;
+  // Sizing
+  width: 80%;
 
-    input {
-      // Spacing
-      margin-right: 16px;
+  .section-header {
+    // Flexbox for layout
+    display: flex;
+    align-items: center;
+    // Sizing
+    max-width: 640px;
+
+    .section-label {
+      // Typography
+      font-size: $subheader-font-size;
+      font-weight: bold;
     }
 
-    button {
-      // Button styling
-      padding: 10px 16px;
+    .asterisk {
+      // Icon styling
+      color: red;
+      font-size: calc(clamp(0.4rem, 0.28rem + 0.48vw, 0.7rem));
+      // Spacing
+      margin-left: 4px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .field-container {
+    // Flexbox for layout
+    display: flex;
+    align-items: center;
+    // Spacing
+    margin-top: 20px;
+    margin-bottom: 48px;
+    // Sizing
+    width: min(400px, 100%);
+
+    &.grouped {
+      // Spacing
+      justify-content: space-between;
+      margin-bottom: 24px;
+      // Sizing
+      width: max(40%, 350px);
+    }
+
+    .input-field {
+      // Typography
+      font-family: $alt-font;
+      // Inner spacing
+      padding: 0.5rem;
+      // Sizing
+      width: 90%;
+    }
+
+    .multi-input {
+      // Sizing
+      width: 90%;
+      // Flexbox for layout
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .input-field {
+        // Resize field
+        width: 48%;
+        // Spacing
+        margin-right: 16px;
+      }
+
+      #location-search-button {
+        // Button styling
+        padding: 10px 16px;
+        background: $accent-teal;
+        border-radius: 10px;
+        // Typography
+        font-family: $alt-font;
+        font-weight: $bold;
+        color: white;
+        text-align: center;
+        // Remove default button styling
+        border: none;
+        // Clickable
+        cursor: pointer;
+      }
+    }
+
+    .tooltip-button {
+      // Clickable
+      cursor: pointer;
+      // Icon styling
+      color: $accent-teal;
+      font-size: $subheader-font-size;
+      // Spacing
+      margin-left: 10px;
+      // Positioning for tooltips
+      position: relative;
     }
   }
 
@@ -224,11 +327,27 @@ export default {
     width: 100%;
     // Place below content
     z-index: 0;
+    // Spacing
+    margin-top: 20px;
   }
 }
 
-input {
-  // Sizing
-  width: 90%;
+// Sticky hover
+@media (hover: hover) {
+  #contribution-basics
+    > .field-container
+    > .multi-input
+    > #location-search-button:hover {
+    // Animate
+    background: $accent-dark-teal;
+  }
+}
+
+// Smaller layout
+@media screen and (max-width: 767px) {
+  #contribution-basics > .field-container > .tooltip-button {
+    // Hide
+    display: none;
+  }
 }
 </style>

@@ -2,14 +2,10 @@
   <div id="login">
     <p id="login-header">Login</p>
     <form id="login-form" @submit.prevent="handleLogin">
-      <label class="form-field-label" for="login-username"
-        >Username</label
-      >
+      <label class="form-field-label" for="login-username">Username</label>
       <input id="login-username" class="form-field" v-model="username" />
       <div id="password-header">
-        <label class="form-field-label" for="login-password"
-          >Password</label
-        >
+        <label class="form-field-label" for="login-password">Password</label>
         <button id="forgot-password-button" @click="handleForgotPasswordReq">
           Forgot password?
         </button>
@@ -221,24 +217,18 @@ export default {
 // Sticky hover
 @media (hover: hover) {
   #login > #login-form {
-    #password-header > #forgot-password-button {
-      &:hover {
-        // Animate
-        color: $accent-light-teal;
-      }
+    #password-header > #forgot-password-button:hover {
+      // Animate
+      color: $accent-light-teal;
     }
 
-    #form-footer > #login-button {
-      &:hover {
-        // Animate
-        background: $accent-light-teal;
-      }
+    #form-footer > #login-button:hover {
+      // Animate
+      background: $accent-light-teal;
     }
 
-    #sign-up-redirect > #sign-up-link {
-      &:hover {
-        color: $accent-light-teal;
-      }
+    #sign-up-redirect > #sign-up-link:hover {
+      color: $accent-light-teal;
     }
   }
 }

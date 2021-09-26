@@ -114,9 +114,17 @@ export default {
   },
   computed: {
     metadata: function () {
-      let fields = ["format", "insta", "contributor", "medium", "size", "year", "rights"];
+      let fields = [
+        "format",
+        "insta",
+        "contributor",
+        "medium",
+        "size",
+        "year",
+        "rights",
+      ];
       return fields.filter((field) => this.piece[field] != null);
-    }
+    },
   },
   mounted() {
     // Set up map
@@ -314,13 +322,11 @@ export default {
 
 // Sticky hover
 @media (hover: hover) {
-  #piece > #piece-tabs > .piece-tab {
-    &:hover {
-      // Animate
-      background: $accent-light-teal;
-      color: white;
-      border: 2px solid $accent-light-teal;
-    }
+  #piece > #piece-tabs > .piece-tab:hover {
+    // Animate
+    background: $accent-light-teal;
+    color: white;
+    border: 2px solid $accent-light-teal;
   }
 }
 </style>

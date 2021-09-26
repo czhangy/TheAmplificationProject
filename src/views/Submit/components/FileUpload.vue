@@ -1,65 +1,61 @@
 <template>
   <div id="file-upload">
     <div class="section-header">
-      <p>Select item contribution type</p>
-      <i class="fas fa-asterisk"></i>
+      <p class="section-header-text">Select item contribution type</p>
+      <i class="asterisk fas fa-asterisk" />
     </div>
     <div id="media-icons">
       <div class="media-icon" @click="onClick(0)">
-        <i class="fas icon fa-file-alt"></i>
-        <p>Text</p>
+        <i id="text-icon" class="icon fas fa-file-alt" />
+        <label class="label" for="text-icon">Text</label>
       </div>
       <div class="media-icon" @click="onClick(1)">
-        <i class="fas icon fa-image"></i>
-        <p>Image</p>
+        <i id="image-icon" class="icon fas fa-image" />
+        <label class="label" for="image-icon">Image</label>
       </div>
       <div class="media-icon" @click="onClick(2)">
-        <i class="fas icon fa-video"></i>
-        <p>Video</p>
+        <i id="video-icon" class="icon fas fa-video" />
+        <label class="label" for="video-icon">Video</label>
       </div>
       <div class="media-icon" @click="onClick(3)">
-        <i class="fas icon fa-volume-up"></i>
-        <p>Audio</p>
+        <i id="audio-icon" class="icon fas fa-volume-up" />
+        <label class="label" for="audio-icon">Audio</label>
       </div>
     </div>
     <div class="section-header">
-      <p>File Upload</p>
-      <i class="fas fa-asterisk"></i>
+      <p class="section-header-text">File Upload</p>
+      <i class="asterisk fas fa-asterisk" />
     </div>
-    <div
-      id="file-upload-area"
-      v-if="!disabled && maxFiles > submissionData.files.length"
-    >
-      <p>Drag & drop your files here</p>
-      <span>OR</span>
-      <label>
+    <div id="file-upload-area" v-if="maxFiles > submissionData.files.length">
+      <p class="drag-and-drop-text">
+        Drag & drop your files here<br />
+        <br />
+        OR
+        <br />
+        <br />
+      </p>
+      <label id="file-upload-button">
         <input type="file" @change="handleFileSelect" />
         Choose File
       </label>
     </div>
-    <ul>
-      <li v-for="(file, i) in submissionData.files" :key="i">
-        <p>{{ file.name }}</p>
+    <ul id="file-list">
+      <li class="file-entry" v-for="(file, i) in submissionData.files" :key="i">
+        <p class="file-name">{{ file.name }}</p>
         <i
-          class="fa fa-times"
+          class="file-delete-button fa fa-times"
           v-if="!disabled"
           aria-hidden="true"
           @click="handleFileRemove(i)"
-        ></i>
+        />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-// Import local components
-import Tooltip from "./Tooltip";
-
 export default {
   name: "FileUpload",
-  components: {
-    Tooltip,
-  },
   props: {
     submissionData: {
       type: Object,
@@ -82,24 +78,19 @@ export default {
       default: 1,
     },
   },
-  mounted() {
-    // Handle pointer cursor on icons
-    this.handleIconStyling();
-    if (this.submissionData.files.length === 0)
-      // Set up drag and drop
-      this.handleDropAreaInit();
-  },
-  beforeUnmount() {
-    if (this.submissionData.files.length === 0)
-      // Clean up drag and drop
-      this.handleDropAreaRemove();
-  },
   methods: {
-    // Tooltip toggle method
-    handleTooltip: function (ind) {
-      this.tooltipStates[ind] = !this.tooltipStates[ind];
+    // Icon styling method
+    handleIconStyling: function () {
+      if (this.disabled)
+        document.getElementsByClassName("media-icon").forEach((icon) => {
+          icon.classList.remove("pointer");
+        });
+      else
+        document.getElementsByClassName("media-icon").forEach((icon) => {
+          icon.classList.add("pointer");
+        });
     },
-    // Page rendering methods
+    // Drag and drop methods
     handleDropAreaInit: function () {
       if (!this.disabled) {
         // Select area for drag and drop
@@ -150,17 +141,6 @@ export default {
         dropArea.removeEventListener("drop", this.handleFileSelect, false);
       }
     },
-    // Icon handling method
-    handleIconStyling: function () {
-      if (this.disabled)
-        document.getElementsByClassName("media-icon").forEach((icon) => {
-          icon.classList.remove("pointer");
-        });
-      else
-        document.getElementsByClassName("media-icon").forEach((icon) => {
-          icon.classList.add("pointer");
-        });
-    },
     // File select methods
     handleFileSelect: function (e) {
       let files = e.target.files || e.dataTransfer.files;
@@ -178,11 +158,51 @@ export default {
       this.submissionData.files.splice(ind, 1);
     },
   },
+  mounted() {
+    // Handle pointer cursor on icons
+    this.handleIconStyling();
+    if (this.submissionData.files.length === 0)
+      // Set up drag and drop
+      this.handleDropAreaInit();
+  },
+  beforeUnmount() {
+    if (this.submissionData.files.length === 0)
+      // Clean up drag and drop
+      this.handleDropAreaRemove();
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 #file-upload {
+  // Spacing + centering
+  margin: 48px auto 0 auto;
+  // Sizing
+  width: 80%;
+
+  .section-header {
+    // Flexbox for layout
+    display: flex;
+    align-items: center;
+    // Sizing
+    max-width: 640px;
+
+    .section-header-text {
+      // Typography
+      font-size: $subheader-font-size;
+      font-weight: bold;
+    }
+
+    .asterisk {
+      // Icon styling
+      color: red;
+      font-size: calc(clamp(0.4rem, 0.28rem + 0.48vw, 0.7rem));
+      // Spacing
+      margin-left: 4px;
+      margin-bottom: 16px;
+    }
+  }
+
   #media-icons {
     // Flexbox for layout
     display: flex;
@@ -199,7 +219,12 @@ export default {
       flex-direction: column;
       align-items: center;
 
-      i {
+      &.pointer {
+        // Clickable
+        cursor: pointer;
+      }
+
+      .icon {
         // Spacing
         margin-bottom: 16px;
         // Icon styling
@@ -207,7 +232,7 @@ export default {
         font-size: calc(clamp(3rem, 2.2rem + 3.2vw, 5rem));
       }
 
-      p {
+      .label {
         // Typography
         font-size: $body-font-size;
         font-weight: bold;
@@ -232,12 +257,12 @@ export default {
     // Container spacing
     padding: 96px 0;
 
-    span {
-      // Spacing
-      margin: 48px 0;
+    .drag-and-drop-text {
+      // Alignment
+      text-align: center;
     }
 
-    label {
+    #file-upload-button {
       // Container spacing
       padding: 8px 16px;
       // Typography
@@ -262,7 +287,7 @@ export default {
     background: lighten(lightgrey, 10);
   }
 
-  ul {
+  #file-list {
     // Sizing
     width: 90%;
     // Centering + spacing
@@ -270,9 +295,9 @@ export default {
     // Remove bullet points
     list-style: none;
 
-    li {
+    .file-entry {
       // Container spacing
-      padding: 2rem;
+      padding: 32px;
       // Style container
       background: lighten(lightgrey, 10);
       border: 2px solid lightgrey;
@@ -281,16 +306,16 @@ export default {
       justify-content: space-between;
       align-items: center;
       // Spacing
-      margin-top: 2rem;
+      margin-top: 32px;
 
-      p {
+      .file-name {
         // Typography
         font-size: $subheader-font-size;
         font-family: $alt-font;
         font-weight: normal;
       }
 
-      .fa-times {
+      .file-delete-button {
         // Icon sizing
         font-size: 2rem;
         // Clickable
@@ -302,11 +327,9 @@ export default {
 
 // Handle sticky hover
 @media (hover: hover) {
-  #file-upload > #file-upload-area > label {
-    &:hover {
-      // Animate
-      background: $accent-dark-teal;
-    }
+  #file-upload > #file-upload-area > #file-upload-button:hover {
+    // Animate
+    background: $accent-dark-teal;
   }
 }
 

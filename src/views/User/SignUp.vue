@@ -205,18 +205,14 @@ export default {
 // Sticky hover
 @media (hover: hover) {
   #sign-up {
-    #sign-up-form > .form-row > #sign-up-button {
-      &:hover {
-        // Animate
-        background: $accent-light-teal;
-      }
+    #sign-up-form > .form-row > #sign-up-button:hover {
+      // Animate
+      background: $accent-light-teal;
     }
 
-    #login-redirect > #login-link {
-      &:hover {
-        // Animate
-        color: $accent-light-teal;
-      }
+    #login-redirect > #login-link:hover {
+      // Animate
+      color: $accent-light-teal;
     }
   }
 }

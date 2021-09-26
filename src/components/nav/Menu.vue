@@ -6,7 +6,9 @@
         <div id="menu-user-nav">
           <router-link to="/login" class="menu-user-link"> login </router-link>
           |
-          <router-link to="/signup" class="menu-user-link"> sign up </router-link>
+          <router-link to="/signup" class="menu-user-link">
+            sign up
+          </router-link>
         </div>
       </div>
       <hr class="menu-separator" />
@@ -178,10 +180,9 @@ export default {
 
 // Sticky hover
 @media (hover: hover) {
-  #menu-overlay > #menu > .menu-link {
-    &:hover {
-      background: lighten(lightgrey, 10);
-    }
+  #menu-overlay > #menu > .menu-link:hover {
+    // Animate
+    background: lighten(lightgrey, 10);
   }
 }
 

@@ -229,10 +229,9 @@ export default {
 
 // Handle sticky hover
 @media (hover: hover) {
-  #artist > #artist-all-work > #load-more-button {
-    &:hover {
-      background: $accent-light-teal;
-    }
+  #artist > #artist-all-work > #load-more-button:hover {
+    // Animate
+    background: $accent-light-teal;
   }
 }
 </style>

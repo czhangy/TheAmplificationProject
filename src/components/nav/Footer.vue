@@ -14,7 +14,7 @@
         <label for="email-name">Email:</label>
         <input id="email-name" class="mailing-list-field" v-model="email" />
       </div>
-      <input id="subscribe-button" type="submit" value="Subscribe!">
+      <input id="subscribe-button" type="submit" value="Subscribe!" />
     </form>
     <div id="footer-socials">
       <a
@@ -172,20 +172,16 @@ export default {
 // Sticky hover
 @media (hover: hover) {
   #footer {
-    #footer-mailing-list > #subscribe-button {
-      &:hover {
-        // Animate
-        background: $accent-teal;
-        color: $accent-light-grey;
-      }
+    #footer-mailing-list > #subscribe-button:hover {
+      // Animate
+      background: $accent-teal;
+      color: $accent-light-grey;
     }
 
-    #footer-socials > .fa {
-      &:hover {
-        // Animate
-        background: $accent-teal;
-        color: $accent-light-grey;
-      }
+    #footer-socials > .fa:hover {
+      // Animate
+      background: $accent-teal;
+      color: $accent-light-grey;
     }
   }
 }
