@@ -1,38 +1,42 @@
 <template>
+  <!-- Footer.vue is a nav component that appears at the bottom of each page -->
   <div id="footer">
     <div id="footer-text">
-      Powered by <a href="https://omeka.org/" target="_blank">Omeka</a> | Site
-      Hosted by
-      <a href="https://reclaimhosting.com/" target="_blank">Reclaim Hosting</a>
+      Powered by
+      <a class="footer-link" href="https://omeka.org/" target="_blank">Omeka</a>
+      | Site Hosted by
+      <a class="footer-link" href="https://reclaimhosting.com/" target="_blank"
+        >Reclaim Hosting</a
+      >
       | 2019 - 2021
     </div>
     <form id="footer-mailing-list" @submit.prevent="handleSubscribe">
-      <p>Join Our Mailing List!</p>
+      <strong class="mailing-list-text">Join Our Mailing List!</strong>
       <div id="mailing-list-fields">
-        <label for="footer-name">Name:</label>
+        <label class="mailing-list-label" for="footer-name">Name:</label>
         <input id="footer-name" class="mailing-list-field" v-model="name" />
-        <label for="email-name">Email:</label>
+        <label class="mailing-list-label" for="email-name">Email:</label>
         <input id="email-name" class="mailing-list-field" v-model="email" />
       </div>
       <input id="subscribe-button" type="submit" value="Subscribe!" />
     </form>
     <div id="footer-socials">
       <a
-        class="fa fa-twitter"
+        class="footer-social-link fa fa-twitter"
         href="https://twitter.com/AmplifiProject"
         target="_blank"
         aria-hidden="true"
-      ></a>
+      />
       <a
-        class="fa fa-facebook-f"
+        class="footer-social-link fa fa-facebook-f"
         href="https://www.facebook.com/TheAmplificationProject/"
         target="_blank"
-      ></a>
+      />
       <a
-        class="fa fa-instagram"
+        class="footer-social-link fa fa-instagram"
         href="https://www.instagram.com/theamplificationproject/"
         target="_blank"
-      ></a>
+      />
     </div>
   </div>
 </template>
@@ -40,7 +44,14 @@
 <script>
 export default {
   name: "Footer",
+  data() {
+    return {
+      name: "",
+      email: "",
+    };
+  },
   methods: {
+    // Submission function
     handleSubscribe: function () {
       alert(
         `The handleSubscribe() function in News.vue must still be implemented, but here's the data stored in the component for testing:\n
@@ -50,12 +61,6 @@ export default {
       this.name = "";
       this.email = "";
     },
-  },
-  data() {
-    return {
-      name: "",
-      email: "",
-    };
   },
 };
 </script>
@@ -67,7 +72,7 @@ export default {
   // Bar styling
   background: $accent-light-grey;
   // Spacing
-  padding: 3rem;
+  padding: 48px;
   // Flexbox for layout
   display: flex;
   justify-content: space-between;
@@ -85,13 +90,6 @@ export default {
     .footer-link {
       // Remove effects of router link
       text-decoration: none;
-      color: $accent-teal;
-    }
-
-    a {
-      // Remove effects of anchor tag
-      text-decoration: none;
-      // Color styling
       color: $accent-teal;
     }
   }
@@ -120,9 +118,14 @@ export default {
         font-size: $caption-font-size;
       }
 
-      label {
+      .mailing-list-label {
         // Spacing
         margin: 0 8px;
+
+        &:first-child {
+          // Remove spacing
+          margin-left: 0;
+        }
       }
     }
 
@@ -136,7 +139,7 @@ export default {
       // Button sizing
       border-radius: 20px;
       border: 1px solid $accent-teal;
-      padding: 0.5rem 2rem;
+      padding: 8px 32px;
       // Clickable
       cursor: pointer;
     }
@@ -148,7 +151,7 @@ export default {
     // Icon sizing
     font-size: 1.25rem;
 
-    .fa {
+    .footer-social-link {
       // Icon centering
       line-height: 40px;
       // Icon sizing
@@ -178,7 +181,7 @@ export default {
       color: $accent-light-grey;
     }
 
-    #footer-socials > .fa:hover {
+    #footer-socials > .footer-social-link:hover {
       // Animate
       background: $accent-teal;
       color: $accent-light-grey;
@@ -199,7 +202,7 @@ export default {
       flex-direction: column;
       align-items: flex-start;
 
-      label {
+      .mailing-list-label {
         // Remove spacing
         margin: 0;
       }

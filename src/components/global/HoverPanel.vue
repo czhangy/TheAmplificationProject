@@ -1,4 +1,6 @@
 <template>
+  <!-- HoverPanel.vue is a global component that creates a container which, when hovered over by the user, pops up an overlay containing
+       information defined by the props -->
   <div class="hover-panel">
     <div class="hover-panel-overlay">
       <p class="hover-panel-header">

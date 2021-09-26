@@ -1,4 +1,5 @@
 <template>
+  <!-- Navbar.vue is a nav component that appears at the top of each page, containing the Menu -->
   <div id="navbar">
     <router-link id="navbar-brand" to="/">
       <img
@@ -57,7 +58,7 @@ export default {
   height: $navbar-height;
   width: 100%;
   // Spacing
-  padding: 3rem calc(clamp(1rem, -1rem + 8vw, 6rem));
+  padding: 48px calc(clamp(1rem, -1rem + 8vw, 6rem));
   // Flexbox for layout
   display: flex;
   justify-content: space-between;
@@ -120,14 +121,12 @@ export default {
     justify-content: center;
     align-items: center;
 
-    #navbar-user-nav {
-      .navbar-user-link {
-        // Remove effects of router link
-        color: $font-color;
-        text-decoration: none;
-        // Spacing
-        margin: 16px;
-      }
+    #navbar-user-nav > .navbar-user-link {
+      // Remove effects of router link
+      color: $font-color;
+      text-decoration: none;
+      // Spacing
+      margin: 16px;
     }
 
     #navbar-hamburger {
@@ -158,14 +157,14 @@ export default {
 // Handle sticky hover
 @media (hover: hover) {
   #navbar > #navbar-links > #navbar-hamburger {
-    &:hover .navbar-hamburger-line {
-      // Animate
-      margin: 0.3rem 0;
-    }
-
     .navbar-hamburger-line {
       // Smooth animation
       transition: margin 0.3s ease;
+    }
+
+    &:hover .navbar-hamburger-line {
+      // Animate
+      margin: 0.3rem 0;
     }
   }
 }

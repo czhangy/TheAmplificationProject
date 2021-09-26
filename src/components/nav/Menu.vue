@@ -1,13 +1,14 @@
 <template>
+  <!-- Menu.vue is a nav component that is mounted on the navbar, providing navigation to various pages on the site -->
   <div id="menu-overlay" @click="closeMenu">
     <div id="menu">
       <div id="menu-header">
         <i id="menu-close-button" class="fas fa-times" @click="closeMenu" />
         <div id="menu-user-nav">
-          <router-link to="/login" class="menu-user-link"> login </router-link>
+          <router-link class="menu-user-link" to="/login"> LOGIN </router-link>
           |
-          <router-link to="/signup" class="menu-user-link">
-            sign up
+          <router-link class="menu-user-link" to="/signup">
+            SIGN UP
           </router-link>
         </div>
       </div>
@@ -35,16 +36,7 @@
 export default {
   name: "Menu",
   methods: {
-    openMenu: function () {
-      document.getElementById("menu-overlay").style.top = 0;
-      document.getElementById("menu").style.boxShadow = "0 0 10px #404040";
-      this.disableScroll();
-    },
-    closeMenu: function () {
-      document.getElementById("menu").style.boxShadow = "none";
-      document.getElementById("menu-overlay").style.top = "-100vh";
-      this.enableScroll();
-    },
+    // Initialization function
     initMenu: function () {
       this.windowWidth = window.innerWidth;
       if (this.windowWidth < 1024) {
@@ -55,6 +47,18 @@ export default {
         document.getElementById("menu").style.right = "6rem";
       }
     },
+    // Menu control functions
+    openMenu: function () {
+      document.getElementById("menu-overlay").style.top = 0;
+      document.getElementById("menu").style.boxShadow = "0 0 10px #404040";
+      this.disableScroll();
+    },
+    closeMenu: function () {
+      document.getElementById("menu").style.boxShadow = "none";
+      document.getElementById("menu-overlay").style.top = "-100vh";
+      this.enableScroll();
+    },
+    // Scroll control functions
     disableScroll: function () {
       // Get the current page scroll position
       let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
